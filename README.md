@@ -1,2 +1,6 @@
 # config
-containe config files as .aliases , .bashrc , .vimrc etc
+containe config files as:
+.aliases,
+.bashrc,
+.vimrc
+.launchers
