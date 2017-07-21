@@ -1,0 +1,6 @@
+#-------------------------------------------------------------------------
+#				LAUNCHERS
+#-------------------------------------------------------------------------
+
+alias franz="/home/ybettan/Programs/Franz-linux-x64-4.0.4/Franz &"
+alias clion="/home/ybettan/Programs/CLion-2017.1.3/clion-2017.1.3/bin/clion.sh &"

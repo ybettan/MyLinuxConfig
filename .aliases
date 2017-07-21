@@ -1,0 +1,28 @@
+#------------------------------------------------------------------------------
+#			                   	ALIASES
+#------------------------------------------------------------------------------
+
+
+# source files
+alias sali="source ~/.aliases"
+alias slunch="source ~/.lunchers"
+
+
+# open files
+alias eali="vim ~/.aliases"
+alias elunch="vim ~/.lunchers"
+alias mof="vim ~/Work/mode_of_work.txt"
+alias mofg="gedit ~/Work/mode_of_work.txt &"
+alias vimrc="vim ~/.vimrc"
+
+
+# terminal command
+alias cp="cp -i"
+alias ll="ls -l"
+alias rp="realpath"
+
+
+# change dir
+alias work="cd ~/Work"
+alias inSync="cd ~/inSync"
+alias downloads="cd ~/Downloads"
