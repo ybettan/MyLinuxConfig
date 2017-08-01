@@ -65,3 +65,9 @@ set title
 " map jj to exit insert mode
 inoremap jj  <ESC>
 
+"=============================================================================
+"                            search settings
+"=============================================================================
+
+" ignore CASE in search
+set ic
