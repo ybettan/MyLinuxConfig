@@ -70,4 +70,4 @@ inoremap jj  <ESC>
 "=============================================================================
 
 " ignore CASE in search
-set ic
+set ignorecase
