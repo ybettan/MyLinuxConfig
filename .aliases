@@ -11,7 +11,7 @@ alias slunch="source ~/.lunchers"
 # open files
 alias eali="vim ~/.aliases"
 alias elunch="vim ~/.lunchers"
-alias mof="vim ~/Work/mode_of_work.txt"
+alias mof="vim ~/inSync/work/RedHat/mode_of_work.txt"
 alias mofg="gedit ~/Work/mode_of_work.txt &"
 alias vimrc="vim ~/.vimrc"
 
