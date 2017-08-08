@@ -20,6 +20,8 @@ alias vimrc="vim ~/.vimrc"
 alias cp="cp -i"
 alias ll="ls -l"
 alias rp="realpath"
+alias grep="grep -i --colour"
+
 
 
 # change dir
