@@ -2,8 +2,9 @@
 "                            show line number
 "=============================================================================
 
-" show line number
-set number
+" set relative number on visual mode and absolute number on insert mode
+autocmd InsertEnter * :set number norelativenumber
+autocmd InsertLeave * :set nonumber relativenumber
 
 " set backgrond and font color of line number
 highlight LineNr ctermfg=grey ctermbg=black
