@@ -3,6 +3,7 @@
 "=============================================================================
 
 " set relative number on visual mode and absolute number on insert mode
+set relativenumber
 autocmd InsertEnter * :set number norelativenumber
 autocmd InsertLeave * :set nonumber relativenumber
 
