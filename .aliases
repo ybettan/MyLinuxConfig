@@ -27,3 +27,9 @@ alias grep="grep -i --colour"
 alias work="cd ~/Work"
 alias inSync="cd ~/inSync"
 alias downloads="cd ~/Downloads"
+
+
+# qemu aliases
+alias vm_fedora_test="sudo ~/Work/qemu/bin/debug/native/x86_64-softmmu/qemu-system-x86_64 \-m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/var/lib/libvirt/images/test.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso" 
+
+alias vm_fedora="sudo ~/Work/qemu/bin/debug/native/x86_64-softmmu/qemu-system-x86_64 \-m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/var/lib/libvirt/images/fed.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso" 
