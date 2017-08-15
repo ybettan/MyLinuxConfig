@@ -18,7 +18,9 @@ alias vimrc="vim ~/.vimrc"
 
 # terminal command
 alias cp="cp -i"
-alias ll="ls -l --color -h --group-directories-first"
+alias mv="mv -i"
+alias ll="ls -l -h --group-directories-first"
+alias ls="ls --color"
 alias rp="realpath"
 alias grep="grep -i --colour"
 
