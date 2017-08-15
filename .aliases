@@ -32,6 +32,9 @@ alias downloads="cd ~/Downloads"
 
 
 # qemu aliases
-alias vm_fedora_test="sudo ~/Work/qemu/bin/debug/native/x86_64-softmmu/qemu-system-x86_64 \-m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/var/lib/libvirt/images/test.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso" 
+alias ssh_fedora_test="ssh -p 10021 fedora_test@localhost"
+alias vm_fedora_test="sudo ~/Work/qemu/bin/debug/native/x86_64-softmmu/qemu-system-x86_64 \-m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/ybettan/Work/images/test.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso -device e1000,netdev=u1 -netdev user,id=u1,hostfwd=tcp::10021-:22 -monitor stdio"
 
-alias vm_fedora="sudo ~/Work/qemu/bin/debug/native/x86_64-softmmu/qemu-system-x86_64 \-m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/var/lib/libvirt/images/fed.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso" 
+alias ssh_fedora="ssh -p 10022 fedora@localhost"
+alias vm_fedora="sudo ~/Work/qemu/bin/debug/native/x86_64-softmmu/qemu-system-x86_64 \-m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/ybettan/Work/images/fed.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso -device e1000,netdev=u2 -netdev user,id=u2,hostfwd=tcp::10022-:22 -monitor stdio" 
+
