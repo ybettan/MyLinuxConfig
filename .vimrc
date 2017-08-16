@@ -71,9 +71,11 @@ inoremap jj  <ESC>
 "                           insert mode mapping
 "=============================================================================
 
-" map ci( to %ci( - means we can now use "ci(" even from outside the ()
+" enable ci( of all sorts to work from outside the parenthese
 nnoremap ci( %ci(
-
+nnoremap ci[ %ci[
+nnoremap ci{ %ci{
+map CapsLock Ctrl
 "=============================================================================
 "                            search settings
 "=============================================================================
@@ -84,4 +86,6 @@ set ignorecase
 
 
 
-
+" Move faster
+         map <C-j> <C-d>
+         map <C-k> <C-u>
