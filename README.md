@@ -9,6 +9,7 @@ containe config files as:
     
 # setup
 
-clone the repo to home directory 
-run ~/.my_dotfiles/setup.sh that creates soft liks to all files in 
+cd ~/
+clone repo
+~/.my_dotfiles/setup.sh
  
