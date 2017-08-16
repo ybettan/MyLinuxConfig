@@ -13,9 +13,9 @@ if [ -e ~/.aliases ]; then
 fi
 
 
-# Source lunchers definitions
+# Source launchers definitions
 if [ -e ~/.launchers ]; then
-	source ~/.lunchers
+	source ~/.launchers
 fi
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
