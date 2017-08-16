@@ -9,4 +9,3 @@ containe config files as:
  # setup
  clone the repo to home directory and then run ~/.my_dotfiles/setup.sh that creates soft liks to all files in 
  
-d
