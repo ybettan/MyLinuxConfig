@@ -1,5 +1,4 @@
 # .my_dotfiles
-
 containe config files as:
 
     .aliases,
@@ -8,8 +7,7 @@ containe config files as:
     etc...
     
 # setup
-
-cd ~/
-clone repo
-~/.my_dotfiles/setup.sh
+    cd ~/
+    clone repo
+    ~/.my_dotfiles/setup.sh
  
