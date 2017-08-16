@@ -12,4 +12,3 @@ containe config files as:
 clone the repo to home directory 
 run ~/.my_dotfiles/setup.sh that creates soft liks to all files in 
  
-
