@@ -8,13 +8,13 @@ fi
 
 
 # Source aliases definitions
-if [ -f ~/.aliases ]; then
+if [ -e ~/.aliases ]; then
 	source ~/.aliases
 fi
 
 
 # Source lunchers definitions
-if [ -f ~/.lunchers ]; then
+if [ -e ~/.lunchers ]; then
 	source ~/.lunchers
 fi
 
