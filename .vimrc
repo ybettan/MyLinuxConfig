@@ -10,6 +10,9 @@ autocmd InsertLeave * :set nonumber relativenumber
 " set backgrond and font color of line number
 highlight LineNr ctermfg=grey ctermbg=black
 
+" without this vim in tmux recive diffrent colors
+set background=dark
+
 "=============================================================================
 "                           autoclose braces
 "=============================================================================
@@ -83,9 +86,7 @@ map CapsLock Ctrl
 " ignore CASE in search
 set ignorecase
 
-
-
-
 " Move faster
-         map <C-j> <C-d>
-         map <C-k> <C-u>
+map <C-j> <C-d>
+map <C-k> <C-u>
+
