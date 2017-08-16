@@ -14,7 +14,7 @@ fi
 
 
 # Source lunchers definitions
-if [ -e ~/.lunchers ]; then
+if [ -e ~/.launchers ]; then
 	source ~/.lunchers
 fi
 
