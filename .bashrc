@@ -4,7 +4,9 @@
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-
+#==============================================================================
+#                           source other dotfiles
+#==============================================================================
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -26,8 +28,16 @@ if [ -e ~/.launchers ]; then
 fi
 
 
+#==============================================================================
+#                                other config
+#==============================================================================
+
 # show the branch name when the current repo is gitted
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+
+
+# repair command not found bug (get stuck and need to be killed)
+unset command_not_found_handle
