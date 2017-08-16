@@ -9,12 +9,14 @@ fi
 
 # Source aliases definitions
 if [ -e ~/.aliases ]; then
+    echo source ~/.aliases...
 	source ~/.aliases
 fi
 
 
 # Source launchers definitions
 if [ -e ~/.launchers ]; then
+    echo source ~/.launchers...
 	source ~/.launchers
 fi
 

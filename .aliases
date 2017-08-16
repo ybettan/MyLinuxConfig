@@ -2,7 +2,6 @@
 #			                   	ALIASES
 #------------------------------------------------------------------------------
 
-
 # source files
 alias sali="source ~/.aliases"
 alias slunch="source ~/.lunchers"

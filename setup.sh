@@ -10,4 +10,7 @@ ln -s  ~/.my_dotfiles/.tmux.conf ~/.tmux.conf
 	       
 
 # source .bashrc file
-source ~/.bashrc 
+if [ -e ~/.bashrc ] ; then
+    echo source ~/.bashrc...
+    source ~/.bashrc 
+fi
