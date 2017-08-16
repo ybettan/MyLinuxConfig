@@ -1,5 +1,5 @@
 "==============================================================================
-"                            show line number
+"                               line number
 "==============================================================================
 
 " set relative number on visual mode and absolute number on insert mode
@@ -71,7 +71,7 @@ set title
 inoremap jj  <ESC>
 
 "==============================================================================
-"                           insert mode mapping
+"                           normal mode mapping
 "==============================================================================
 
 " enable ci( of all sorts to work from outside the parenthese
@@ -79,6 +79,13 @@ nnoremap ci( %ci(
 nnoremap ci[ %ci[
 nnoremap ci{ %ci{
 map CapsLock Ctrl
+
+" easy navigation on split screen
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 "==============================================================================
 "                            search settings
 "==============================================================================
@@ -86,7 +93,6 @@ map CapsLock Ctrl
 " ignore CASE in search
 set ignorecase
 
-" Move faster
+" Move faster - this won't work on vim in tmux
 map <C-j> <C-d>
 map <C-k> <C-u>
-
