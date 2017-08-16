@@ -1,4 +1,4 @@
-# .my_config
+# .my_dotfiles
 
 containe config files as:
     .aliases,
@@ -7,6 +7,6 @@ containe config files as:
     .launchers
     
  # setup
- clone the repo and then run ~/.my_config/setup.sh that creates soft liks to all files in ~/
+ clone the repo to home directory and then run ~/.my_dotfiles/setup.sh that creates soft liks to all files in 
  
 
