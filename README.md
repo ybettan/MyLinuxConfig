@@ -10,3 +10,4 @@ containe config files as:
  
  cd ~/.my_config
 ./setup.sh
+d
