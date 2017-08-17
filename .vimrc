@@ -74,11 +74,18 @@ inoremap jj  <ESC>
 "                           normal mode mapping
 "==============================================================================
 
+" mapping capsLock to ctrl
+map CapsLock Ctrl
+
 " enable ci( of all sorts to work from outside the parenthese
 nnoremap ci( %ci(
 nnoremap ci[ %ci[
 nnoremap ci{ %ci{
-map CapsLock Ctrl
+
+" enable di( of all sorts to work from outside the parenthese
+nnoremap di( %di(
+nnoremap di[ %di[
+nnoremap di{ %di{
 
 " easy navigation on split screen
 nnoremap <C-J> <C-W><C-J>
