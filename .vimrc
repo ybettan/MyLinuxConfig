@@ -136,3 +136,20 @@ else
 endif
 
 
+"==============================================================================
+"                           auto complition
+"==============================================================================
+
+" set auto complition with tab key, if is a new line then tab act normaly
+function! Tab_Or_Complete()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-N>"
+  else
+    return "\<Tab>"
+  endif
+endfunction
+":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+":set dictionary="/usr/dict/words"
+inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+set dictionary="/usr/dict/words"
+set complete-=i
