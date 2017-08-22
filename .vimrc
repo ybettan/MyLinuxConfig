@@ -137,7 +137,7 @@ endif
 
 
 "==============================================================================
-"                           auto complition
+"                           auto completion
 "==============================================================================
 
 " set auto complition with tab key, if is a new line then tab act normaly
@@ -153,3 +153,13 @@ endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 set dictionary="/usr/dict/words"
 set complete-=i
+
+
+"==============================================================================
+"                           split settings
+"==============================================================================
+"
+" more intuitive default splits
+ set splitbelow
+ set splitright
+
