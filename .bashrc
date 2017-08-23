@@ -32,6 +32,9 @@ fi
 #                                other config
 #==============================================================================
 
+# adding ~/Work/my_scripts to $PATH
+PATH+=":/home/ybettan/Work/my_scripts";
+
 # show the branch name when the current repo is gitted
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
