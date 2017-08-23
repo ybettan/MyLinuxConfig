@@ -32,7 +32,14 @@ fi
 #==============================================================================
 
 # adding ~/Work/my_scripts to $PATH
-PATH+=":~/Work/my_scripts";
+if [[ $USER == ybettan ]]; then
+    PATH+=":home/ybettan/Work/my_scripts";
+else if [[ $USER == fedora ]]; then
+    PATH+=":home/fedora/Work/my_scripts";
+else if [[ $USER == fedora_test ]]; then
+    PATH+=":home/fedora_test/Work/my_scripts";
+fi
+
 
 # show the branch name when the current repo is gitted
 parse_git_branch() {
