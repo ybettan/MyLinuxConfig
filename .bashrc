@@ -1,5 +1,4 @@
-# .bashrc
-
+# .bashrc 
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -33,7 +32,7 @@ fi
 #==============================================================================
 
 # adding ~/Work/my_scripts to $PATH
-PATH+=":/home/ybettan/Work/my_scripts";
+PATH+=":~/Work/my_scripts";
 
 # show the branch name when the current repo is gitted
 parse_git_branch() {
