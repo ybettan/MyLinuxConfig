@@ -51,12 +51,3 @@ export PS1="\u@\h \[\033[32m\]\W\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 # repair command not found bug (get stuck and need to be killed)
 unset command_not_found_handle
 
-
-
-
-
-
-
-
-
-#this is a test
