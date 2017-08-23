@@ -34,9 +34,9 @@ fi
 # adding ~/Work/my_scripts to $PATH
 if [[ $USER == ybettan ]]; then
     PATH+=":home/ybettan/Work/my_scripts";
-else if [[ $USER == fedora ]]; then
+elif [[ $USER == fedora ]]; then
     PATH+=":home/fedora/Work/my_scripts";
-else if [[ $USER == fedora_test ]]; then
+elif [[ $USER == fedora_test ]]; then
     PATH+=":home/fedora_test/Work/my_scripts";
 fi
 
@@ -50,3 +50,5 @@ export PS1="\u@\h \[\033[32m\]\W\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 # repair command not found bug (get stuck and need to be killed)
 unset command_not_found_handle
+
+
