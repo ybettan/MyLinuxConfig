@@ -33,11 +33,11 @@ fi
 
 # adding ~/Work/my_scripts to $PATH
 if [[ $USER == ybettan ]]; then
-    PATH+=":home/ybettan/Work/my_scripts";
+    PATH+=":/home/ybettan/Work/my_scripts";
 elif [[ $USER == fedora ]]; then
-    PATH+=":home/fedora/Work/my_scripts";
+    PATH+=":/home/fedora/Work/my_scripts";
 elif [[ $USER == fedora_test ]]; then
-    PATH+=":home/fedora_test/Work/my_scripts";
+    PATH+=":/home/fedora_test/Work/my_scripts";
 fi
 
 
