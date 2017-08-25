@@ -81,11 +81,13 @@ map CapsLock Ctrl
 nnoremap ci( %ci(
 nnoremap ci[ %ci[
 nnoremap ci{ %ci{
+nnoremap ci< f<ci<
 
 " enable di( of all sorts to work from outside the parenthese
 nnoremap di( %di(
 nnoremap di[ %di[
 nnoremap di{ %di{
+nnoremap di< f<di<
 
 " easy navigation on split screen
 nnoremap <C-J> <C-W><C-J>
