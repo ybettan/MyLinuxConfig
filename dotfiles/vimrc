@@ -159,7 +159,7 @@ endif
 
 
 "==============================================================================
-"                           auto completion
+"                              auto completion
 "==============================================================================
 
 " set auto complition with tab key, if is a new line then tab act normaly
@@ -176,10 +176,24 @@ set complete-=i
 
 
 "==============================================================================
-"                           split settings
+"                             split settings
 "==============================================================================
 "
 " more intuitive default splits
  set splitbelow
  set splitright
+
+"==============================================================================
+"                              status line
+"==============================================================================
+
+" make status line always visible
+set laststatus=2
+
+" show the relative path of the current file (use %F for absolute path)
+set statusline+=%f
+
+" show a '+' sign if the current file was modifies
+set statusline+=%m
+
 
