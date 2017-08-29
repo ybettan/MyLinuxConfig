@@ -98,6 +98,9 @@ inoremap jj  <ESC>
 " mapping capsLock to ctrl
 map CapsLock Ctrl
 
+" easy diving with ctags
+nnoremap <C-p> <C-]> 
+
 " enable ci( of all sorts to work from outside the parenthese
 nnoremap ci( %ci(
 nnoremap ci[ %ci[
@@ -122,10 +125,6 @@ nnoremap <C-H> <C-W><C-H>
 
 " ignore CASE in search
 set ignorecase
-
-" Move faster - this won't work on vim in tmux
-map <C-j> <C-d>
-map <C-k> <C-u>
 
 "==============================================================================
 "                                vim && tmux 
@@ -171,8 +170,6 @@ function! Tab_Or_Complete()
     return "\<Tab>"
   endif
 endfunction
-":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-":set dictionary="/usr/dict/words"
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 set dictionary="/usr/dict/words"
 set complete-=i
