@@ -1,13 +1,13 @@
-# .my_dotfiles
-containe config files as:
+# all my configuration files for a new linux:
+	- all my dotfiles
+	- all my scripts
 
-    .aliases,
-    .bashrc,
-    .vimrc
-    etc...
-    
+
+
 # setup
     cd ~/
     clone repo
-    ~/.my_dotfiles/setup.sh
+    ~/MyLinuxConfig/setup.sh
+
+    
  
