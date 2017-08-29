@@ -5,7 +5,7 @@
 ln -s -i ~/MyLinuxConfig/dotfiles/bashrc ~/.bashrc 
 ln -s -i ~/MyLinuxConfig/dotfiles/aliases ~/.aliases 
 ln -s -i ~/MyLinuxConfig/dotfiles/vimrc ~/.vimrc
-ln -s -i ~/MyLinuxConfig/dotfiles/tmux.config ~/.tmux.config
+ln -s -i ~/MyLinuxConfig/dotfiles/tmux.conf ~/.tmux.conf
 ln -s -i ~/MyLinuxConfig/dotfiles/launchers ~/.launchers
 
 ### remove

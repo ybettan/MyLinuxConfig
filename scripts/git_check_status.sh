@@ -28,9 +28,7 @@ flag=true;
 files=();
  
 # check directories
-checkPath "/home/$USER/.my_dotfiles";
-checkPath "/home/$USER/Work/my_scripts";
-#checkPath "/home/$USER/Work/Qemu/qemu";
+checkPath "/home/$USER/MyLinuxConfig";
 
 # return to original dir
 cd $original_dir

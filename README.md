@@ -5,8 +5,7 @@
 
 
 # setup
-    cd ~/
-    clone repo
+    clone repo to home directory
     ~/MyLinuxConfig/setup.sh
 
     
