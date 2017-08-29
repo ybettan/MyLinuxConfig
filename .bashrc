@@ -31,6 +31,12 @@ fi
 #                                other config
 #==============================================================================
 
+# let tmux start automatically with shell
+# this is very problematic - this breaks login!!!!!!!
+#if command -v tmux>/dev/null; then
+#  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
+#fi
+
 # adding ~/Work/my_scripts to $PATH
 if [[ $USER == ybettan ]]; then
     PATH+=":/home/ybettan/Work/my_scripts";
@@ -50,4 +56,5 @@ export PS1="\[\033[1;35m\]\u\[\033[0;37m\]@\h \[\033[32m\]\W\[\033[33m\]\$(parse
 
 # repair command not found bug (get stuck and need to be killed)
 unset command_not_found_handle
+
 
