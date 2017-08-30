@@ -3,21 +3,23 @@
 "==============================================================================
 
 " plugins list
-call plug#begin('~/.vim/plugged')
+" call plug#begin('~/.vim/plugged')
 
 "    Plug 'vim-airline/vim-airline'
 "    Plug 'vim-airline/vim-airline-themes'
 "    Plug 'altercation/vim-colors-solarized'
 
-call plug#end()
+" call plug#end()
 
 "==============================================================================
 "                               solarized
 "==============================================================================
 
-" syntax enable
-" set background=dark
-" colorscheme solarized
+"syntax enable
+"set background=dark
+"let g:solarized_termcolors=256
+"colorscheme solarized
+"colorscheme pablo
 
 "==============================================================================
 "                               line number
