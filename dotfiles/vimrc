@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 
 "    Plug 'vim-airline/vim-airline'
 "    Plug 'vim-airline/vim-airline-themes'
-    Plug 'altercation/vim-colors-solarized'
+"    Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -190,10 +190,8 @@ set complete-=i
 " make status line always visible
 set laststatus=2
 
-" show the relative path of the current file (use %F for absolute path)
-set statusline+=%f
-
-" show a '+' sign if the current file was modifies
-set statusline+=%m
-
-
+set statusline+=%f      "relative path (use %F for absolute path)
+set statusline+=%m      "modified flag
+set statusline+=%=      "left/right separator
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
