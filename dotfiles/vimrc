@@ -3,23 +3,22 @@
 "==============================================================================
 
 " plugins list
-" call plug#begin('~/.vim/plugged')
+ call plug#begin('~/.vim/plugged')
 
-"    Plug 'vim-airline/vim-airline'
-"    Plug 'vim-airline/vim-airline-themes'
-"    Plug 'altercation/vim-colors-solarized'
+    Plug 'morhetz/gruvbox'
 
-" call plug#end()
+ call plug#end()
 
 "==============================================================================
-"                               solarized
+"                          gruvebox colorschem
 "==============================================================================
 
-"syntax enable
-"set background=dark
-"let g:solarized_termcolors=256
-"colorscheme solarized
-"colorscheme pablo
+
+"let g:gruvbox_italic=1 "// make tmux color for comments to be ugley
+colorscheme gruvbox
+
+" Setting dark mode
+set background=dark    
 
 "==============================================================================
 "                               line number
