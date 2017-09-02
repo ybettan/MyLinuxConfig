@@ -8,18 +8,20 @@ ln -s -i ~/MyLinuxConfig/dotfiles/vimrc ~/.vimrc
 ln -s -i ~/MyLinuxConfig/dotfiles/tmux.conf ~/.tmux.conf
 ln -s -i ~/MyLinuxConfig/dotfiles/launchers ~/.launchers
 
-### remove
-#ln -s -i ~/.my_dotfiles/.bashrc ~/.bashrc 
-#ln -s -i ~/.my_dotfiles/.aliases ~/.aliases 
-#ln -s -i ~/.my_dotfiles/.vimrc ~/.vimrc 
-#ln -s -i ~/.my_dotfiles/.launchers ~/.launchers 
-#ln -s -i ~/.my_dotfiles/.tmux.conf ~/.tmux.conf 
-
-
-	       
 
 # source .bashrc file
 if [ -e ~/.bashrc ] ; then
     echo source ~/.bashrc...
     source ~/.bashrc 
 fi
+
+
+# install basic programs
+sudo dnf install vim
+sudo dnf install tmux
+sudo dnf install ctags
+sudo dnf install cscope
+
+# install vim-plug for vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
