@@ -120,6 +120,16 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" easy access to buffers
+" \l       : list buffers
+" \b \f \g : go back/forward/last-used
+" \d       : delete buffer
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>d :bd<CR>
+
 "==============================================================================
 "                            search settings
 "==============================================================================
