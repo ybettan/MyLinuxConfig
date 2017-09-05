@@ -22,6 +22,11 @@ sudo dnf install tmux
 sudo dnf install ctags
 sudo dnf install cscope
 
+
 # install vim-plug for vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+
+# install figlet for scripts/git_check_status.sh output
+sudo dnf install figlet
