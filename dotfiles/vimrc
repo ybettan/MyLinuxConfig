@@ -7,6 +7,7 @@
 
     Plug 'morhetz/gruvbox'
     Plug 'bling/vim-airline'
+    Plug 'vim-syntastic/syntastic'
 
  call plug#end()
 
