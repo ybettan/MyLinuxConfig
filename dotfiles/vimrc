@@ -6,6 +6,7 @@
  call plug#begin('~/.vim/plugged')
 
     Plug 'morhetz/gruvbox'
+    Plug 'bling/vim-airline'
 
  call plug#end()
 
@@ -201,6 +202,7 @@ set complete-=i
 " make status line always visible
 set laststatus=2
 
+" actually this have no effect when airline plugin is installed
 set statusline+=%f      "relative path (use %F for absolute path)
 set statusline+=%m      "modified flag
 set statusline+=%=      "left/right separator
