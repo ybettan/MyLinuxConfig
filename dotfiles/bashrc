@@ -37,9 +37,10 @@ fi
 #  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 #fi
 
-# adding ~/MyLinuxConfig/scripts to $PATH
+# adding ~/MyLinuxConfig/scripts and ~/Programs/anaconda2 to $PATH
 if [[ $USER == ybettan ]]; then
     PATH+=":/home/ybettan/MyLinuxConfig/scripts";
+    PATH+=":/home/ybettan/Programs/anaconda2/bin";
 elif [[ $USER == fedora ]]; then
     PATH+=":/home/fedora/MyLinuxConfig/scripts";
 elif [[ $USER == fedora_test ]]; then
