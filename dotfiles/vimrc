@@ -8,6 +8,7 @@
     Plug 'morhetz/gruvbox'
     Plug 'bling/vim-airline'
     Plug 'vim-syntastic/syntastic'
+    Plug 'davidhalter/jedi-vim'
 
  call plug#end()
 
