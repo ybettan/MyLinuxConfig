@@ -188,6 +188,8 @@ inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 set dictionary="/usr/dict/words"
 set complete-=i
 
+" in jedi-vim (python auto completion plugin) use Tab to autocomplete
+let g:jedi#completions_command = "<Tab>"
 
 "==============================================================================
 "                             split settings
