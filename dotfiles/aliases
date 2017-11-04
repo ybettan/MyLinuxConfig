@@ -40,5 +40,3 @@ alias vm_fedora_test="sudo ~/Work/Qemu/qemu_bin/x86_64/x86_64-softmmu/qemu-syste
 alias ssh_fedora="ssh -p 10022 fedora@localhost"
 alias vm_fedora="sudo ~/Work/Qemu/qemu_bin/x86_64/x86_64-softmmu/qemu-system-x86_64 -m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/ybettan/Work/images/fed.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso -device e1000,netdev=u2 -netdev user,id=u2,hostfwd=tcp::10022-:22 -display none -monitor stdio" 
 
-# ParallelProgramming cours - ssh to server
-alias ssh_ParallelProgramming_server="ssh cdp04@out0.cslcs.technion.ac.il"
