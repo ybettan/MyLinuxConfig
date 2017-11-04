@@ -5,10 +5,12 @@
 " plugins list
  call plug#begin('~/.vim/plugged')
 
-    Plug 'morhetz/gruvbox'
-    Plug 'bling/vim-airline'
-    Plug 'vim-syntastic/syntastic'
-    Plug 'davidhalter/jedi-vim'
+    Plug 'morhetz/gruvbox'          " vim theme
+    Plug 'bling/vim-airline'        " vim status bar
+    Plug 'vim-syntastic/syntastic'  " coding-errors checker
+    Plug 'davidhalter/jedi-vim'     " python auto-completion
+    Plug 'ervandew/supertab'        " tab completion
+    
 
  call plug#end()
 
@@ -66,6 +68,13 @@ set shiftwidth=4
 
 " On pressing tab, insert 4 spaces
 set expandtab
+
+"==============================================================================
+"                        super tab plugin settings
+"==============================================================================
+
+" make tabe walk through search top->buttom (default is buttom->top)
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 "==============================================================================
 "                               set column
@@ -187,9 +196,6 @@ endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 set dictionary="/usr/dict/words"
 set complete-=i
-
-" in jedi-vim (python auto completion plugin) use Tab to autocomplete
-let g:jedi#completions_command = "<Tab>"
 
 "==============================================================================
 "                             split settings
