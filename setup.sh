@@ -20,6 +20,12 @@ ln -s -i ~/MyLinuxConfig/dotfiles/aliases ~/.aliases
 ln -s -i ~/MyLinuxConfig/dotfiles/vimrc ~/.vimrc
 ln -s -i ~/MyLinuxConfig/dotfiles/tmux.conf ~/.tmux.conf
 ln -s -i ~/MyLinuxConfig/dotfiles/launchers ~/.launchers
+if ! [[ -d ~/.ssh ]]; then
+    mkdir ~/.ssh
+fi
+ln -s -i ~/MyLinuxConfig/dotfiles/ssh.config ~/.ssh/config
+
+
 
 
 # source .bashrc file
