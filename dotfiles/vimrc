@@ -141,7 +141,7 @@ nnoremap <Leader>l :ls<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>d :bd<CR>
+nnoremap <Leader>c :bd<CR>
 
 "==============================================================================
 "                            search settings
