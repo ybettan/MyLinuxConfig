@@ -10,6 +10,11 @@ if [[ -e ~/Work/Qemu/qemu || -e ~/Work/Qemu/qemu_drivers ]]; then
     exit
 fi
 
+if [[ $USER != ybettan && -e ~/Work/Qemu/qemu_drivers ]]; then
+    echo '~'/Work/Qemu/qemu_drivers aren\'t empty!
+    exit
+fi
+
 
 
 # remove all folder if existed and was backed up
