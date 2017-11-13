@@ -29,6 +29,7 @@ mkdir -p ~/Work/Qemu/qemu_bin/x86_64
 
 if [[ $USER != ybettan  ]]; then
     mkdir  ~/Work/Qemu/qemu_bin/full
+    mkdir  ~/Work/Qemu/qemu_drivers
 fi
     
 mkdir  ~/Work/Qemu/patches
