@@ -5,8 +5,8 @@
 
 
 # make sure i am not erasing all my chnges in accident
-if [[ -e ~/Work/Qemu/qemu ]]; then
-    echo '~'/Work/Qemu/qemu is\'t empty!
+if [[ -e ~/Work/Qemu/qemu || -e ~/Work/Qemu/qemu_drivers ]]; then
+    echo '~'/Work/Qemu/qemu or '~'/Work/Qemu/qemu_drivers aren\'t empty!
     exit
 fi
 
@@ -35,7 +35,11 @@ fi
 mkdir  ~/Work/Qemu/patches
 
 
-# clone the project
+# clone the Linux src files
+cd ~/Work
+git clone https://github.com/torvalds/linux.git
+
+# clone the Qemu project
 cd ~/Work/Qemu
 git clone git://git.qemu-project.org/qemu.git
 
