@@ -31,13 +31,13 @@ original_dir=`pwd`;
 
 # create DIRs
 mkdir -p ~/Work/Qemu/qemu_bin/x86_64
+mkdir  ~/Work/Qemu/qemu_bin/full
+mkdir  ~/Work/Qemu/patches
 
 if [[ $USER != ybettan  ]]; then
-    mkdir  ~/Work/Qemu/qemu_bin/full
     mkdir  ~/Work/Qemu/qemu_drivers
 fi
     
-mkdir  ~/Work/Qemu/patches
 
 
 # clone the Linux src files
@@ -71,11 +71,8 @@ cd ../
 cd qemu_bin/x86_64
 ../../qemu/configure --target-list=x86_64-softmmu --enable-debug
 
-# in every machine that isn't host create also a full version
-if [[ $USER != ybettan  ]]; then
-    cd ../full
-    ../../qemu/configure --enable-debug
-fi
+cd ../full
+../../qemu/configure --enable-debug
 
 
 
