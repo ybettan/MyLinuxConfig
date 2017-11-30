@@ -12,6 +12,7 @@ if [[ $version == "Ubuntu" ]]; then
     sudo apt install figlet # neede for scripts/git_check_status.sh output
 else
 # fedora install
+    sudo dnf install curl
     sudo dnf install vim
     sudo dnf install tmux
     sudo dnf install ctags

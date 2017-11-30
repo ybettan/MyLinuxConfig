@@ -22,6 +22,8 @@ nothing to commit (use -u to show untracked files)";
 } 
 
 
+figlet BROKEN;
+exit
 
 original_dir=`pwd`;
 flag=true;
