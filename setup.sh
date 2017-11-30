@@ -2,11 +2,22 @@
        
 
 # install basic programs
-sudo dnf install vim
-sudo dnf install tmux
-sudo dnf install ctags
-sudo dnf install cscope
-sudo dnf install figlet # neede for scripts/git_check_status.sh output
+version=`cat /etc/issue | head -1 | cut -d" " -f1`
+if [[ $version == "Ubuntu" ]]; then
+# ubuntu install
+    sudo apt install vim
+    sudo apt install tmux
+    sudo apt install ctags
+    sudo apt install cscope
+    sudo apt install figlet # neede for scripts/git_check_status.sh output
+else
+# fedora install
+    sudo dnf install vim
+    sudo dnf install tmux
+    sudo dnf install ctags
+    sudo dnf install cscope
+    sudo dnf install figlet # neede for scripts/git_check_status.sh output
+fi
 
 
 # install vim-plug for vim

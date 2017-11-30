@@ -64,3 +64,9 @@ fi
 unset command_not_found_handle
 
 
+
+# added by Anaconda3 installer
+export PATH="/home/ybettan/anaconda3/bin:$PATH"
+
+# added by Anaconda2 installer
+export PATH="/home/ybettan/Programs/anaconda2/bin:$PATH"
