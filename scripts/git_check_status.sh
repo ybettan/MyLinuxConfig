@@ -10,6 +10,7 @@ function checkPath {
 
     local normal expected_result="On branch master
 Your branch is up-to-date with 'origin/master'.
+
 nothing to commit (use -u to show untracked files)";
     to_be_checked=$1;
     cd $to_be_checked
@@ -22,15 +23,16 @@ nothing to commit (use -u to show untracked files)";
 } 
 
 
-figlet BROKEN;
-exit
-
 original_dir=`pwd`;
 flag=true;
 files=();
  
 # check directories
 checkPath "/home/$USER/MyLinuxConfig";
+checkPath "/home/$USER/inSync/HW_backup/semester_7/ProgrammingLanguages"
+checkPath "/home/$USER/inSync/HW_backup/semester_7/ArtificialIntelligence"
+checkPath "/home/$USER/inSync/HW_backup/semester_7/ProjectA"
+checkPath "/home/$USER/inSync/HW_backup/semester_7/ParallelProgramming"
 
 # return to original dir
 cd $original_dir
