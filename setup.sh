@@ -37,6 +37,8 @@ if ! [[ -d ~/.ssh ]]; then
 fi
 ln -s -i ~/MyLinuxConfig/dotfiles/ssh.config ~/.ssh/config
 
+# without this somtime ssh command doesn't work
+chmod 600 ~/.ssh/config
 
 
 
