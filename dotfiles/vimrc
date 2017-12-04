@@ -11,6 +11,7 @@
     Plug 'davidhalter/jedi-vim'          " python plugin for vim
     Plug 'artur-shaik/vim-javacomplete2' " java plugin for vim
     Plug 'ervandew/supertab'             " tab completion
+    Plug 'tpope/vim-fugitive'            " git wrapper
     
 
  call plug#end()
