@@ -45,6 +45,8 @@ elif [[ $USER == fedora ]]; then
     PATH+=":/home/fedora/MyLinuxConfig/scripts";
 elif [[ $USER == fedora_test ]]; then
     PATH+=":/home/fedora_test/MyLinuxConfig/scripts";
+elif [[ $USER == ubuntu ]]; then
+    PATH+=":/home/ubuntu/MyLinuxConfig/scripts";
 fi
 
 
@@ -63,10 +65,3 @@ fi
 # repair command not found bug (get stuck and need to be killed)
 unset command_not_found_handle
 
-
-
-# added by Anaconda3 installer
-export PATH="/home/ybettan/anaconda3/bin:$PATH"
-
-# added by Anaconda2 installer
-export PATH="/home/ybettan/Programs/anaconda2/bin:$PATH"
