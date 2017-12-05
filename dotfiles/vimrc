@@ -13,8 +13,14 @@
     Plug 'ervandew/supertab'             " tab completion
     Plug 'tpope/vim-fugitive'            " git wrapper
     
-
  call plug#end()
+
+
+" install plugins automatically
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 "==============================================================================
 "                          gruvebox colorschem
