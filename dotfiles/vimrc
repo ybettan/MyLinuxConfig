@@ -214,7 +214,7 @@ set complete-=i
  set splitright
 
 "==============================================================================
-"                              status line
+"                      Air-Line plugin & status line
 "==============================================================================
 
 " make status line always visible
@@ -229,3 +229,6 @@ set statusline+=\ %P    "percent through file
 
 " make air-vim (using vim plug) make the shapes nicer
 let g:airline_powerline_fonts = 1 
+
+" make the Air-line theme dark
+let g:airline_theme='dark'
