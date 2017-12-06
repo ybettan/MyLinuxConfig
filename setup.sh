@@ -41,6 +41,13 @@ ln -s -i ~/MyLinuxConfig/dotfiles/ssh.config ~/.ssh/config
 chmod 600 ~/.ssh/config
 
 
+# install power-line fonts to make air-vim plugin's shapes look nicer
+git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts
+./install.sh
+cd ..
+rm -rf fonts
+
 
 # source .bashrc file
 if [ -e ~/.bashrc ] ; then
