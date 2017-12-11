@@ -37,15 +37,15 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 
 # creates soft links to all file 
-ln -s -i ~/MyLinuxConfig/dotfiles/bashrc ~/.bashrc 
-ln -s -i ~/MyLinuxConfig/dotfiles/aliases ~/.aliases 
-ln -s -i ~/MyLinuxConfig/dotfiles/vimrc ~/.vimrc
-ln -s -i ~/MyLinuxConfig/dotfiles/tmux.conf ~/.tmux.conf
-ln -s -i ~/MyLinuxConfig/dotfiles/launchers ~/.launchers
+ln -s -f ~/MyLinuxConfig/dotfiles/bashrc ~/.bashrc
+ln -s -f ~/MyLinuxConfig/dotfiles/aliases ~/.aliases
+ln -s -f ~/MyLinuxConfig/dotfiles/vimrc ~/.vimrc
+ln -s -f ~/MyLinuxConfig/dotfiles/tmux.conf ~/.tmux.conf
+ln -s -f ~/MyLinuxConfig/dotfiles/launchers ~/.launchers
 if ! [[ -d ~/.ssh ]]; then
     mkdir ~/.ssh
 fi
-ln -s -i ~/MyLinuxConfig/dotfiles/ssh.config ~/.ssh/config
+ln -s ~/MyLinuxConfig/dotfiles/ssh.config ~/.ssh/config
 
 # without this somtime ssh command doesn't work
 chmod 600 ~/.ssh/config
