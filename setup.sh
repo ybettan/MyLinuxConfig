@@ -17,7 +17,7 @@ elif [[ $1 != "--no-sudo" ]]; then
         sudo apt install tmux
         sudo apt install ctags
         sudo apt install cscope
-        sudo apt install figlet # neede for scripts/git_check_status.sh output
+        sudo apt install figlet # needed for scripts/git_check_status.sh output
     else
     # fedora install
         sudo dnf install curl
@@ -25,7 +25,7 @@ elif [[ $1 != "--no-sudo" ]]; then
         sudo dnf install tmux
         sudo dnf install ctags
         sudo dnf install cscope
-        sudo dnf install figlet # neede for scripts/git_check_status.sh output
+        sudo dnf install figlet # needed for scripts/git_check_status.sh output
     fi
 
 fi
@@ -47,7 +47,7 @@ if ! [[ -d ~/.ssh ]]; then
 fi
 ln -s ~/MyLinuxConfig/dotfiles/ssh.config ~/.ssh/config
 
-# without this somtime ssh command doesn't work
+# without this sometimes ssh command doesn't work
 chmod 600 ~/.ssh/config
 
 
