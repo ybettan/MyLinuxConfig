@@ -59,6 +59,12 @@ cd ..
 rm -rf fonts
 
 
+# set git configuration
+git config --global user.name "Yoni Bettan"
+git config --global user.email "ybettan@redhat.com"
+git config --global core.editor "$(which vim)"
+
+
 # source .bashrc file
 if [ -e ~/.bashrc ] ; then
     echo source ~/.bashrc...
