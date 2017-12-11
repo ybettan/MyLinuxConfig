@@ -232,3 +232,16 @@ let g:airline_powerline_fonts = 1
 
 " make the Air-line theme dark
 let g:airline_theme='dark'
+
+"==============================================================================
+"                            Spelling settings
+"==============================================================================
+
+" make spell checker underline errors with vim 'set spell' command
+" Note: must appear after the last line that is altering colorscheme
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+
+
+
