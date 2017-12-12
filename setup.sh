@@ -1,13 +1,14 @@
 #!/bin/bash 
        
 
-if [[ $1 == "--help" ]]; then
+flag=$1
+if [[ $flag == "--help" ]]; then
 
     echo "usage: $0 [--no-sudo]"
     exit
 
 # if --no-sudo flag is on then skip the commands that require sudo
-elif [[ $1 != "--no-sudo" ]]; then
+elif [[ $flag != "--no-sudo" ]]; then
 
     # install basic programs
     version=`cat /etc/issue | head -1 | cut -d" " -f1`
