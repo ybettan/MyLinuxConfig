@@ -12,22 +12,28 @@ elif [[ $flag != "--no-sudo" ]]; then
 
     # install basic programs
     version=`cat /etc/issue | head -1 | cut -d" " -f1`
+    package_manager=""
     if [[ $version == "Ubuntu" ]]; then
-    # ubuntu install
-        sudo apt install vim
-        sudo apt install tmux
-        sudo apt install ctags
-        sudo apt install cscope
-        sudo apt install figlet # needed for scripts/git_check_status.sh output
+        package_manager="apt-get"
+
+        # ubuntu uniq installs
+
     else
-    # fedora install
-        sudo dnf install curl
-        sudo dnf install vim
-        sudo dnf install tmux
-        sudo dnf install ctags
-        sudo dnf install cscope
-        sudo dnf install figlet # needed for scripts/git_check_status.sh output
+        package_manager="dnf"
+
+        # fedora uniq installs
+        sudo $package_manager install curl
     fi
+
+    # commun install
+    sudo $package_manager install vim
+    sudo $package_manager install tmux
+    sudo $package_manager install ctags
+    sudo $package_manager install cscope
+    sudo $package_manager install figlet # needed for scripts/git_check_status.sh output
+
+    # this is done last
+    sudo $package_manager update
 
 fi
 
