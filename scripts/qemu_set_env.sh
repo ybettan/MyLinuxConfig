@@ -4,6 +4,12 @@
 
 
 
+flag=$1
+if [[ $flag == "--help" ]]; then
+    echo "usage: $0 [--no-sudo]"
+    exit
+fi
+
 # make sure i am not erasing all my chnges in accident
 if [[ -e ~/Work/Qemu/qemu || -e ~/Work/Qemu/qemu_drivers ]]; then
     echo '~'/Work/Qemu/qemu or '~'/Work/Qemu/qemu_drivers aren\'t empty!
@@ -78,6 +84,14 @@ cd ../full
 
 # return to original dir
 cd $original_dir
+
+
+# If we have sudo access, install required packages for developing Qemu
+# FIXME: make it compatible with ubuntu
+if [[ $flag != "--no-sudo" ]]; then
+    sudo dnf install git glib2-devel libfdt-devel pixman-devel zlib-devel
+    sudo dnf install libaio-devel libcap-devel libiscsi-devel
+fi
 
 
 
