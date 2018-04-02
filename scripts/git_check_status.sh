@@ -38,8 +38,11 @@ is_all_on_master=true;
 checkPath "/home/$USER/MyLinuxConfig";
 checkPath "/home/$USER/inSync/HW_backup/semester_7/ProgrammingLanguages"
 checkPath "/home/$USER/inSync/HW_backup/semester_7/ArtificialIntelligence"
-checkPath "/home/$USER/inSync/HW_backup/semester_7/ProjectA"
 checkPath "/home/$USER/inSync/HW_backup/semester_7/ParallelProgramming"
+
+checkPath "/home/$USER/inSync/HW_backup/semester_8/ProjectA"
+checkPath "/home/$USER/inSync/HW_backup/semester_8/ProjectB"
+checkPath "/home/$USER/inSync/HW_backup/semester_8/Oop"
 
 # return to original dir
 cd $original_dir
