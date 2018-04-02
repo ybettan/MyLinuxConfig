@@ -30,6 +30,7 @@ elif [[ $flag != "--no-sudo" ]]; then
     sudo $package_manager install tmux
     sudo $package_manager install ctags
     sudo $package_manager install cscope
+    sudo $package_manager install valgrind
     sudo $package_manager install figlet # needed for scripts/git_check_status.sh output
 
     # this is done last
