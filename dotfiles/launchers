@@ -7,3 +7,4 @@ alias clion="/home/ybettan/Programs/CLion-2017.1.3/clion-2017.1.3/bin/clion.sh &
 alias inteliJ="/home/ybettan/Programs/idea-IU-172.4343.14/bin/idea.sh &"
 alias pycharm="/home/ybettan/Programs/pycharm-professional-2017.2.3/bin/pycharm.sh &"
 alias sml="/home/ybettan/Programs/standartML/bin/sml"
+alias squeak="sudo /home/ybettan/Programs/Squeak5.1-16548-64bit-All-in-One/squeak.sh"
