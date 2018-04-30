@@ -1,0 +1,9 @@
+[user]
+	name = Yoni Bettan
+	email = ybettan@redhat.com
+[log]
+	decorate = full
+[core]
+    editor = $(which vim)
+[sendemail]
+    smtpserver = smtp.corp.redhat.com

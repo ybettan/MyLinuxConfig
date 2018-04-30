@@ -50,6 +50,7 @@ ln -s -f ~/MyLinuxConfig/dotfiles/aliases ~/.aliases
 ln -s -f ~/MyLinuxConfig/dotfiles/vimrc ~/.vimrc
 ln -s -f ~/MyLinuxConfig/dotfiles/tmux.conf ~/.tmux.conf
 ln -s -f ~/MyLinuxConfig/dotfiles/launchers ~/.launchers
+ln -s -f ~/MyLinuxConfig/dotfiles/gitconfig ~/.gitconfig
 if ! [[ -d ~/.ssh ]]; then
     mkdir ~/.ssh
 fi
@@ -65,12 +66,6 @@ cd fonts
 ./install.sh
 cd ..
 rm -rf fonts
-
-
-# set git configuration
-git config --global user.name "Yoni Bettan"
-git config --global user.email "ybettan@redhat.com"
-git config --global core.editor "$(which vim)"
 
 
 # source .bashrc file
