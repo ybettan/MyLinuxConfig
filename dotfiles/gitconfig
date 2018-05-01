@@ -7,3 +7,12 @@
     editor = $(which vim)
 [sendemail]
     smtpserver = smtp.corp.redhat.com
+[color "diff"]
+    meta = blue bold
+    old = red
+    new = green
+    whitespace = red reverse
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = red
