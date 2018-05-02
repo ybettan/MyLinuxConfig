@@ -32,6 +32,7 @@ elif [[ $flag != "--no-sudo" ]]; then
     sudo $package_manager install cscope
     sudo $package_manager install valgrind
     sudo $package_manager install figlet # needed for scripts/git_check_status.sh output
+    sudo $package_manager install maven # needed to build vim-javautocomplete2 plugin
 
     # this is done last
     sudo $package_manager update
