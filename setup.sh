@@ -46,16 +46,25 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 
 # creates soft links to all file 
-ln -s -f ~/MyLinuxConfig/dotfiles/bashrc ~/.bashrc
-ln -s -f ~/MyLinuxConfig/dotfiles/aliases ~/.aliases
-ln -s -f ~/MyLinuxConfig/dotfiles/vimrc ~/.vimrc
-ln -s -f ~/MyLinuxConfig/dotfiles/tmux.conf ~/.tmux.conf
-ln -s -f ~/MyLinuxConfig/dotfiles/launchers ~/.launchers
-ln -s -f ~/MyLinuxConfig/dotfiles/gitconfig ~/.gitconfig
+GIT_DIR_NAME="MyLinuxConfig"
+clonedDir=`find ~ -name $GIT_DIR_NAME`
+ln -s -f $clonedDir/dotfiles/bashrc ~/.bashrc && \
+    echo "copy bashrc..." || echo "ERROR: cannot copy $GIT_DIR_NAME/dotfiles/bashrc"
+ln -s -f $clonedDir/dotfiles/aliases ~/.aliases && \
+    echo "copy aliases..." || echo "ERROR: cannot copy $GIT_DIR_NAME/dotfiles/aliases"
+ln -s -f $clonedDir/dotfiles/vimrc ~/.vimrc && \
+    echo "copy vimrc..." || echo "ERROR: cannot copy $GIT_DIR_NAME/dotfiles/vimrc"
+ln -s -f $clonedDir/dotfiles/tmux.conf ~/.tmux.conf && \
+    echo "copy tmux.conf..." || echo "ERROR: cannot copy $GIT_DIR_NAME/dotfiles/tmux.conf"
+ln -s -f $clonedDir/dotfiles/launchers ~/.launchers && \
+    echo "copy launchers..." || echo "ERROR: cannot copy $GIT_DIR_NAME/dotfiles/launchers"
+ln -s -f $clonedDir/dotfiles/gitconfig ~/.gitconfig && \
+    echo "copy gitconfig..." || echo "ERROR: cannot copy $GIT_DIR_NAME/dotfiles/gitconfig"
 if ! [[ -d ~/.ssh ]]; then
     mkdir ~/.ssh
 fi
-ln -s ~/MyLinuxConfig/dotfiles/ssh.config ~/.ssh/config
+ln -s -f $clonedDir/dotfiles/ssh.config ~/.ssh/config && \
+    echo "copy ssh.config..." || echo "ERROR: cannot copy $GIT_DIR_NAME/dotfiles/ssh.config"
 
 # without this sometimes ssh command doesn't work
 chmod 600 ~/.ssh/config
