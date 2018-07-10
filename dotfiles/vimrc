@@ -122,17 +122,23 @@ map CapsLock Ctrl
 " easy diving with ctags
 nnoremap <C-p> <C-]> 
 
+" this package is extending % to <> and other sifferent closures
+packadd! matchit
+:let b:match_words = '<:>,<tag>:</tag>'
+
 " enable ci( of all sorts to work from outside the parenthese
 nnoremap ci( %ci(
 nnoremap ci[ %ci[
 nnoremap ci{ %ci{
-nnoremap ci< ^f<ci<
+" NOTE: use 'normal' for <> because % is not a regular vim command (package)
+nnoremap ci< :normal %<CR>ci<
 
 " enable di( of all sorts to work from outside the parenthese
 nnoremap di( %di(
 nnoremap di[ %di[
 nnoremap di{ %di{
-nnoremap di< ^f<di<
+" NOTE: use 'normal' for <> because % is not a regular vim command (package)
+nnoremap di< :normal %<CR>di<
 
 " easy navigation on split screen
 nnoremap <C-J> <C-W><C-J>
