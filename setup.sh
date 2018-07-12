@@ -22,7 +22,6 @@ elif [[ $flag != "--no-sudo" ]]; then
         package_manager="dnf"
 
         # fedora uniq installs
-        sudo $package_manager install curl
     fi
 
     # commun install
@@ -31,6 +30,7 @@ elif [[ $flag != "--no-sudo" ]]; then
     sudo $package_manager install ctags
     sudo $package_manager install cscope
     sudo $package_manager install valgrind
+    sudo $package_manager install curl # needed to install vim-plug
     sudo $package_manager install figlet # needed for scripts/git_check_status.sh output
     sudo $package_manager install maven # needed to build vim-javautocomplete2 plugin
 
