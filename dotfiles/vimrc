@@ -163,6 +163,9 @@ nnoremap <Leader>c :bd<CR>
 " ignore CASE in search
 set ignorecase
 
+" higlight search matches
+set hlsearch
+
 "==============================================================================
 "                                vim && tmux 
 "==============================================================================
