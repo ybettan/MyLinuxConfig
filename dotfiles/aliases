@@ -2,6 +2,9 @@
 #			                   	ALIASES
 #------------------------------------------------------------------------------
 
+# determine which OS is running, "Linux" for linux and "Darwin" for macOS
+os=`uname -s`
+
 # source files
 alias sali="source ~/.aliases"
 alias slunch="source ~/.lunchers"
@@ -18,10 +21,11 @@ alias .tmux.conf="vim ~/.tmux.conf"
 
 
 # terminal command
+[[ $os == "Darwin" ]] && alias tmpLs="gls"
+alias ls="tmpLs --color"
+alias ll="ls -l -h --group-directories-first"
 alias cp="cp -i"
 alias mv="mv -i"
-alias ll="ls -l -h --group-directories-first"
-alias ls="ls --color"
 alias rp="realpath"
 alias grep="grep -i --colour"
 alias make="make -j8"

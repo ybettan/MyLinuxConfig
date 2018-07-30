@@ -4,31 +4,43 @@
 # install all the packages received in arguments and update failedPackages array.
 function install_packages {
 
-    # get the package manager for different OSs
-    version=`cat /etc/issue | head -1 | cut -d" " -f1`
     packageManager=""
-    if [[ $version == "Ubuntu" ]]; then
-        packageManager="apt-get"
-
-        # ubuntu uniq installs
-
-    else
-        packageManager="dnf"
-
-        # fedora uniq installs
-    fi
-
-    for p in $@ ; do
-        sudo $packageManager install $p || failedPackages+=($p)
-    done
+    sudo=""
 
     # install vim-plug for vim
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
         failedPackages+=(vim-plug)
 
+    # MacOS
+    if [[ $os == "Darwin" ]]; then
+
+        # instal Brew package manager
+        /usr/bin/ruby -e \
+            "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+        packageManager="brew"
+
+    # Linux distribution
+    else
+
+        # get the package manager for different linux distributions
+        version=`cat /etc/issue | head -1 | cut -d" " -f1`
+        if [[ $version == "Ubuntu" ]]; then
+            packageManager="apt-get"
+        else
+            packageManager="dnf"
+        fi
+    fi
+
+    # install the packages
+    for p in $@ ; do
+        $sudo $packageManager install $p || failedPackages+=($p)
+    done
+
+
     # this is done last
-    sudo $packageManager update
+    $sudo $packageManager update
 }
 
 
@@ -50,7 +62,18 @@ function create_soft_links {
 }
 
 
+# get script parameters
 flag=$1
+
+# determine which OS is running, "Linux" for linux and "Darwin" for macOS
+os=`uname -s`
+if [[ $os != "Darwin" && $os != "Linux" ]];then
+    echo ------------------------
+    echo "Cannot determine OS!"
+    echo ------------------------
+    exit 1
+fi
+
 if [[ $flag == "--help" ]]; then
 
     echo "usage: $0 [--no-sudo]"
@@ -70,6 +93,7 @@ elif [[ $flag != "--no-sudo" ]]; then
     packages+=(curl)    # needed to install vim-plug
     packages+=(figlet)  # needed for scripts/git_check_status.sh output
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
+    [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
     install_packages ${packages[*]}
 
 fi
@@ -81,6 +105,7 @@ failedLinks=()
 GIT_DIR_NAME="MyLinuxConfig"
 clonedDir=`find ~ -name $GIT_DIR_NAME`
 links+=("bashrc")
+links+=("bash_profile")
 links+=("aliases")
 links+=("vimrc")
 links+=("tmux.conf")
@@ -102,10 +127,11 @@ cd ..
 rm -rf fonts
 
 
-# source .bashrc file
-if [ -e ~/.bashrc ] ; then
-    echo source ~/.bashrc...
-    source ~/.bashrc 
+# macOS terminal source .bash_profile and linux terminal source .bashrc, so
+# this solution covers both cases since .bash_profile source .bashrc
+if [ -e ~/.bash_profile ] ; then
+    echo source ~/.bash_profile...
+    source ~/.bash_profile
 fi
 
 

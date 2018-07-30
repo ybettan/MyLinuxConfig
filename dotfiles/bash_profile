@@ -1,0 +1,11 @@
+
+# This file is automatically loaded when a login-shell is launched.
+# By default macOS is launching a login-shell when terminal is opened.
+
+
+# source ~/.bashrc
+if [[ -f ~/.bashrc ]]; then
+    echo source ~/.bashrc...
+    source ~/.bashrc
+fi
+

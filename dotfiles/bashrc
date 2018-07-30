@@ -1,7 +1,6 @@
-# .bashrc 
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
+# This file is automatically loaded when a non-login-shell is launched.
+# By default linux is launching a non-login-shell when terminal is opened.
 
 #==============================================================================
 #                           source other dotfiles
@@ -31,6 +30,9 @@ fi
 #                                other config
 #==============================================================================
 
+# determine which OS is running, "Linux" for linux and "Darwin" for macOS
+os=`uname -s`
+
 # let tmux start automatically with shell
 # this is very problematic - this breaks login!!!!!!!
 #if command -v tmux>/dev/null; then
@@ -48,7 +50,6 @@ elif [[ $USER == fedora_test ]]; then
 elif [[ $USER == ubuntu ]]; then
     PATH+=":/home/ubuntu/MyLinuxConfig/scripts";
 fi
-
 
 # show the branch name when the current repo is gitted
 parse_git_branch() {
