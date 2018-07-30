@@ -26,6 +26,7 @@ function install_packages {
 
         # get the package manager for different linux distributions
         version=`cat /etc/issue | head -1 | cut -d" " -f1`
+        sudo="sudo"
         if [[ $version == "Ubuntu" ]]; then
             packageManager="apt-get"
         else
