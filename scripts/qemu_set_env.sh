@@ -35,6 +35,15 @@ original_dir=`pwd`;
 
 
 
+# If we have sudo access, install required packages for developing Qemu
+# FIXME: make it compatible with ubuntu
+if [[ $flag != "--no-sudo" ]]; then
+    sudo dnf install git glib2-devel libfdt-devel pixman-devel zlib-devel
+    sudo dnf install libaio-devel libcap-devel libiscsi-devel
+fi
+
+
+
 # create DIRs
 mkdir -p ~/Work/Qemu/qemu_bin/x86_64
 mkdir  ~/Work/Qemu/qemu_bin/full
@@ -86,12 +95,6 @@ cd ../full
 cd $original_dir
 
 
-# If we have sudo access, install required packages for developing Qemu
-# FIXME: make it compatible with ubuntu
-if [[ $flag != "--no-sudo" ]]; then
-    sudo dnf install git glib2-devel libfdt-devel pixman-devel zlib-devel
-    sudo dnf install libaio-devel libcap-devel libiscsi-devel
-fi
 
 
 
