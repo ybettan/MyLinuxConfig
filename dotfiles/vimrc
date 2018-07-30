@@ -251,6 +251,11 @@ let g:airline_theme='dark'
 hi clear SpellBad
 hi SpellBad cterm=underline
 
+"==============================================================================
+"                              Delete settings
+"==============================================================================
 
+" make backspace always erase in insert mode and not only new inputs
+set backspace=indent,eol,start
 
 
