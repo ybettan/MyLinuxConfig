@@ -21,14 +21,13 @@ alias .tmux.conf="vim ~/.tmux.conf"
 
 
 # terminal command
-[[ $os == "Darwin" ]] && alias tmpLs="gls"
-alias ls="tmpLs --color"
+[[ $os == "Darwin" ]] && alias ls="gls --color"
+[[ $os == "Linux" ]] && alias ls="ls --color"
 alias ll="ls -l -h --group-directories-first"
 alias cp="cp -i"
 alias mv="mv -i"
 alias rp="realpath"
 alias grep="grep -i --colour"
-alias make="make -j8"
 alias ggrep="grep -rnw . -e" #equivalent to git grep
 
 
