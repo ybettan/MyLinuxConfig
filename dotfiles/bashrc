@@ -43,6 +43,8 @@ os=`uname -s`
 if [[ $USER == ybettan ]]; then
     PATH+=":/home/ybettan/MyLinuxConfig/scripts";
     PATH+=":/home/ybettan/Programs/anaconda2/bin";
+    PATH+=":/usr/local/bin";
+    [[ $os == "Darwin" ]] && PATH+=":/home/.cargo/bin"; # needed for alacritty terminal
 elif [[ $USER == fedora ]]; then
     PATH+=":/home/fedora/MyLinuxConfig/scripts";
 elif [[ $USER == fedora_test ]]; then
