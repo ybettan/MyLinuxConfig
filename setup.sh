@@ -1,6 +1,41 @@
 #!/bin/bash 
 
 
+# install the fastest terminal available because all macOS terminal are slow
+function install_alacritty_termianl {
+
+    currentDir=`pwd`
+    cd ~
+
+    # download and install Rust compiler needed to build alacritty
+    curl https://sh.rustup.rs -sSf | sh
+
+    # make sure to have the right compiler installed
+    rustup override set stable
+    rustup update stable
+
+    # clone and install alacritty
+    git clone https://github.com/jwilm/alacritty.git
+    cd alacritty
+    make app
+
+    # add it to mac applications
+    cp -r target/release/osx/Alacritty.app /Applications/
+
+    # remove cloned folder
+    rm -rf ~/alacritty
+
+    # remove 2 last line of ~.bash_profile because this installation is adding
+    # /home/.cargo/bin to $PATH but this is already done in ~/.bashrc
+    cp ~/.bash_profile ~/.bash_profile.tmp1
+    sed '$ d' ~/.bash_profile.tmp1 > ~/.bash_profile.tmp2
+    sed '$ d' ~/.bash_profile.tmp2 > ~/.bash_profile
+    rm -f ~/.bash_profile.tmp1 ~/.bash_profile.tmp2
+
+    cd $currentDir
+}
+
+
 # install all the packages received in arguments and update failedPackages array.
 function install_packages {
 
@@ -76,12 +111,19 @@ if [[ $os != "Darwin" && $os != "Linux" ]];then
 fi
 
 if [[ $flag == "--help" ]]; then
-
     echo "usage: $0 [--no-sudo]"
     exit
+fi
+
+
+# install alacritty terminal for macOS
+if [[ $os == "Darwin" ]]; then
+    install_alacritty_termianl
+fi
+
 
 # if --no-sudo flag is on then skip the commands that require sudo
-elif [[ $flag != "--no-sudo" ]]; then
+if [[ $flag != "--no-sudo" ]]; then
 
     # create a list of packages and install them
     packages=()
@@ -113,6 +155,7 @@ links+=("tmux.conf")
 links+=("launchers")
 links+=("gitconfig")
 links+=("ssh.config")
+[[ $os == "Darwin" ]] && links+=("alacritty.yml")
 create_soft_links ${links[*]}
 
 
