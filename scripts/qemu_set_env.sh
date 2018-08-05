@@ -61,7 +61,10 @@ git clone https://github.com/torvalds/linux.git
 
 # clone the Qemu project
 cd ~/Work/Qemu
-git clone git://git.qemu-project.org/qemu.git
+# clone my fork
+git clone https://github.com/ybettan/qemu.git
+# add upstream remote
+git remote add upstream https://github.com/qemu/qemu.git
 
 
 
