@@ -137,6 +137,7 @@ if [[ $flag != "--no-sudo" ]]; then
     packages+=(figlet)  # needed for scripts/git_check_status.sh output
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
     [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
+    [[ $os == "Linux" ]] && packages+=(openssh-server)
     install_packages ${packages[*]}
 
 fi
@@ -161,6 +162,13 @@ create_soft_links ${links[*]}
 
 # without this sometimes ssh command doesn't work
 chmod 600 ~/.ssh/config
+
+
+# make sure all VMs are accessible via SSH
+if [[ $os == "Linux" ]]; then
+    systemctl restart sshd
+    systemctl enable sshd
+fi
 
 
 # macOS terminal source .bash_profile and linux terminal source .bashrc, so

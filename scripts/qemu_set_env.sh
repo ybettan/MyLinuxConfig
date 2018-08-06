@@ -39,7 +39,7 @@ original_dir=`pwd`;
 # FIXME: make it compatible with ubuntu
 if [[ $flag != "--no-sudo" ]]; then
     sudo dnf install git glib2-devel libfdt-devel pixman-devel zlib-devel
-    sudo dnf install libaio-devel libcap-devel libiscsi-devel
+    sudo dnf install libaio-devel libcap-devel libiscsi-devel gtk3-devel
 fi
 
 
@@ -88,6 +88,7 @@ cd ../
 # preparation for compilation
 cd qemu_bin/x86_64
 ../../qemu/configure --target-list=x86_64-softmmu --enable-debug
+../../qemu/configure --enable-gtk # needed for GUI in nested VMs
 
 cd ../full
 ../../qemu/configure --enable-debug
