@@ -38,8 +38,6 @@ alias downloads="cd ~/Downloads"
 
 
 # qemu aliases
-alias vm_fedora_test="sudo ~/Work/Qemu/qemu_bin/x86_64/x86_64-softmmu/qemu-system-x86_64 -m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/ybettan/Work/images/test.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso -device e1000,netdev=u1 -netdev user,id=u1,hostfwd=tcp::10021-:22 -display none -monitor stdio"
 
-alias vm_fedora="sudo ~/Work/Qemu/qemu_bin/x86_64/x86_64-softmmu/qemu-system-x86_64 -m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/ybettan/Work/images/fed.qcow2,cache=none -cdrom ~/Work/ISOs/Fedora-Workstation-Live-x86_64-26_Beta-1.4.iso -device e1000,netdev=u2 -netdev user,id=u2,hostfwd=tcp::10022-:22 -display none -monitor stdio" 
+alias vm_fedoraNested="~/Work/Qemu/qemu_bin/x86_64/x86_64-softmmu/qemu-system-x86_64 -m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/fedora/VirtualMachines/fedoraNested.qcow2,cache=none -cdrom ~/VirtualMachines/Fedora-Workstation-Live-x86_64-28-1.1.iso  -device e1000,netdev=u2 -netdev user,id=u2,hostfwd=tcp::10022-:22 -display none -monitor stdio"
 
-alias vm_ubuntu="sudo ~/Work/Qemu/qemu_bin/x86_64/x86_64-softmmu/qemu-system-x86_64 -m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/ybettan/Work/images/ubuntu.qcow2,cache=none -cdrom ~/Work/ISOs/ubuntu-16.04.3-desktop-amd64.iso -device e1000,netdev=u3 -netdev user,id=u3,hostfwd=tcp::10023-:22 -display none -monitor stdio" 
