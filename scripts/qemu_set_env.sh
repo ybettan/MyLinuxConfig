@@ -19,8 +19,8 @@ fi
 
 
 # remove all folder if existed and was backed up
-if [[ -e ~/Work/Qemu ]]; then
-    rm -rf ~/Work/Qemu
+if [[ -e ~/Work ]]; then
+    rm -rf ~/Work
 fi
 
 
@@ -50,13 +50,36 @@ mkdir  ~/Work/Qemu/patches
 cd ~/Work/Qemu
 # clone my fork
 git clone https://github.com/ybettan/qemu.git
-# add upstream remote
+cd ~/Work/Qemu/qemu
+# add upstream remote for master branch
 git remote add upstream https://github.com/qemu/qemu.git
+# pull last upstream updated
+git pull upstream master
+# sync origin (my fork) with upstream
+git push origin master
+# create branches
+git branch pci
+git branch virtio
+# add origin remote for branches
+git checkout pci
+git pull origin pci
+git checkout virtio
+git pull origin virtio
+# rebase branches on top of updated master
+git checkout pci
+git rebase master
+git push
+git checkout virtio
+git rebase master
+git push
+# checkout master
+git checkout master
+
+
 
 
 
 # set some project configuration
-cd qemu/
 
 # make patches more readable
 git config diff.renames true            
