@@ -29,6 +29,8 @@ alias mv="mv -i"
 alias rp="realpath"
 alias grep="grep -i --colour"
 alias ggrep="grep -rnw . -e" #equivalent to git grep
+[[ $os == "Linux" ]] && alias make="make -j`lscpu | grep -w "CPU(s):" | \
+    head -1 | cut -d":" -f2 | tr -d " \t\n\r"`"
 
 
 # change dir
