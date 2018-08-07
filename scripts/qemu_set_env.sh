@@ -61,10 +61,13 @@ git push origin master
 git branch pci
 git branch virtio
 # add origin remote for branches
+git branch --set-upstream-to=origin/pci pci
+git branch --set-upstream-to=origin/virtio virtio
+# pull branches from origin
 git checkout pci
-git pull origin pci
+git pull
 git checkout virtio
-git pull origin virtio
+git pull
 # rebase branches on top of updated master
 git checkout pci
 git rebase master
