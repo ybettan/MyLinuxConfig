@@ -48,6 +48,14 @@ highlight LineNr ctermfg=grey ctermbg=black
 " without this vim in tmux recive diffrent colors
 set background=dark
 
+" open files at the last remember line
+if has("autocmd")
+      au BufReadPost *
+            \ if line("'\"") > 0 && line("'\"") <= line("$")
+            \|    exe "normal! g`\""
+            \| endif
+endif
+
 "==============================================================================
 "                           autoclose braces
 "==============================================================================
