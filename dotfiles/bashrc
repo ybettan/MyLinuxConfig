@@ -39,19 +39,11 @@ os=`uname -s`
 #  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 #fi
 
-# adding ~/MyLinuxConfig/scripts and ~/Programs/anaconda2 to $PATH
-if [[ $USER == ybettan ]]; then
-    PATH+=":/home/ybettan/MyLinuxConfig/scripts";
-    PATH+=":/home/ybettan/Programs/anaconda2/bin";
-    PATH+=":/usr/local/bin";
-    [[ $os == "Darwin" ]] && PATH+=":/home/.cargo/bin"; # needed for alacritty terminal
-elif [[ $USER == fedora ]]; then
-    PATH+=":/home/fedora/MyLinuxConfig/scripts";
-elif [[ $USER == fedora_test ]]; then
-    PATH+=":/home/fedora_test/MyLinuxConfig/scripts";
-elif [[ $USER == ubuntu ]]; then
-    PATH+=":/home/ubuntu/MyLinuxConfig/scripts";
-fi
+# adding directories to $PATH
+PATH+=":~/MyLinuxConfig/scripts";
+PATH+=":~/Programs/anaconda2/bin";
+[[ $os == "Darwin" ]] && PATH+=":/usr/local/bin"; # linux add it automatically
+[[ $os == "Darwin" ]] && PATH+=":~/.cargo/bin"; # needed for alacritty terminal
 
 # show the branch name when the current repo is gitted
 parse_git_branch() {
