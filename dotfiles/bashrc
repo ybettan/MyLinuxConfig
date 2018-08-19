@@ -63,3 +63,7 @@ fi
 # repair command not found bug (get stuck and need to be killed)
 unset command_not_found_handle
 
+# source all the auto-completion softwers installed
+for s in /usr/local/etc/bash_completion.d/* ; do
+    source $s
+done

@@ -81,7 +81,7 @@ function install_packages {
 
 
 # create soft links for all dotfiles
-function create_soft_links {
+function create_dotfiles_soft_links {
 
     for l in $@; do
 
@@ -94,6 +94,16 @@ function create_soft_links {
         else
             ln -s -f $clonedDir/dotfiles/$l ~/.$l && echo "copy .$l..."
         fi
+    done
+}
+
+
+# create soft links for all acfiles (auto-completion files)
+function create_acfiles_soft_links {
+
+    for l in $@; do
+        ln -s -f $clonedDir/acfiles/$l /usr/local/etc/bash_completion.d/$l && \
+            echo "copy /usr/local/etc/bash_completion.d/$l..."
     done
 }
 
@@ -143,7 +153,7 @@ if [[ $flag != "--no-sudo" ]]; then
 fi
 
 
-# creates soft links to all file 
+# creates soft links to all dotfile
 links=()
 failedLinks=()
 GIT_DIR_NAME="MyLinuxConfig"
@@ -157,7 +167,16 @@ links+=("launchers")
 links+=("gitconfig")
 links+=("ssh.config")
 [[ $os == "Darwin" ]] && links+=("alacritty.yml")
-create_soft_links ${links[*]}
+create_dotfiles_soft_links ${links[*]}
+
+
+# creates soft links to all acfile
+links=()
+failedLinks=()
+GIT_DIR_NAME="MyLinuxConfig"
+clonedDir=`find ~ -name $GIT_DIR_NAME`
+links+=("ssh")
+[[ $os == "Darwin" ]] && create_acfiles_soft_links ${links[*]}
 
 
 # without this sometimes ssh command doesn't work
