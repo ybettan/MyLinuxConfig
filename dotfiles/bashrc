@@ -64,6 +64,8 @@ fi
 unset command_not_found_handle
 
 # source all the auto-completion softwers installed
-for s in /usr/local/etc/bash_completion.d/* ; do
-    source $s
-done
+if [[ $os == "Darwin" ]]; then
+    for s in /usr/local/etc/bash_completion.d/* ; do
+        source $s
+    done
+fi
