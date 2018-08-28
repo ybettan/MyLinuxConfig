@@ -148,6 +148,7 @@ if [[ $flag != "--no-sudo" ]]; then
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
     [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
     [[ $os == "Linux" ]] && packages+=(openssh-server)
+    [[ $os == "Linux" ]] && packages+=(git-email)
     install_packages ${packages[*]}
 
 fi
