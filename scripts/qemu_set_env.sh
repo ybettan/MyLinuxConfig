@@ -94,6 +94,9 @@ git config sendemail.smtpServer smtp.corp.redhat.com
 # automatically CC the maintainer of the patch
 git config sendemail.cccmd 'scripts/get_maintainer.pl --nogit-fallback' 
 
+# automatically create a coverletter for patches series in which (#patches > 1)
+git config format.coverletter auto
+
 cd ../
 
 
