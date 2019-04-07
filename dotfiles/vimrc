@@ -266,4 +266,10 @@ hi SpellBad cterm=underline
 " make backspace always erase in insert mode and not only new inputs
 set backspace=indent,eol,start
 
+"==============================================================================
+"                              Fold settings
+"==============================================================================
+
+set foldmethod=marker
+
 
