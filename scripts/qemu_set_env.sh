@@ -111,9 +111,29 @@ cd ../full
 
 
 
-# clone the Linux src files
+# clone the Linux project
 cd ~/Work
-git clone https://github.com/torvalds/linux.git
+# clone my fork
+git clone https://github.com/ybettan/linux.git
+cd ~/Work/linux
+# add upstream remote for master branch
+git remote add upstream https://github.com/torvalds/linux.git
+# pull last upstream updated
+git pull upstream master
+# sync origin (my fork) with upstream
+git push origin master
+# create branches
+git branch virtio
+# add origin remote for branches
+git branch --set-upstream-to=origin/virtio virtio
+# pull branches from origin
+git checkout virtio
+git pull
+# rebase branches on top of updated master
+git rebase master
+git push
+# checkout master
+git checkout master
 
 
 
