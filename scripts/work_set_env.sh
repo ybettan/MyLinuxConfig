@@ -150,16 +150,6 @@ git pull upstream master
 git push origin master
 # create branches
 git branch devel
-# add origin remote for branches
-git branch --set-upstream-to=origin/devel devel
-# pull branches from origin
-git checkout devel
-git pull
-# rebase branches on top of updated master
-git rebase master
-git push
-# checkout master
-git checkout master
 
 
 
