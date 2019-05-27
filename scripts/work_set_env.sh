@@ -42,7 +42,7 @@ fi
 mkdir -p ~/Work/Qemu/qemu_bin
 mkdir  ~/Work/Qemu/qemu_bin/x86_64
 mkdir  ~/Work/Qemu/qemu_bin/full
-mkdir  ~/Work/Qemu/patches
+mkdir  ~/Work/patches
     
 
 
@@ -128,6 +128,32 @@ git branch virtio
 git branch --set-upstream-to=origin/virtio virtio
 # pull branches from origin
 git checkout virtio
+git pull
+# rebase branches on top of updated master
+git rebase master
+git push
+# checkout master
+git checkout master
+
+
+
+# clone the oasis virtio-spec
+cd ~/Work
+# clone my fork
+git clone https://github.com/ybettan/virtio-spec.git
+cd ~/Work/virtio-spec
+# add upstream remote for master branch
+git remote add upstream https://github.com/oasis-tcs/virtio-spec.git
+# pull last upstream updated
+git pull upstream master
+# sync origin (my fork) with upstream
+git push origin master
+# create branches
+git branch devel
+# add origin remote for branches
+git branch --set-upstream-to=origin/devel devel
+# pull branches from origin
+git checkout devel
 git pull
 # rebase branches on top of updated master
 git rebase master
