@@ -149,7 +149,17 @@ git pull upstream master
 # sync origin (my fork) with upstream
 git push origin master
 # create branches
-git branch devel
+git branch increment-edu
+# add origin remote for branches
+git branch --set-upstream-to=origin/increment-edu increment-edu
+# pull branches from origin
+git checkout increment-edu
+git pull
+# rebase branches on top of updated master
+git rebase master
+git push
+# checkout master
+git checkout master
 
 
 
