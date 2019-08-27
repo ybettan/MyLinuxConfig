@@ -22,6 +22,13 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
+" remove unused plugins automatically
+autocmd VimEnter *
+  \  if len(filter(split(globpath(g:plug_home, '*'), "\n"), 'isdirectory(v:val)'))
+  \ > len(filter(values(g:plugs), 'stridx(v:val.dir, g:plug_home) == 0'))
+  \|   PlugClean | q
+  \| endif
+
 "==============================================================================
 "                          gruvebox colorschem
 "==============================================================================
