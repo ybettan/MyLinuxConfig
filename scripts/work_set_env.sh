@@ -150,20 +150,20 @@ git pull upstream master
 git push origin master
 # create branches
 git branch increment-edu
-git branch latex-build-instructions
+git branch documeqntation
 # add origin remote for branches
 git branch --set-upstream-to=origin/increment-edu increment-edu
-git branch --set-upstream-to=origin/latex-build-instructions latex-build-instructions
+git branch --set-upstream-to=origin/documeqntation documeqntation
 # pull branches from origin
 git checkout increment-edu
 git pull
-git checkout latex-build-instructions
+git checkout documeqntation
 git pull
 # rebase branches on top of updated master
 git checkout increment-edu
 git rebase master
 git push
-git checkout latex-build-instructions
+git checkout documeqntation
 git rebase master
 git push
 # checkout master
