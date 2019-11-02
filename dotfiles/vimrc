@@ -5,13 +5,13 @@
 " plugins list
  call plug#begin('~/.vim/plugged')
 
-    Plug 'morhetz/gruvbox'               " vim theme
-    Plug 'bling/vim-airline'             " vim status bar
-    Plug 'vim-syntastic/syntastic'       " coding-errors checker
-    Plug 'davidhalter/jedi-vim'          " python plugin for vim
-    Plug 'artur-shaik/vim-javacomplete2' " java plugin for vim
-    Plug 'ervandew/supertab'             " tab completion
-    Plug 'tpope/vim-fugitive'            " git wrapper
+    Plug 'morhetz/gruvbox'                              " vim theme
+    Plug 'bling/vim-airline'                            " vim status bar
+    Plug 'vim-syntastic/syntastic'                      " coding-errors checker
+    Plug 'davidhalter/jedi-vim'                         " python plugin for vim
+    Plug 'artur-shaik/vim-javacomplete2'                " java plugin for vim
+    Plug 'ervandew/supertab'                            " tab completion
+    Plug 'tpope/vim-fugitive'                           " git wrapper
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " golang plugin for vim
     
  call plug#end()
