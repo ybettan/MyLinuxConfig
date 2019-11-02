@@ -4,7 +4,8 @@
 [log]
 	decorate = full
 [core]
-    editor = /usr/bin/vim
+    #editor = `which vim`
+    editor = $(which vim)
 [sendemail]
     smtpserver = smtp.corp.redhat.com
 [color "diff"]
