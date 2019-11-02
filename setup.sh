@@ -146,6 +146,7 @@ if [[ $flag != "--no-sudo" ]]; then
     packages+=(curl)    # needed to install vim-plug
     packages+=(figlet)  # needed for scripts/git_check_status.sh output
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
+    packages+=(golang)
     [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
     [[ $os == "Linux" ]] && packages+=(openssh-server)
     [[ $os == "Linux" ]] && packages+=(git-email)
@@ -189,6 +190,10 @@ if [[ $os == "Linux" ]]; then
     systemctl restart sshd
     systemctl enable sshd
 fi
+
+
+# those repositories are needed for Golang and vim-go to work properly
+mkdir -p ~/go/{bin,src}
 
 
 # macOS terminal source .bash_profile and linux terminal source .bashrc, so

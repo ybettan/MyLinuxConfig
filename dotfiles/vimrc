@@ -12,6 +12,7 @@
     Plug 'artur-shaik/vim-javacomplete2' " java plugin for vim
     Plug 'ervandew/supertab'             " tab completion
     Plug 'tpope/vim-fugitive'            " git wrapper
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " golang plugin for vim
     
  call plug#end()
 
@@ -134,8 +135,10 @@ inoremap jj  <ESC>
 " mapping capsLock to ctrl
 map CapsLock Ctrl
 
-" easy diving with ctags
-nnoremap <C-p> <C-]> 
+" easy go-to-definition with ctags and vim-go
+" we use the no-recursive version of mapping because we want that vim-go
+" command 'GoDef' to be used with <C-p> without being referenced to ctags
+nmap <C-p> <C-]>
 
 " this package is extending % to <> and other sifferent closures
 packadd! matchit
@@ -279,4 +282,10 @@ set backspace=indent,eol,start
 
 set foldmethod=marker
 
+"==============================================================================
+"                             vim-go settings
+"==============================================================================
+
+" make go-autocompletion start automatically after pressing '.'
+au filetype go inoremap <buffer> . .<C-x><C-o>
 
