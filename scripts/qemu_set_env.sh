@@ -19,8 +19,8 @@ fi
 
 
 # remove all folder if existed and was backed up
-if [[ -e ~/Work ]]; then
-    rm -rf ~/Work
+if [[ -e ~/Work/Qemu ]]; then
+    rm -rf ~/Work/Qemu
 fi
 
 
