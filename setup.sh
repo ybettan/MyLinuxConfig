@@ -1,40 +1,6 @@
 #!/bin/bash 
 
 
-# install the fastest terminal available because all macOS terminal are slow
-function install_alacritty_termianl {
-
-    currentDir=`pwd`
-    cd ~
-
-    # download and install Rust compiler needed to build alacritty
-    curl https://sh.rustup.rs -sSf | sh
-
-    # make sure to have the right compiler installed
-    rustup override set stable
-    rustup update stable
-
-    # clone and install alacritty
-    git clone https://github.com/jwilm/alacritty.git
-    cd alacritty
-    make app
-
-    # add it to mac applications
-    cp -r target/release/osx/Alacritty.app /Applications/
-
-    # remove cloned folder
-    rm -rf ~/alacritty
-
-    # remove 2 last line of ~.bash_profile because this installation is adding
-    # /home/.cargo/bin to $PATH but this is already done in ~/.bashrc
-    cp ~/.bash_profile ~/.bash_profile.tmp1
-    sed '$ d' ~/.bash_profile.tmp1 > ~/.bash_profile.tmp2
-    sed '$ d' ~/.bash_profile.tmp2 > ~/.bash_profile
-    rm -f ~/.bash_profile.tmp1 ~/.bash_profile.tmp2
-
-    cd $currentDir
-}
-
 
 # install all the packages received in arguments and update failedPackages array.
 function install_packages {
@@ -55,6 +21,7 @@ function install_packages {
             "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
         packageManager="brew"
+        packageManagerExtention="cask"
 
     # Linux distribution
     else
@@ -71,7 +38,17 @@ function install_packages {
 
     # install the packages
     for p in $@ ; do
-        $sudo $packageManager install $p || failedPackages+=($p)
+
+        # alacritty is installed using "brew cask" (an extention of "brew").
+        # the installation is downloading the defauld .alacritty.yml file to
+        # ~/.config/alacritty/alacritty.yml therefore it needs to be removed
+        # since I use my ~/.alacritty.yml.
+        if [[ $p == "alacritty" ]]; then
+            $sudo $packageManager $packageManagerExtention install $p || failedPackages+=($p)
+            rm -r ~/.config
+        else
+            $sudo $packageManager install $p || failedPackages+=($p)
+        fi
     done
 
 
@@ -126,12 +103,6 @@ if [[ $flag == "--help" ]]; then
 fi
 
 
-# install alacritty terminal for macOS
-if [[ $os == "Darwin" ]]; then
-    install_alacritty_termianl
-fi
-
-
 # if --no-sudo flag is on then skip the commands that require sudo
 if [[ $flag != "--no-sudo" ]]; then
 
@@ -148,6 +119,7 @@ if [[ $flag != "--no-sudo" ]]; then
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
     packages+=(golang)
     [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
+    [[ $os == "Darwin" ]] && packages+=(alacritty)   # OSX best terminal
     [[ $os == "Linux" ]] && packages+=(openssh-server)
     [[ $os == "Linux" ]] && packages+=(git-email)
     install_packages ${packages[*]}
