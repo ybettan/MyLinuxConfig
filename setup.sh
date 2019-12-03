@@ -109,6 +109,7 @@ if [[ $flag != "--no-sudo" ]]; then
     # create a list of packages and install them
     packages=()
     failedPackages=()
+    packages+=(git)
     packages+=(vim)
     packages+=(tmux)
     packages+=(ctags)
@@ -121,7 +122,7 @@ if [[ $flag != "--no-sudo" ]]; then
     [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
     [[ $os == "Darwin" ]] && packages+=(alacritty)   # OSX best terminal
     [[ $os == "Linux" ]] && packages+=(openssh-server)
-    [[ $os == "Linux" ]] && packages+=(git-email)
+    [[ $os == "Linux" ]] && packages+=(git-email)    # not bundled with git on linux
     install_packages ${packages[*]}
 
 fi
