@@ -7,11 +7,7 @@ function install_packages {
 
     packageManager=""
     sudo=""
-
-    # install vim-plug for vim
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
-        failedPackages+=(vim-plug)
+    flags=""
 
     # MacOS
     if [[ $os == "Darwin" ]]; then
@@ -34,6 +30,7 @@ function install_packages {
         else
             packageManager="dnf"
         fi
+        flags="-y"
     fi
 
     # install the packages
@@ -51,6 +48,10 @@ function install_packages {
         fi
     done
 
+    # install vim-plug for vim, curl is a dependency and already installed
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
+        failedPackages+=(vim-plug)
 
     # this is done last
     $sudo $packageManager update
