@@ -297,6 +297,9 @@ let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1 " adds types like io.Reader, io.Writer etc
 let g:go_highlight_fields = 1
 
+" make vim add and remove imports automatically on saving
+let g:go_fmt_command="goimports"
+
 "==============================================================================
 "                                 swp files
 "==============================================================================
