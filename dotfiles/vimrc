@@ -292,3 +292,10 @@ set foldmethod=marker
 " make go-autocompletion start automatically after pressing '.'
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
+"==============================================================================
+"                                 swp files
+"==============================================================================
+
+" Don't use swapfile
+set noswapfile
+
