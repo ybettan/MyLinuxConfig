@@ -300,6 +300,9 @@ let g:go_highlight_fields = 1
 " make vim add and remove imports automatically on saving
 let g:go_fmt_command="goimports"
 
+" shows the under-cursor-object's signature (automatically run GoInfo)
+let g:go_auto_type_info = 1
+
 "==============================================================================
 "                                 swp files
 "==============================================================================
