@@ -52,7 +52,8 @@ parse_git_branch() {
 }
 # give different color to the branch based on if the git repo is in my ownership or other person's ownership
 color_git_branch() {
-    git config --get remote.origin.url 2> /dev/null | cut -d"/" -f4 | sed -e '/ybettan/! s/.*/31m/' -e 's/ybettan/33m/'
+    git config --get remote.origin.url 2> /dev/null | rev | cut -d"/" -f2 | rev | cut -d":" -f2 \
+        | sed -e '/ybettan/! s/.*/31m/' -e 's/ybettan/33m/'
 }
 if [[ $USER == ybettan ]]; then
     # set user name to purple on my machine (1;35)
