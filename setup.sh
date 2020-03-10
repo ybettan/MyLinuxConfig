@@ -117,7 +117,6 @@ if [[ $flag != "--no-sudo" ]]; then
     packages+=(cscope)
     packages+=(valgrind)
     packages+=(curl)    # needed to install vim-plug
-    packages+=(figlet)  # needed for scripts/git_check_status.sh output
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
     packages+=(golang)
     [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
