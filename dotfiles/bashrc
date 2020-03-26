@@ -29,6 +29,9 @@ fi
 #                                other config
 #==============================================================================
 
+# enable bash-command's navigation as in vim
+set -o vi
+
 # determine which OS is running, "Linux" for linux and "Darwin" for macOS
 os=`uname -s`
 
