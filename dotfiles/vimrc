@@ -6,7 +6,7 @@
  call plug#begin('~/.vim/plugged')
 
     Plug 'morhetz/gruvbox'                              " vim theme
-    Plug 'bling/vim-airline'                            " vim status bar
+    Plug 'itchyny/lightline.vim'                        " vim status bar
     Plug 'vim-syntastic/syntastic'                      " coding-errors checker
     Plug 'davidhalter/jedi-vim'                         " python plugin for vim
     Plug 'artur-shaik/vim-javacomplete2'                " java plugin for vim
@@ -244,24 +244,43 @@ set complete-=i
  set splitright
 
 "==============================================================================
-"                      Air-Line plugin & status line
+"                    Lightline.vim plugin & status line
 "==============================================================================
 
 " make status line always visible
 set laststatus=2
 
-" actually this have no effect when airline plugin is installed
+" NOTE: 'FugitiveHead' is 'vim-fugitive' plugin's function and depend on it
+" configure lightline.vim status line
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \   'filename': 'LightlineFilename',
+      \ },
+      \ }
+
+" function to get the filename from vim to lightline.vim
+function! LightlineFilename()
+      return &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
+              \ &filetype ==# 'unite' ? unite#get_status_string() :
+              \ &filetype ==# 'vimshell' ? vimshell#get_status_string() :
+              \ expand('%') !=# '' ? expand('%') : '[No Name]'
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
+
+" actually this have no effect when lightline.vim plugin is installed
 set statusline+=%f      "relative path (use %F for absolute path)
 set statusline+=%m      "modified flag
 set statusline+=%=      "left/right separator
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
-
-" make air-vim (using vim plug) make the shapes nicer
-let g:airline_powerline_fonts = 1 
-
-" make the Air-line theme dark
-let g:airline_theme='dark'
 
 "==============================================================================
 "                            Spelling settings
