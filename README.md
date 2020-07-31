@@ -1,3 +1,5 @@
+[![CI](https://github.com/ybettan/MyLinuxConfig/workflows/CI/badge.svg?branch=master)](https://github.com/ybettan/MyLinuxConfig/actions)
+
 # all my configuration files for a new linux:
 	- all my dotfiles
 	- all my scripts
