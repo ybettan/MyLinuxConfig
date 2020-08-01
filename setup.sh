@@ -14,7 +14,8 @@ function install_packages {
 
         # instal Brew package manager
         /usr/bin/ruby -e \
-            "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+            "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || \
+            err=$?
 
         packageManager="brew"
         packageManagerExtention="cask"
@@ -33,6 +34,8 @@ function install_packages {
         flags="-y"
     fi
 
+    $sudo $packageManager update || err=$?
+
     # install the packages
     for p in $@ ; do
 
@@ -41,20 +44,18 @@ function install_packages {
         # ~/.config/alacritty/alacritty.yml therefore it needs to be removed
         # since I use my ~/.alacritty.yml.
         if [[ $p == "alacritty" ]]; then
-            $sudo $packageManager $packageManagerExtention install $p || failedPackages+=($p)
+            $sudo $packageManager $packageManagerExtention install $p || \
+                failedPackages+=($p) && err=$?
             rm -r ~/.config
         else
-            $sudo $packageManager install $p || failedPackages+=($p)
+            $sudo $packageManager install $p || failedPackages+=($p) && err=$?
         fi
     done
 
     # install vim-plug for vim, curl is a dependency and already installed
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
-        failedPackages+=(vim-plug)
-
-    # this is done last
-    $sudo $packageManager update
+        (failedPackages+=(vim-plug) && err=$?)
 }
 
 
@@ -68,9 +69,9 @@ function create_dotfiles_soft_links {
             if ! [[ -d ~/.ssh ]]; then
                 mkdir ~/.ssh
             fi
-            ln -s -f $clonedDir/dotfiles/$l ~/.ssh/config && echo "copy .$l..."
+            ln -s -f $(pwd)/dotfiles/$l ~/.ssh/config && echo "copy .$l..." || err=$?
         else
-            ln -s -f $clonedDir/dotfiles/$l ~/.$l && echo "copy .$l..."
+            ln -s -f $(pwd)/dotfiles/$l ~/.$l && echo "copy .$l..." || err=$?
         fi
     done
 }
@@ -80,14 +81,15 @@ function create_dotfiles_soft_links {
 function create_acfiles_soft_links {
 
     for l in $@; do
-        ln -s -f $clonedDir/acfiles/$l /usr/local/etc/bash_completion.d/$l && \
-            echo "copy /usr/local/etc/bash_completion.d/$l..."
+        ln -s -f $(pwd)/acfiles/$l /usr/local/etc/bash_completion.d/$l \
+            && echo "copy /usr/local/etc/bash_completion.d/$l..." \
+            || err=$?
     done
 }
 
-
 # get script parameters
 flag=$1
+err=0
 
 # determine which OS is running, "Linux" for linux and "Darwin" for macOS
 os=`uname -s`
@@ -131,8 +133,6 @@ fi
 # creates soft links to all dotfile
 links=()
 failedLinks=()
-GIT_DIR_NAME="MyLinuxConfig"
-clonedDir=`find ~ -name $GIT_DIR_NAME`
 links+=("bashrc")
 links+=("bash_profile")
 links+=("aliases")
@@ -148,20 +148,18 @@ create_dotfiles_soft_links ${links[*]}
 # creates soft links to all acfile
 links=()
 failedLinks=()
-GIT_DIR_NAME="MyLinuxConfig"
-clonedDir=`find ~ -name $GIT_DIR_NAME`
 links+=("ssh")
 [[ $os == "Darwin" ]] && create_acfiles_soft_links ${links[*]}
 
 
 # without this sometimes ssh command doesn't work
-chmod 600 ~/.ssh/config
+chmod 600 ~/.ssh/config || err=$?
 
 
 # make sure all VMs are accessible via SSH
 if [[ $os == "Linux" ]]; then
-    systemctl restart sshd
-    systemctl enable sshd
+    systemctl restart sshd || err=$?
+    systemctl enable sshd || err=$?
 fi
 
 
@@ -189,4 +187,7 @@ else
     echo -e "\n\tAll packages were installed successfully"
 fi
 echo --------------------------------------------------------
+
+exit $err
+
 
