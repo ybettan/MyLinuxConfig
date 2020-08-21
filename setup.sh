@@ -45,17 +45,17 @@ function install_packages {
         # since I use my ~/.alacritty.yml.
         if [[ $p == "alacritty" ]]; then
             $sudo $packageManager $packageManagerExtention install $p || \
-                failedPackages+=($p) && err=$?
+                err=$? && failedPackages+=($p)
             rm -r ~/.config
         else
-            $sudo $packageManager install $p || failedPackages+=($p) && err=$?
+            $sudo $packageManager install $p || err=$? && failedPackages+=($p)
         fi
     done
 
     # install vim-plug for vim, curl is a dependency and already installed
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
-        (failedPackages+=(vim-plug) && err=$?)
+        err=$? && failedPackages+=(vim-plug)
 }
 
 
