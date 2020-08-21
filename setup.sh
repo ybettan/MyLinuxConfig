@@ -88,7 +88,16 @@ function create_acfiles_soft_links {
 }
 
 # get script parameters
-flag=$1
+user=root   # default value
+bot=non     # dafault value
+while getopts u:b: option
+do
+    case "${option}" in
+    u) user=${OPTARG};;
+    b) bot=${OPTARG};;
+    esac
+done
+
 err=0
 
 # determine which OS is running, "Linux" for linux and "Darwin" for macOS
@@ -100,14 +109,9 @@ if [[ $os != "Darwin" && $os != "Linux" ]];then
     exit 1
 fi
 
-if [[ $flag == "--help" ]]; then
-    echo "usage: $0 [--no-sudo]"
-    exit
-fi
 
-
-# if --no-sudo flag is on then skip the commands that require sudo
-if [[ $flag != "--no-sudo" ]]; then
+# if user isn't root then skip the commands that require sudo
+if [[ $user == "root" ]]; then
 
     # create a list of packages and install them
     packages=()
@@ -157,7 +161,7 @@ chmod 600 ~/.ssh/config || err=$?
 
 
 # make sure all VMs are accessible via SSH
-if [[ $os == "Linux" ]]; then
+if [[ $bot == "non" && $os == "Linux" ]]; then
     systemctl restart sshd || err=$?
     systemctl enable sshd || err=$?
 fi
