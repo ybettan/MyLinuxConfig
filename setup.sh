@@ -34,7 +34,10 @@ function install_packages {
         flags="-y"
     fi
 
+    # update the list of available packages and there versions (doesn't install anything)
     $sudo $packageManager update || err=$?
+    # install new versions of packages from the last updated list
+    $sudo $packageManager upgrade || err=$?
 
     # install the packages
     for p in $@ ; do
