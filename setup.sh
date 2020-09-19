@@ -35,9 +35,9 @@ function install_packages {
     fi
 
     # update the list of available packages and there versions (doesn't install anything)
-    $sudo $packageManager update || err=$?
+    $sudo $packageManager $flags update || err=$?
     # install new versions of packages from the last updated list
-    $sudo $packageManager upgrade || err=$?
+    $sudo $packageManager $flags upgrade || err=$?
 
     # install the packages
     for p in $@ ; do
@@ -47,11 +47,11 @@ function install_packages {
         # ~/.config/alacritty/alacritty.yml therefore it needs to be removed
         # since I use my ~/.alacritty.yml.
         if [[ $p == "alacritty" ]]; then
-            $sudo $packageManager $packageManagerExtention install $p || \
+            $sudo $packageManager $packageManagerExtention $flags install $p || \
                 { err=$?; failedPackages+=($p); }
             rm -r ~/.config
         else
-            $sudo $packageManager install $p || { err=$?; failedPackages+=($p); }
+            $sudo $packageManager $flags install $p || { err=$?; failedPackages+=($p); }
         fi
     done
 
