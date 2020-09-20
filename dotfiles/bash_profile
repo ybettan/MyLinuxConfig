@@ -9,8 +9,5 @@ if [[ -f ~/.bashrc ]]; then
     source ~/.bashrc
 fi
 
-# needed to eliminate some vim warning notifications
-export LC_ALL=en_US.UTF-8
-
 # hide 'zsh default shell' warning'
 export BASH_SILENCE_DEPRECATION_WARNING=1

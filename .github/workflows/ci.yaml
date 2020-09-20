@@ -30,3 +30,12 @@ jobs:
     - run: |
         ./setup.sh -b github-workflow -u non-root
         ./setup.sh -b github-workflow
+  docker:
+    name: Test on fedora-latest
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        docker build . -t fedora-test
+        docker run fedora-test -b github-workflow -u non-root
+        docker run fedora-test -b github-workflow
