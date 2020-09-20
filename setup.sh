@@ -123,8 +123,6 @@ if [[ $user == "root" ]]; then
     packages+=(vim)
     packages+=(tmux)
     packages+=(ctags)
-    packages+=(cscope)
-    packages+=(valgrind)
     packages+=(curl)    # needed to install vim-plug
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
     packages+=(golang)
