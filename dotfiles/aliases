@@ -14,10 +14,6 @@ alias slunch="source ~/.lunchers"
 alias eali="vim ~/.aliases"
 alias elunch="vim ~/.lunchers"
 alias mof="vim ~/inSync/work/RedHat/mode_of_work.txt"
-alias mofg="gedit ~/Work/mode_of_work.txt &"
-alias .vimrc="vim ~/.vimrc"
-alias .bashrc="vim ~/.bashrc"
-alias .tmux.conf="vim ~/.tmux.conf"
 
 
 # terminal command
@@ -29,14 +25,6 @@ alias mv="mv -i"
 alias rp="realpath"
 alias grep="grep -i --colour"
 alias ggrep="grep -rnw . -e" #equivalent to git grep
-[[ $os == "Linux" ]] && alias make="make -j`lscpu | grep -w "CPU(s):" | \
-    head -1 | cut -d":" -f2 | tr -d " \t\n\r"`"
-
-
-# change dir
-alias work="cd ~/Work"
-alias inSync="cd ~/inSync"
-alias downloads="cd ~/Downloads"
 
 
 # qemu aliases
