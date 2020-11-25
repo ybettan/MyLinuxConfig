@@ -323,6 +323,16 @@ let g:go_fmt_command="goimports"
 let g:go_auto_type_info = 1
 
 "==============================================================================
+"                             jedi-vim settings
+"==============================================================================
+
+" show function signature in insert mode but not in pop-up mode
+let g:jedi#show_call_signatures = "2"
+
+" use Ctrl-p for go to deffinition
+let g:jedi#goto_command = "<C-p>"
+
+"==============================================================================
 "                                 swp files
 "==============================================================================
 
