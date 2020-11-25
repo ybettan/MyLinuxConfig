@@ -309,7 +309,7 @@ set foldmethod=marker
 "==============================================================================
 
 " make go-autocompletion start automatically after pressing '.'
-au filetype go inoremap <buffer> . .<C-x><C-o>
+au Filetype go inoremap <buffer> . .<C-x><C-o>
 
 " fields and types highlight
 let g:go_highlight_types = 1
