@@ -18,7 +18,6 @@ function install_packages {
             err=$?
 
         packageManager="brew"
-        packageManagerExtention="cask"
 
     # Linux distribution
     else
@@ -41,18 +40,7 @@ function install_packages {
 
     # install the packages
     for p in $@ ; do
-
-        # alacritty is installed using "brew cask" (an extention of "brew").
-        # the installation is downloading the defauld .alacritty.yml file to
-        # ~/.config/alacritty/alacritty.yml therefore it needs to be removed
-        # since I use my ~/.alacritty.yml.
-        if [[ $p == "alacritty" ]]; then
-            $sudo $packageManager $packageManagerExtention $flags install $p || \
-                { err=$?; failedPackages+=($p); }
-            rm -r ~/.config
-        else
-            $sudo $packageManager $flags install $p || { err=$?; failedPackages+=($p); }
-        fi
+        $sudo $packageManager $flags install $p || { err=$?; failedPackages+=($p); }
     done
 
     # install vim-plug for vim, curl is a dependency and already installed
