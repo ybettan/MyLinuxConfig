@@ -322,6 +322,9 @@ let g:go_fmt_command="goimports"
 " shows the under-cursor-object's signature (automatically run GoInfo)
 let g:go_auto_type_info = 1
 
+" fixing `pattern uses more memory than 'maxmempattern'` error
+set mmp=5000
+
 "==============================================================================
 "                             jedi-vim settings
 "==============================================================================
