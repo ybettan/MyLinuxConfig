@@ -1,0 +1,21 @@
+OS=$(shell uname -s)
+
+all: install-packages no-packages
+
+no-packages: link-dotfiles link-acfiles
+
+validate-os:
+	OS=${OS} ./scripts/validate_os.sh
+
+install-packages: validate-os
+	OS=${OS} ./scripts/install_packages.sh
+
+link-dotfiles:
+	./scripts/link_dotfiles.sh
+
+link-acfiles:
+	./scripts/link_acfiles.sh
+
+enable-ssh: validate-os
+	OS=${OS} ./scripts/enable_ssh.sh
+

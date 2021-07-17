@@ -4,4 +4,6 @@ COPY / /MyLinuxConfig/
 
 WORKDIR /MyLinuxConfig
 
-ENTRYPOINT ["./setup.sh"]
+RUN dnf -y install make
+
+ENTRYPOINT ["make"]
