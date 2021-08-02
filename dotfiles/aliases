@@ -23,7 +23,7 @@ alias ll="ls -l -h --group-directories-first"
 alias cp="cp -i"
 alias mv="mv -i"
 alias rp="realpath"
-alias grep="grep -i --colour"
+alias grep="grep --colour"
 alias ggrep="grep -rnw . -e" #equivalent to git grep
 
 
