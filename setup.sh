@@ -114,6 +114,7 @@ if [[ $user == "root" ]]; then
     packages+=(curl)    # needed to install vim-plug
     packages+=(maven)   # needed to build vim-javautocomplete2 plugin
     packages+=(golang)
+    packages+=(xclip)   # needed for integrating system clipboard into tmux clipboard
     [[ $os == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
     [[ $os == "Darwin" ]] && packages+=(alacritty)   # OSX best terminal
     [[ $os == "Linux" ]] && packages+=(openssh-server)
