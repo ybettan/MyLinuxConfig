@@ -1,9 +1,5 @@
 #!/bin/bash
 
-sudo=""
-packageManager=""
-flags=""
-
 packages=()
 failedPackages=()
 
@@ -24,31 +20,42 @@ if [[ ${OS} == "Darwin" ]]; then
     /bin/bash -c \
         "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-    packageManager="brew"
+    # update the list of available packages and there versions (doesn't install anything)
+    brew update
+    # install new versions of packages from the last updated list
+    brew upgrade
+
+    # install the packages
+    for p in ${packages[*]} ; do
+
+        # if the package already exist on the machine but wasn't install using brew
+        # we need to make sure brew override the binary symlink to the latest package
+        # installed by brew.
+        # we may fail on other errors rather than bad linking but this should
+        # handle some errors
+        brew install $p || { brew link --overwrite $p || failedPackages+=($p); }
+    done
 
 else # Linux
 
-    sudo="sudo"
-    flags="-y"
-
     # get the package manager for different linux distributions
     distribution=`cat /etc/issue | head -1 | cut -d" " -f1`
+
+    packageManager=""
     if [[ $distribution == "Ubuntu" ]]; then
         packageManager="apt-get"
     else
         packageManager="dnf"
     fi
+
+    # install new versions of packages
+    sudo $packageManager -y upgrade
+
+    # install the packages
+    for p in ${packages[*]} ; do
+        sudo $packageManager -y install $p || failedPackages+=($p)
+    done
 fi
-
-# update the list of available packages and there versions (doesn't install anything)
-$sudo $packageManager $flags update
-# install new versions of packages from the last updated list
-$sudo $packageManager $flags upgrade
-
-# install the packages
-for p in ${packages[*]} ; do
-    $sudo $packageManager $flags install $p || failedPackages+=($p)
-done
 
 # install vim-plug for vim, curl is a dependency and already installed
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
