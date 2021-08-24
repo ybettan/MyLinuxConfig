@@ -12,6 +12,7 @@
     Plug 'artur-shaik/vim-javacomplete2'                " java plugin for vim
     Plug 'ervandew/supertab'                            " tab completion
     Plug 'tpope/vim-fugitive'                           " git wrapper
+    Plug 'sunaku/tmux-navigate'                         " vim-tmux navigator
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " golang plugin for vim
     
  call plug#end()
