@@ -11,6 +11,10 @@ packages+=(curl)    # needed to install vim-plug
 packages+=(maven)   # needed to build vim-javautocomplete2 plugin
 packages+=(golang)
 packages+=(xclip)   # needed for integrating system clipboard into tmux clipboard
+packages+=(pip)     # needed to install bugwarrior
+packages+=(task)
+packages+=(bugwarrior)
+packages+=(cronie)  # needed for running 'crontab'
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -31,8 +35,13 @@ if [[ ${OS} == "Linux" ]]; then
     sudo $packageManager -y upgrade
 
     # install the packages
+
     for p in ${packages[*]} ; do
-        sudo $packageManager -y install $p || failedPackages+=($p)
+        if [[ $p == bugwarrior ]]; then
+            pip install $p
+        else
+            sudo $packageManager -y install $p || failedPackages+=($p)
+        fi
     done
 
 else # Darwin (OSX)

@@ -13,6 +13,8 @@ links+=("tmux.conf")
 links+=("launchers")
 links+=("gitconfig")
 links+=("ssh.config")
+links+=("taskrc")
+links+=("bugwarriorrc")
 [[ $os == "Darwin" ]] && links+=("alacritty.yml")
 
 for l in ${links[*]}; do

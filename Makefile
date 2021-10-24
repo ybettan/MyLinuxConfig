@@ -1,6 +1,6 @@
 OS=$(shell uname -s)
 
-all: install-packages
+all: install-packages set-cronjobs
 
 no-packages: link-dotfiles link-acfiles
 
@@ -18,4 +18,7 @@ link-acfiles:
 
 enable-ssh: validate-os
 	OS=${OS} ./scripts/enable_ssh.sh
+
+set-cronjobs:
+	./scripts/set_cronjobs.sh
 

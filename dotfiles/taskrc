@@ -1,0 +1,79 @@
+# [Created by task 2.5.3 10/14/2021 15:34:54]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.task
+
+# Color theme (uncomment one to use)
+#include /usr/share/task/light-16.theme
+#include /usr/share/task/light-256.theme
+#include /usr/share/task/dark-16.theme
+#include /usr/share/task/dark-256.theme
+#include /usr/share/task/dark-red-256.theme
+#include /usr/share/task/dark-green-256.theme
+#include /usr/share/task/dark-blue-256.theme
+#include /usr/share/task/dark-violets-256.theme
+#include /usr/share/task/dark-yellow-green.theme
+#include /usr/share/task/dark-gray-256.theme
+#include /usr/share/task/dark-gray-blue-256.theme
+#include /usr/share/task/solarized-dark-256.theme
+#include /usr/share/task/solarized-light-256.theme
+#include /usr/share/task/no-color.theme
+include /home/ybettan/MyLinuxConfig/dotfiles/bugwarrior-ybettan-color.theme
+
+# Custom report overrides
+report.ls.filter=status:pending and -ignore and bugzillastatus.not:ON_QA and project.not:signoz
+report.ls.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.countdown,until.countdown,githubtype,bugzillastatus,description.count
+report.ls.labels=ID,A,D,Project,Tags,R,Wait,S,Due,Until,GH Type,BZ Status,Description
+report.ls.sort=project+/,githubtype+
+
+
+# Terminal
+curses=on           # Use ncurses library to determine terminal width
+defaultwidth=180    # Without ncurses, assumed width
+editor=vim          # Preferred text editor
+
+default.command=ls
+#color=on
+#blanklines=true
+
+## Bugwarrior UDAs
+#uda.githubtitle.type=string
+#uda.githubtitle.label=Github Title
+#uda.githubbody.type=string
+#uda.githubbody.label=Github Body
+#uda.githubcreatedon.type=date
+#uda.githubcreatedon.label=Github Created
+#uda.githubupdatedat.type=date
+#uda.githubupdatedat.label=Github Updated
+#uda.githubclosedon.type=date
+#uda.githubclosedon.label=GitHub Closed
+#uda.githubmilestone.type=string
+#uda.githubmilestone.label=Github Milestone
+#uda.githubrepo.type=string
+#uda.githubrepo.label=Github Repo Slug
+#uda.githuburl.type=string
+#uda.githuburl.label=Github URL
+uda.githubtype.type=string
+uda.githubtype.label=Github Type
+#uda.githubnumber.type=numeric
+#uda.githubnumber.label=Github Issue/PR #
+#uda.githubuser.type=string
+#uda.githubuser.label=Github User
+#uda.githubnamespace.type=string
+#uda.githubnamespace.label=Github Namespace
+#uda.githubstate.type=string
+#uda.githubstate.label=GitHub State
+
+uda.bugzillastatus.type=string
+uda.bugzillastatus.label=Bugzilla Status
+
