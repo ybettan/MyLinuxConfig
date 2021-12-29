@@ -44,6 +44,7 @@ os=`uname -s`
 # adding directories to $PATH
 PATH+=":~/MyLinuxConfig/scripts";
 PATH+=":~/Programs/anaconda2/bin";
+PATH+=":/usr/local/go/bin";
 GOPATH="~/go" # needed for golang
 PATH+=$PATH:$GOPATH/bin # needed for golang
 [[ $os == "Darwin" ]] && PATH+=":/usr/local/bin"; # linux add it automatically
