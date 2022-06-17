@@ -9,7 +9,6 @@
     Plug 'itchyny/lightline.vim'                        " vim status bar
     Plug 'vim-syntastic/syntastic'                      " coding-errors checker
     Plug 'davidhalter/jedi-vim'                         " python plugin for vim
-    Plug 'artur-shaik/vim-javacomplete2'                " java plugin for vim
     Plug 'ervandew/supertab'                            " tab completion
     Plug 'tpope/vim-fugitive'                           " git wrapper
     Plug 'sunaku/tmux-navigate'                         " vim-tmux navigator
@@ -110,13 +109,6 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " set coding style limit at 80 chars
 set colorcolumn=80
-
-"==============================================================================
-"                            mouse settings
-"==============================================================================
-
-" enable mouse
-"set mouse=a
 
 "==============================================================================
 "                              file title

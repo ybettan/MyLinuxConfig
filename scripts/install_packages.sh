@@ -3,7 +3,7 @@
 packages=()
 failedPackages=()
 
-packages+=(git)
+packages+=(alacritty)
 packages+=(vim)
 packages+=(tmux)
 packages+=(ctags)
@@ -12,9 +12,30 @@ packages+=(maven)   # needed to build vim-javautocomplete2 plugin
 packages+=(golang)
 packages+=(xclip)   # needed for integrating system clipboard into tmux clipboard
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
-[[ ${OS} == "Darwin" ]] && packages+=(alacritty)   # OSX best terminal
 
-if [[ ${OS} == "Darwin" ]]; then
+if [[ ${OS} == "Linux" ]]; then
+
+    # get the package manager for different linux distributions
+    distribution=`cat /etc/issue | head -1 | cut -d" " -f1`
+
+    #TODO: use appImages instead?
+    # https://appimage.org/
+    packageManager=""
+    if [[ $distribution == "Ubuntu" ]]; then
+        packageManager="apt-get"
+    else
+        packageManager="dnf"
+    fi
+
+    # install new versions of packages
+    sudo $packageManager -y upgrade
+
+    # install the packages
+    for p in ${packages[*]} ; do
+        sudo $packageManager -y install $p || failedPackages+=($p)
+    done
+
+else # Darwin (OSX)
 
     # instal Brew package manager
     /bin/bash -c \
@@ -34,26 +55,6 @@ if [[ ${OS} == "Darwin" ]]; then
         # we may fail on other errors rather than bad linking but this should
         # handle some errors
         brew install $p || { brew link --overwrite $p || failedPackages+=($p); }
-    done
-
-else # Linux
-
-    # get the package manager for different linux distributions
-    distribution=`cat /etc/issue | head -1 | cut -d" " -f1`
-
-    packageManager=""
-    if [[ $distribution == "Ubuntu" ]]; then
-        packageManager="apt-get"
-    else
-        packageManager="dnf"
-    fi
-
-    # install new versions of packages
-    sudo $packageManager -y upgrade
-
-    # install the packages
-    for p in ${packages[*]} ; do
-        sudo $packageManager -y install $p || failedPackages+=($p)
     done
 fi
 
