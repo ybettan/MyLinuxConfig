@@ -1,13 +1,13 @@
 OS=$(shell uname -s)
 
-all: install-packages no-packages
+all: install-packages
 
 no-packages: link-dotfiles link-acfiles
 
 validate-os:
 	OS=${OS} ./scripts/validate_os.sh
 
-install-packages: validate-os
+install-packages: validate-os link-dotfiles link-acfiles
 	OS=${OS} ./scripts/install_packages.sh
 
 link-dotfiles:
