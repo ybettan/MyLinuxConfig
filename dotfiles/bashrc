@@ -33,6 +33,9 @@ set -o vi
 # determine which OS is running, "Linux" for linux and "Darwin" for macOS
 os=`uname -s`
 
+# needed for making crontab using vim as it default editor
+export EDITOR=vim
+
 # let tmux start automatically with shell
 # this is very problematic - this breaks login!!!!!!!
 #if command -v tmux>/dev/null; then
