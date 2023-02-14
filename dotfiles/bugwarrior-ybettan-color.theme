@@ -57,6 +57,7 @@ color.project.none=
 #color.keyword.Is=red
 color.tag.n=red
 color.tag.u=yellow
+color.tag.t=magenta
 #color.tag.d=white
 #color.modified.before.now=green
 #task modified.after:now-24h
