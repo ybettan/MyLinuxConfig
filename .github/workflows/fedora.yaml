@@ -1,0 +1,19 @@
+name: fedora
+
+on:
+  push:
+    branches: [ ci ]
+  pull_request:
+    branches: [ ci ]
+
+jobs:
+
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        docker build . -t fedora-test
+        docker run fedora-test no-packages
+        docker run fedora-test all
