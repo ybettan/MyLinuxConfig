@@ -105,6 +105,12 @@ github.token = *******
 # requests where the user is the author, the assignee, mentioned in, or has commented on
 github.involved_issues = True
 
+# Get notified about all repos when mentioned
+github.mention_all_repos = True
+
+# Get notified about new issues and pull-requests in the driver-toolkit repo even if not mentioned
+github.repositories = openshift/driver-toolkit
+
 #[gitlab.cee.redhat]
 #service = gitlab
 #gitlab.host = gitlab.cee.redhat.com:443
