@@ -13,7 +13,7 @@ alias slunch="source ~/.lunchers"
 # open files
 alias eali="vim ~/.aliases"
 alias elunch="vim ~/.lunchers"
-alias mof="vim ~/Insync/work/RedHat/mode_of_work.txt"
+alias mof="vim ~/Insync/yonibettan\@gmail.com/Google\ Drive/work/RedHat/mode_of_work.txt"
 
 
 # terminal command
