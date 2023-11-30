@@ -132,6 +132,9 @@ else # Darwin (OSX)
     done
 fi
 
+# Source tmux config file - only needed to be apply once.
+tmux source-file ~/.tmux.conf
+
 # those repositories are needed for Golang and vim-go to work properly
 mkdir -p ~/go/{bin,src}
 
