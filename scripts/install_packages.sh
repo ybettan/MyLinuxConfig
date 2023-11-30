@@ -54,6 +54,7 @@ packages+=(cronie)  # needed for running 'crontab'
 packages+=(brave-browser)
 packages+=(google-chrome-stable)
 packages+=(insync)
+packages+=(slack)
 packages+=(vim-plug)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
@@ -90,12 +91,24 @@ if [[ ${OS} == "Linux" ]]; then
             sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb || failedPackages+=($p)
         elif [[ $p == insync ]]; then
             if [[ $distribution == fedora ]]; then
-                #FIXME: no latest RPM exist - update for other fedora versions
+                # no latest RPM exist - update for other fedora versions
                 sudo dnf -y install https://cdn.insynchq.com/builds/linux/insync-3.8.6.50504-fc39.x86_64.rpm || failedPackages+=($p)
             elif [[ $distribution == ubuntu ]]; then
-                #FIXME: no latest deb exit - update for other ubuntu versions - this is for 22.04
+                # no latest deb exit - update for other ubuntu versions - this is for 22.04
                 curl https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-jammy_amd64.deb -o /tmp/insync_3.8.6.50504-jammy_amd64.deb
                 sudo apt-get -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb || failedPackages+=($p)
+            fi
+            insync start
+        elif [[ $p == slack ]]; then
+            if [[ $distribution == fedora ]]; then
+                # no latest RPM exist - update if a newer version exists
+                sudo dnf -y install https://downloads.slack-edge.com/releases/linux/4.35.126/prod/x64/slack-4.35.126-0.1.el8.x86_64.rpm \
+                    || failedPackages+=($p)
+            elif [[ $distribution == ubuntu ]]; then
+                # no latest deb exist - update if a newer version exists
+                curl https://downloads.slack-edge.com/releases/linux/4.31.155/prod/x64/slack-desktop-4.31.155-amd64.deb \
+                    -o /tmp/slack-desktop-4.31.155-amd64.deb
+                sudo apt-get -y install /tmp/slack-desktop-4.31.155-amd64.deb || failedPackages+=($p)
             fi
             insync start
         elif [[ $p == vim-plug ]]; then
