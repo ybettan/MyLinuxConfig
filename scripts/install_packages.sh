@@ -82,8 +82,7 @@ if [[ ${OS} == "Linux" ]]; then
         elif [[ $p == ctags ]] && [[ $distribution == ubuntu ]]; then
             sudo apt-get -y install universal-ctags || failedPackages+=($p)
         elif [[ $p == task ]] && [[ $distribution == ubuntu ]]; then
-            sudo apt-get -y install snapd
-            sudo snap install task --classic || failedPackages+=($p)
+            sudo apt-get -y install taskwarrior || failedPackages+=($p)
         elif [[ $p == cronie ]] && [[ $distribution == ubuntu ]]; then
             sudo apt-get -y install cron || failedPackages+=($p)
         elif [[ $p == google-chrome-stable ]] && [[ $distribution == ubuntu ]]; then
