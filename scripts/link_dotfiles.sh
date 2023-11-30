@@ -38,4 +38,4 @@ chmod 600 ~/.ssh/config
 echo source ~/.bash_profile...
 source ~/.bash_profile
 
-print_summary ${failedLinks[*]}
+print_summary "dotfiles" ${failedLinks[*]}

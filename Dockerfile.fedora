@@ -1,9 +1,9 @@
 FROM fedora:latest
 
+RUN dnf -y install make
+
 COPY / /MyLinuxConfig/
 
 WORKDIR /MyLinuxConfig
-
-RUN dnf -y install make
 
 ENTRYPOINT ["make"]

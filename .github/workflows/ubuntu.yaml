@@ -5,11 +5,21 @@ on: [push, pull_request]
 jobs:
 
   e2e:
-    name: e2e
+
+    strategy:
+      matrix:
+        include:
+          - name: e2e-all
+            script: make all
+          - name: e2e-no-packages
+            script: make no-packages
+
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
+
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - run: |
-        make no-packages
-        make all
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run test
+        run: ${{ matrix.script }}

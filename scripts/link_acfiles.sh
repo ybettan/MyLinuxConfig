@@ -14,4 +14,4 @@ for l in ${links[*]}; do
     sudo ln -s -f $(pwd)/acfiles/$l $dstDir/$l && echo "linked acfile $l" || failedLinks+=($l)
 done
 
-print_summary ${failedLinks[*]}
+print_summary "acfiles" ${failedLinks[*]}

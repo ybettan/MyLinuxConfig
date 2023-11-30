@@ -2,8 +2,10 @@
 
 function print_summary {
 
+    category=$1
+
     echo --------------------------------------------------------
-    echo "                     SUMMARY"
+    echo "                     SUMMARY - $1"
     echo --------------------------------------------------------
     if [[ ${#failedLinks[*]} -eq 0 ]]; then
         echo "    All files were linked successfully"
@@ -14,5 +16,5 @@ function print_summary {
         done
         exit 1
     fi
-    echo --------------------------------------------------------
+    echo -e "--------------------------------------------------------\n\n"
 }
