@@ -2,13 +2,31 @@
 
 function enable_repositories {
 
-    if [[ $distribution == "ubuntu" ]]; then
+    if [[ $distribution == "fedora" ]]; then
+
+        if [[ $p == "brave-browser" ]]; then
+            # package needed for enabling repositories
+            sudo dnf -y install dnf-plugins-core
+            sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+            sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+        fi
+
+    elif [[ $distribution == "ubuntu" ]]; then
 
         if [[ $p == "alacritty" ]]; then
             # package needed for enabling repositories
             sudo apt-get -y install software-properties-common
             sudo add-apt-repository ppa:aslatter/ppa -y
         fi
+
+        if [[ $p == "brave-browser" ]]; then
+            sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+                https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+            echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | \
+                sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+            sudo apt -y update
+        fi
+
     fi
 
 }
@@ -28,6 +46,7 @@ packages+=(pip)     # needed to install bugwarrior
 packages+=(task)
 packages+=(bugwarrior)
 packages+=(cronie)  # needed for running 'crontab'
+packages+=(brave-browser)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
