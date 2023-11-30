@@ -53,6 +53,7 @@ packages+=(bugwarrior)
 packages+=(cronie)  # needed for running 'crontab'
 packages+=(brave-browser)
 packages+=(google-chrome-stable)
+packages+=(insync)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -87,6 +88,16 @@ if [[ ${OS} == "Linux" ]]; then
         elif [[ $p == google-chrome-stable ]] && [[ $distribution == ubuntu ]]; then
             wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
             sudo dpkg -i google-chrome-stable_current_amd64.deb
+        elif [[ $p == insync ]]; then
+            if [[ $distribution == fedora ]]; then
+                #FIXME: no latest RPM exist - update for other fedora versions
+                sudo dnf -y install https://cdn.insynchq.com/builds/linux/insync-3.8.6.50504-fc39.x86_64.rpm
+            elif [[ $distribution == ubuntu ]]; then
+                #FIXME: no latest deb exit - update for other ubuntu versions - this is for 22.04
+                curl https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-jammy_amd64.deb -o /tmp/insync_3.8.6.50504-jammy_amd64.deb
+                sudo apt-get -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb
+            fi
+            insync start
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
