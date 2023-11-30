@@ -11,6 +11,11 @@ function enable_repositories {
             sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
         fi
 
+        if [[ $p == "google-chrome-stable" ]]; then
+            sudo dnf -y install fedora-workstation-repositories
+            sudo dnf config-manager --set-enabled google-chrome
+        fi
+
     elif [[ $distribution == "ubuntu" ]]; then
 
         if [[ $p == "alacritty" ]]; then
@@ -47,6 +52,7 @@ packages+=(task)
 packages+=(bugwarrior)
 packages+=(cronie)  # needed for running 'crontab'
 packages+=(brave-browser)
+packages+=(google-chrome-stable)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -78,6 +84,9 @@ if [[ ${OS} == "Linux" ]]; then
             sudo snap install task --classic
         elif [[ $p == cronie ]] && [[ $distribution == ubuntu ]]; then
             sudo apt-get -y install cron
+        elif [[ $p == google-chrome-stable ]] && [[ $distribution == ubuntu ]]; then
+            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome-stable_current_amd64.deb
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
