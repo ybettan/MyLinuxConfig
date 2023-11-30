@@ -77,25 +77,25 @@ if [[ ${OS} == "Linux" ]]; then
     for p in ${packages[*]} ; do
         enable_repositories
         if [[ $p == bugwarrior ]]; then
-            pip install $p
+            pip install $p || failedPackages+=($p)
         elif [[ $p == ctags ]] && [[ $distribution == ubuntu ]]; then
-            sudo apt-get -y install universal-ctags
+            sudo apt-get -y install universal-ctags || failedPackages+=($p)
         elif [[ $p == task ]] && [[ $distribution == ubuntu ]]; then
             sudo apt-get -y install snapd
-            sudo snap install task --classic
+            sudo snap install task --classic || failedPackages+=($p)
         elif [[ $p == cronie ]] && [[ $distribution == ubuntu ]]; then
-            sudo apt-get -y install cron
+            sudo apt-get -y install cron || failedPackages+=($p)
         elif [[ $p == google-chrome-stable ]] && [[ $distribution == ubuntu ]]; then
-            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i google-chrome-stable_current_amd64.deb
+            curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb || failedPackages+=($p)
         elif [[ $p == insync ]]; then
             if [[ $distribution == fedora ]]; then
                 #FIXME: no latest RPM exist - update for other fedora versions
-                sudo dnf -y install https://cdn.insynchq.com/builds/linux/insync-3.8.6.50504-fc39.x86_64.rpm
+                sudo dnf -y install https://cdn.insynchq.com/builds/linux/insync-3.8.6.50504-fc39.x86_64.rpm || failedPackages+=($p)
             elif [[ $distribution == ubuntu ]]; then
                 #FIXME: no latest deb exit - update for other ubuntu versions - this is for 22.04
                 curl https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-jammy_amd64.deb -o /tmp/insync_3.8.6.50504-jammy_amd64.deb
-                sudo apt-get -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb
+                sudo apt-get -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb || failedPackages+=($p)
             fi
             insync start
         else
