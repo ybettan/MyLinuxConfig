@@ -2,7 +2,7 @@
 
 function enable_repositories {
 
-    if [[ $distribution == "Ubuntu" ]]; then
+    if [[ $distribution == "ubuntu" ]]; then
 
         if [[ $p == "alacritty" ]]; then
             # package needed for enabling repositories
@@ -33,12 +33,12 @@ packages+=(cronie)  # needed for running 'crontab'
 if [[ ${OS} == "Linux" ]]; then
 
     # get the package manager for different linux distributions
-    distribution=`cat /etc/issue | head -1 | cut -d" " -f1`
+    distribution=`cat /etc/os-release | grep ^ID= | cut -d"=" -f2`
 
     #TODO: use appImages instead?
     # https://appimage.org/
     packageManager=""
-    if [[ $distribution == "Ubuntu" ]]; then
+    if [[ $distribution == "ubuntu" ]]; then
         packageManager="apt-get"
     else
         packageManager="dnf"
@@ -52,12 +52,12 @@ if [[ ${OS} == "Linux" ]]; then
         enable_repositories
         if [[ $p == bugwarrior ]]; then
             pip install $p
-        elif [[ $p == ctags ]] && [[ $distribution == Ubuntu ]]; then
+        elif [[ $p == ctags ]] && [[ $distribution == ubuntu ]]; then
             sudo apt-get -y install universal-ctags
-        elif [[ $p == task ]] && [[ $distribution == Ubuntu ]]; then
+        elif [[ $p == task ]] && [[ $distribution == ubuntu ]]; then
             sudo apt-get -y install snapd
             sudo snap install task --classic
-        elif [[ $p == cronie ]] && [[ $distribution == Ubuntu ]]; then
+        elif [[ $p == cronie ]] && [[ $distribution == ubuntu ]]; then
             sudo apt-get -y install cron
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
