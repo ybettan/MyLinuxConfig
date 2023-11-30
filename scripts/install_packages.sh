@@ -1,5 +1,18 @@
 #!/bin/bash
 
+function enable_repositories {
+
+    if [[ $distribution == "Ubuntu" ]]; then
+
+        if [[ $p == "alacritty" ]]; then
+            # package needed for enabling repositories
+            sudo apt-get -y install software-properties-common
+            sudo add-apt-repository ppa:aslatter/ppa -y
+        fi
+    fi
+
+}
+
 packages=()
 failedPackages=()
 
@@ -35,10 +48,17 @@ if [[ ${OS} == "Linux" ]]; then
     sudo $packageManager -y upgrade
 
     # install the packages
-
     for p in ${packages[*]} ; do
+        enable_repositories
         if [[ $p == bugwarrior ]]; then
             pip install $p
+        elif [[ $p == ctags ]] && [[ $distribution == Ubuntu ]]; then
+            sudo apt-get -y install universal-ctags
+        elif [[ $p == task ]] && [[ $distribution == Ubuntu ]]; then
+            sudo apt-get -y install snapd
+            sudo snap install task --classic
+        elif [[ $p == cronie ]] && [[ $distribution == Ubuntu ]]; then
+            sudo apt-get -y install cron
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
