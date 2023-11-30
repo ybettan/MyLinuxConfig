@@ -54,6 +54,7 @@ packages+=(cronie)  # needed for running 'crontab'
 packages+=(brave-browser)
 packages+=(google-chrome-stable)
 packages+=(insync)
+packages+=(vim-plug)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -98,6 +99,11 @@ if [[ ${OS} == "Linux" ]]; then
                 sudo apt-get -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb || failedPackages+=($p)
             fi
             insync start
+        elif [[ $p == vim-plug ]]; then
+            # curl is a dependency and already installed
+            curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+                https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
+                failedPackages+=(vim-plug)
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
@@ -125,11 +131,6 @@ else # Darwin (OSX)
         brew install $p || { brew link --overwrite $p || failedPackages+=($p); }
     done
 fi
-
-# install vim-plug for vim, curl is a dependency and already installed
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
-    failedPackages+=(vim-plug)
 
 # those repositories are needed for Golang and vim-go to work properly
 mkdir -p ~/go/{bin,src}
