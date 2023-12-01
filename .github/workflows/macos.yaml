@@ -5,10 +5,21 @@ on: [push, pull_request]
 jobs:
 
   e2e:
-    name: e2e
+
+    strategy:
+      matrix:
+        include:
+          - name: e2e-all
+            script: make all
+          - name: e2e-link
+            script: make link
+
+    name: ${{ matrix.name }}
     runs-on: macOS-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - run: |
-        make link
-        make all
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run test
+        run: ${{ matrix.script }}
