@@ -34,8 +34,8 @@ jobs:
         include:
           - name: e2e-all
             script: docker run fedora:local all
-          - name: e2e-no-packages
-            script: docker run fedora:local no-packages
+          - name: e2e-link
+            script: docker run fedora:local link
 
     name: ${{ matrix.name }}
     runs-on: ubuntu-latest

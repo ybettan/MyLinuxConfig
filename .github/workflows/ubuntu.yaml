@@ -11,8 +11,8 @@ jobs:
         include:
           - name: e2e-all
             script: make all
-          - name: e2e-no-packages
-            script: make no-packages
+          - name: e2e-link
+            script: make link
 
     name: ${{ matrix.name }}
     runs-on: ubuntu-latest

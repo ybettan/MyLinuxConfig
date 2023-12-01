@@ -2,7 +2,7 @@ OS=$(shell uname -s)
 
 all: install-packages configure
 
-no-packages: link-dotfiles link-acfiles
+link: link-dotfiles link-acfiles
 
 validate-os:
 	OS=${OS} ./scripts/validate_os.sh
