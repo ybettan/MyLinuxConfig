@@ -99,7 +99,6 @@ if [[ ${OS} == "Linux" ]]; then
                 curl https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-jammy_amd64.deb -o /tmp/insync_3.8.6.50504-jammy_amd64.deb
                 sudo apt-get -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb || failedPackages+=($p)
             fi
-            insync start
         elif [[ $p == slack ]]; then
             if [[ $distribution == fedora ]]; then
                 # no latest RPM exist - update if a newer version exists
@@ -154,9 +153,6 @@ else # Darwin (OSX)
         brew install $p || { brew link --overwrite $p || failedPackages+=($p); }
     done
 fi
-
-# Source tmux config file - only needed to be apply once.
-tmux source-file ~/.tmux.conf
 
 # those repositories are needed for Golang and vim-go to work properly
 mkdir -p ~/go/{bin,src}

@@ -6,5 +6,11 @@
 
 Just run Makefile targets.
 
+For the complete installation locally run
+```
+make --ignore-errors all
+```
+Since we are configuring everything only after installation packages, then we
+want to ignore errors in order to execute the `configure` target.
     
  

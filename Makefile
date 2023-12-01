@@ -19,6 +19,6 @@ link-acfiles:
 enable-ssh: validate-os
 	OS=${OS} ./scripts/enable_ssh.sh
 
-configure:
-	./scripts/configure.sh
+configure: validate-os
+	OS=${OS} ./scripts/configure.sh
 
