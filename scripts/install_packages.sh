@@ -110,7 +110,6 @@ if [[ ${OS} == "Linux" ]]; then
                     -o /tmp/slack-desktop-4.31.155-amd64.deb
                 sudo apt-get -y install /tmp/slack-desktop-4.31.155-amd64.deb || failedPackages+=($p)
             fi
-            insync start
         elif [[ $p == vim-plug ]]; then
             # curl is a dependency and already installed
             curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
