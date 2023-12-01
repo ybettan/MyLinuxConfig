@@ -56,6 +56,7 @@ packages+=(google-chrome-stable)
 packages+=(insync)
 packages+=(slack)
 packages+=(thunderbird)
+packages+=(gnome-tweaks)
 packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
 packages+=(vim-plug)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
@@ -111,6 +112,8 @@ if [[ ${OS} == "Linux" ]]; then
                     -o /tmp/slack-desktop-4.31.155-amd64.deb
                 sudo apt-get -y install /tmp/slack-desktop-4.31.155-amd64.deb || failedPackages+=($p)
             fi
+        elif [[ $p == gnome-tweaks ]] && [[ $distribution == ubuntu ]]; then
+            continue
         elif [[ $p == libevdev-devel ]] && [[ $distribution == ubuntu ]]; then
                 sudo apt-get -y install libevdev-dev || failedPackages+=($p)
         elif [[ $p == glib2-devel ]] && [[ $distribution == ubuntu ]]; then
