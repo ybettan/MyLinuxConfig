@@ -55,6 +55,7 @@ packages+=(brave-browser)
 packages+=(google-chrome-stable)
 packages+=(insync)
 packages+=(slack)
+packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
 packages+=(vim-plug)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
@@ -110,6 +111,17 @@ if [[ ${OS} == "Linux" ]]; then
                     -o /tmp/slack-desktop-4.31.155-amd64.deb
                 sudo apt-get -y install /tmp/slack-desktop-4.31.155-amd64.deb || failedPackages+=($p)
             fi
+        elif [[ $p == libevdev-devel ]] && [[ $distribution == ubuntu ]]; then
+                sudo apt-get -y install libevdev-dev || failedPackages+=($p)
+        elif [[ $p == glib2-devel ]] && [[ $distribution == ubuntu ]]; then
+                sudo apt-get -y install libglib2.0-dev || failedPackages+=($p)
+        elif [[ $p == systemd-devel ]] && [[ $distribution == ubuntu ]]; then
+                sudo apt-get -y install libudev-dev || failedPackages+=($p)
+        elif [[ $p == libconfig-devel ]] && [[ $distribution == ubuntu ]]; then
+                sudo apt-get -y install libconfig++-dev || failedPackages+=($p)
+        elif [[ $p == gcc-c++ ]] && [[ $distribution == ubuntu ]]; then
+                sudo apt-get -y install build-essential || failedPackages+=($p)
+                sudo apt-get -y install pkg-config || failedPackages+=($p)
         elif [[ $p == vim-plug ]]; then
             # curl is a dependency and already installed
             curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

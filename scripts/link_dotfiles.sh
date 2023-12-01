@@ -15,6 +15,7 @@ links+=("gitconfig")
 links+=("ssh.config")
 links+=("taskrc")
 links+=("bugwarriorrc")
+links+=("logid.cfg")
 [[ $os == "Darwin" ]] && links+=("alacritty.yml")
 
 for l in ${links[*]}; do
@@ -25,6 +26,8 @@ for l in ${links[*]}; do
             mkdir ~/.ssh
         fi
         ln -s -f $(pwd)/dotfiles/$l ~/.ssh/config && echo "linked dotfile .$l" || failedLinks+=($l)
+    elif [[ $l == "logid.cfg" ]]; then
+        sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else
         ln -s -f $(pwd)/dotfiles/$l ~/.$l && echo "linked dotfile .$l" || failedLinks+=($l)
     fi
