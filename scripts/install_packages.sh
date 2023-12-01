@@ -55,6 +55,7 @@ packages+=(brave-browser)
 packages+=(google-chrome-stable)
 packages+=(insync)
 packages+=(slack)
+packages+=(thunderbird)
 packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
 packages+=(vim-plug)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
