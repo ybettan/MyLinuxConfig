@@ -35,5 +35,6 @@ if [[ ! -z $updated_tasks ]]; then
     echo all | task "$updated_tasks" mod +u > /dev/null 2>&1
 fi
 
+mkdir -p /tmp/bugwarrior
 cp tmp.txt "/tmp/bugwarrior/$(date).txt"
 rm tmp.txt
