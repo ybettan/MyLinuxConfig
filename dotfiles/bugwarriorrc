@@ -109,8 +109,8 @@ github.involved_issues = True
 github.mention_all_repos = True
 
 # Get notified about new issues and pull-requests in the driver-toolkit repo even if not mentioned
-github.repositories = openshift/driver-toolkit
-github.include_repos = openshift/driver-toolkit
+#github.repositories = openshift/driver-toolkit
+#github.include_repos = openshift/driver-toolkit
 
 #[gitlab.cee.redhat]
 #service = gitlab
