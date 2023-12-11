@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 source scripts/print_summary.sh
 
 links=()

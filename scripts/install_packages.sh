@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 function enable_repositories {
 
     if [[ $distribution == "fedora" ]]; then

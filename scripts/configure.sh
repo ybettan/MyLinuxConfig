@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 function start_cronjobs {
     cronjob="*/5 * * * * /home/ybettan/MyLinuxConfig/scripts/bugwarrior-pull.sh"
     (sudo crontab -u $(whoami) -l; echo "$cronjob" ) | sudo crontab -u $(whoami) -

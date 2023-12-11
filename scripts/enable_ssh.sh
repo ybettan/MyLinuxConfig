@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 # make sure all VMs are accessible via SSH
 if [[ ${OS} == "Linux" ]]; then
