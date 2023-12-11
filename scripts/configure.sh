@@ -33,6 +33,11 @@ function define_gnome_tweaks {
     fi
 }
 
+function configure_closed_lid_action {
+    # Set close-lid action to be ignored
+    sudo sed -i 's/#HandleLidSwitch\=suspend/HandleLidSwitch\=ignore/' /etc/systemd/logind.conf
+}
+
 function start_logitech_mouse {
     git clone https://github.com/PixlOne/logiops.git /tmp/logiops
     mkdir /tmp/logiops/build
@@ -48,4 +53,5 @@ start_cronjobs
 start_insync
 source_tmux_conf_file
 define_gnome_tweaks
+configure_closed_lid_action
 start_logitech_mouse
