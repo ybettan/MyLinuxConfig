@@ -41,6 +41,7 @@ function configure_closed_lid_action {
 }
 
 function start_logitech_mouse {
+    # https://github.com/PixlOne/logiops
     git clone https://github.com/PixlOne/logiops.git /tmp/logiops
     mkdir /tmp/logiops/build
     cd /tmp/logiops/build
@@ -49,6 +50,7 @@ function start_logitech_mouse {
     sudo make install
     sudo systemctl enable --now logid
     cd -
+    # In order to manually re-run it, run `sudo systemctl restart logid`
 }
 
 start_cronjobs
