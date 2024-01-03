@@ -57,6 +57,7 @@ packages+=(brave-browser)
 packages+=(google-chrome-stable)
 packages+=(insync)
 packages+=(slack)
+packages+=(oc)
 packages+=(thunderbird)
 packages+=(gnome-tweaks)
 packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
@@ -114,6 +115,14 @@ if [[ ${OS} == "Linux" ]]; then
                     -o /tmp/slack-desktop-4.31.155-amd64.deb
                 sudo apt-get -y install /tmp/slack-desktop-4.31.155-amd64.deb || failedPackages+=($p)
             fi
+        elif [[ $p == oc ]]; then
+            mkdir /tmp/oc
+            cd /tmp/oc
+            curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
+            tar zxvf oc.tar.gz
+            sudo mv kubectl oc /usr/local/bin/
+            cd -
+            rm -rf /tmp/oc
         elif [[ $p == gnome-tweaks ]] && [[ $distribution == ubuntu ]]; then
             continue
         elif [[ $p == libevdev-devel ]] && [[ $distribution == ubuntu ]]; then
