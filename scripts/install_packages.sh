@@ -121,14 +121,14 @@ if [[ ${OS} == "Linux" ]]; then
             cd /tmp/oc
             curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
             tar zxvf oc.tar.gz
-            sudo mv kubectl oc /usr/local/bin/
+            sudo mv kubectl oc /usr/local/bin/ || failedPackages+=($p)
             cd -
             rm -rf /tmp/oc
         elif [[ $p == kind ]]; then
             # no latest binary exist - update if a newer version exists
             curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
             chmod +x ./kind
-            sudo mv ./kind /usr/local/bin/kind
+            sudo mv ./kind /usr/local/bin/kind || failedPackages+=($p)
         elif [[ $p == gnome-tweaks ]] && [[ $distribution == ubuntu ]]; then
             continue
         elif [[ $p == libevdev-devel ]] && [[ $distribution == ubuntu ]]; then
