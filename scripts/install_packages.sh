@@ -57,6 +57,7 @@ packages+=(brave-browser)
 packages+=(google-chrome-stable)
 packages+=(insync)
 packages+=(slack)
+packages+=(kubectl)
 packages+=(oc)
 packages+=(kind)
 packages+=(thunderbird)
@@ -116,12 +117,24 @@ if [[ ${OS} == "Linux" ]]; then
                     -o /tmp/slack-desktop-4.31.155-amd64.deb
                 sudo apt-get -y install /tmp/slack-desktop-4.31.155-amd64.deb || failedPackages+=($p)
             fi
+        elif [[ $p == kubectl ]]; then
+            # Download the binary
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            # Download the checksum file
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+            # Validate the binary
+            isOK=$(echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check | cut -d':' -f2 | tr -d ' ')
+            if [[ $isOK != "OK" ]]; then
+                failedPackages+=($p)
+                break
+            fi
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl || failedPackages+=($p)
         elif [[ $p == oc ]]; then
             mkdir /tmp/oc
             cd /tmp/oc
             curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
             tar zxvf oc.tar.gz
-            sudo mv kubectl oc /usr/local/bin/ || failedPackages+=($p)
+            sudo mv oc /usr/local/bin/ || failedPackages+=($p)
             cd -
             rm -rf /tmp/oc
         elif [[ $p == kind ]]; then
