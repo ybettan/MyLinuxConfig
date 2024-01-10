@@ -60,6 +60,7 @@ packages+=(slack)
 packages+=(kubectl)
 packages+=(oc)
 packages+=(kind)
+packages+=(yq)
 packages+=(thunderbird)
 packages+=(gnome-tweaks)
 packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
@@ -142,6 +143,9 @@ if [[ ${OS} == "Linux" ]]; then
             curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
             chmod +x ./kind
             sudo mv ./kind /usr/local/bin/kind || failedPackages+=($p)
+        elif [[ $p == yq ]]; then
+            curl -Lo /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+            chmod +x /usr/local/bin/yq || failedPackages+=($p)
         elif [[ $p == gnome-tweaks ]] && [[ $distribution == ubuntu ]]; then
             continue
         elif [[ $p == libevdev-devel ]] && [[ $distribution == ubuntu ]]; then
