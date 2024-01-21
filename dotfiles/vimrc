@@ -52,7 +52,7 @@ autocmd InsertEnter * :set number norelativenumber
 autocmd InsertLeave * :set nonumber relativenumber
 
 " set backgrond and font color of line number
-highlight LineNr ctermfg=grey ctermbg=black
+highlight LineNr ctermfg=white
 
 " without this vim in tmux recive diffrent colors
 set background=dark
