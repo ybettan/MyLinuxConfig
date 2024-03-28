@@ -13,6 +13,7 @@
     Plug 'tpope/vim-fugitive'                           " git wrapper
     Plug 'sunaku/tmux-navigate'                         " vim-tmux navigator
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " golang plugin for vim
+    Plug 'ruanyl/vim-gh-line'                           " Github links from vim
     
  call plug#end()
 
