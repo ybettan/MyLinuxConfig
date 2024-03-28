@@ -13,6 +13,7 @@
     Plug 'tpope/vim-fugitive'                           " git wrapper
     Plug 'sunaku/tmux-navigate'                         " vim-tmux navigator
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " golang plugin for vim
+    Plug 'ruanyl/vim-gh-line'                           " Github links from vim
     
  call plug#end()
 
@@ -338,3 +339,9 @@ let g:jedi#goto_command = "<C-p>"
 " Don't use swapfile
 set noswapfile
 
+"==============================================================================
+"                         vim-gh-line settings
+"==============================================================================
+
+" Copy link to a clipboard instead of opening a browser
+let g:gh_open_command = 'fn() { echo "$@" | xclip; }; fn '
