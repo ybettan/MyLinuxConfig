@@ -66,6 +66,8 @@ packages+=(gnome-tweaks)
 packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
 packages+=(vim-plug)
 packages+=(xclip)   # Needed for ruanyl/vim-gh-line plugin
+packages+=(tldr)
+packages+=(fzf)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
