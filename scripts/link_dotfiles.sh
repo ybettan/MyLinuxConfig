@@ -9,6 +9,7 @@ links+=("bashrc")
 links+=("bash_profile")
 links+=("aliases")
 links+=("vimrc")
+links+=("init.vim")
 links+=("tmux.conf")
 links+=("launchers")
 links+=("gitconfig")
@@ -20,12 +21,16 @@ links+=("logid.cfg")
 
 for l in ${links[*]}; do
 
-    # ssh.config need a special repo in ~
     if [[ $l == "ssh.config" ]]; then
         if ! [[ -d ~/.ssh ]]; then
             mkdir ~/.ssh
         fi
         ln -s -f $(pwd)/dotfiles/$l ~/.ssh/config && echo "linked dotfile .$l" || failedLinks+=($l)
+    elif [[ $l == "init.vim" ]]; then
+        if ! [[ -d ~/.config/nvim ]]; then
+            mkdir -p ~/.config/nvim
+        fi
+        ln -s -f $(pwd)/dotfiles/$l ~/.config/nvim/init.vim && echo "linked dotfile .$l" || failedLinks+=($l)
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else
