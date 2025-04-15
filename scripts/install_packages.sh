@@ -41,6 +41,7 @@ failedPackages=()
 
 packages+=(alacritty)
 packages+=(vim)
+packages+=(neovim)
 packages+=(tmux)
 packages+=(ctags)
 packages+=(curl)    # needed to install vim-plug
@@ -63,9 +64,11 @@ packages+=(thunderbird)
 packages+=(gnome-tweaks)
 packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
 packages+=(vim-plug)
+packages+=(nvim-plug)
 packages+=(xclip)   # Needed for ruanyl/vim-gh-line plugin
 packages+=(tldr)
 packages+=(fzf)
+packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -165,6 +168,12 @@ if [[ ${OS} == "Linux" ]]; then
             curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
                 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
                 failedPackages+=(vim-plug)
+        elif [[ $p == nvim-plug ]]; then
+            curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+                https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
+                failedPackages+=(nvim-plug)
+        elif [[ $p == pynvim ]]; then
+            pip install pynvim
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
