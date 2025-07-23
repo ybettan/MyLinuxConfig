@@ -44,7 +44,7 @@ packages+=(vim)
 packages+=(neovim)
 packages+=(tmux)
 packages+=(ctags)
-packages+=(curl)    # needed to install vim-plug
+packages+=(curl)
 packages+=(maven)   # needed to build vim-javautocomplete2 plugin
 packages+=(golang)
 packages+=(xclip)   # needed for integrating system clipboard into tmux clipboard
@@ -63,8 +63,6 @@ packages+=(yq)
 packages+=(thunderbird)
 packages+=(gnome-tweaks)
 packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
-packages+=(vim-plug)
-packages+=(nvim-plug)
 packages+=(xclip)   # Needed for ruanyl/vim-gh-line plugin
 packages+=(tldr)
 packages+=(fzf)
@@ -163,15 +161,6 @@ if [[ ${OS} == "Linux" ]]; then
         elif [[ $p == gcc-c++ ]] && [[ $distribution == ubuntu ]]; then
                 sudo $packageManager -y install build-essential || failedPackages+=($p)
                 sudo $packageManager -y install pkg-config || failedPackages+=($p)
-        elif [[ $p == vim-plug ]]; then
-            # curl is a dependency and already installed
-            curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-                https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
-                failedPackages+=(vim-plug)
-        elif [[ $p == nvim-plug ]]; then
-            curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-                https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || \
-                failedPackages+=(nvim-plug)
         elif [[ $p == pynvim ]]; then
             pip install pynvim
         else
