@@ -4,7 +4,6 @@ local map = vim.keymap.set
 map("i", "jj", "<Esc>")
 
 -- Normal mode
-map("n", "<C-p>", "<C-]>", { noremap = true })
 map("n", "Y", "y$")
 map("n", "<Leader>l", ":ls<CR>")
 map("n", "<Leader>b", ":bp<CR>")
