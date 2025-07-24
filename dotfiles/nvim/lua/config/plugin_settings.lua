@@ -27,9 +27,5 @@ function! LightlineFilename()
 endfunction
 ]])
 
--- jedi-vim
-g["jedi#show_call_signatures"] = "2"
-g["jedi#goto_command"] = "<C-p>"
-
 -- gh-line
 g.gh_open_command = 'fn() { echo "$@" | xclip; }; fn '
