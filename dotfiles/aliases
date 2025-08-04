@@ -25,6 +25,7 @@ alias mv="mv -i"
 alias rp="realpath"
 alias grep="grep --colour"
 alias ggrep="grep -rnw . -e" #equivalent to git grep
+alias cnvim='eval "podman run -it --rm -v /home/ybettan/go/src/github.com/cnvim/nvim:/root/.config/nvim:z -v /home/ybettan/.local/share/nvim:/root/.local/share/nvim:z -v /home/ybettan/go/bin:/root/go/bin:z -v /home/ybettan/go/pkg:/root/go/pkg:z -v /home/ybettan/.config/github-copilot/apps.json:/root/.config/github-copilot/apps.json -v $(pwd):/mnt quay.io/ybettan/cnvim:latest"'
 
 # qemu aliases
 
