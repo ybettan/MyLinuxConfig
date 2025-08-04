@@ -46,6 +46,7 @@ export EDITOR=vim
 GOPATH="$HOME/go" # needed for golang
 PATH+=$PATH:$GOPATH/bin # needed for golang
 PATH+=":/usr/local/go/bin:/root/go/bin"; # needed for golang
+PATH+=":/root/.local/bin"; # required for assisted-test-infra
 [[ $os == "Darwin" ]] && PATH+=":/usr/local/bin"; # linux add it automatically
 [[ $os == "Darwin" ]] && PATH+=":$HOME/.cargo/bin"; # needed for alacritty terminal
 
