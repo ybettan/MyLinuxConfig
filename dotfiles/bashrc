@@ -35,6 +35,8 @@ os=`uname -s`
 
 # needed for making crontab using vim as it default editor
 export EDITOR=vim
+# needed for making k8s using nvim as it default editor
+export KUBE_EDITOR=nvim
 
 # let tmux start automatically with shell
 # this is very problematic - this breaks login!!!!!!!
