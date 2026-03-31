@@ -45,12 +45,19 @@ export KUBE_EDITOR=nvim
 #fi
 
 # adding directories to $PATH
+pathadd() {
+    if [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
 GOPATH="$HOME/go" # needed for golang
-PATH+=$PATH:$GOPATH/bin # needed for golang
-PATH+=":/usr/local/go/bin:/root/go/bin"; # needed for golang
-PATH+=":/root/.local/bin"; # required for assisted-test-infra
-[[ $os == "Darwin" ]] && PATH+=":/usr/local/bin"; # linux add it automatically
-[[ $os == "Darwin" ]] && PATH+=":$HOME/.cargo/bin"; # needed for alacritty terminal
+pathadd "$GOPATH/bin" # needed for golang
+pathadd "/usr/local/go/bin" # needed for golang
+pathadd "/root/go/bin" # needed for golang
+pathadd "/root/.local/bin" # required for assisted-test-infra
+[[ $os == "Darwin" ]] && pathadd "/usr/local/bin" # linux add it automatically
+[[ $os == "Darwin" ]] && pathadd "$HOME/.cargo/bin" # needed for alacritty terminal
 
 # show the branch name when the current repo is gitted
 parse_git_branch() {
