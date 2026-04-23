@@ -90,6 +90,7 @@ fi
 export CLAUDE_CODE_USE_VERTEX=1
 export CLOUD_ML_REGION=us-east5
 export ANTHROPIC_VERTEX_PROJECT_ID=itpc-gcp-eco-eng-claude
+export CLOUD_ML_REGION=global
 unset ANTHROPIC_MODEL
 unset ANTHROPIC_SMALL_FAST_MODEL
 pathadd "$HOME/.local/bin"
