@@ -16,6 +16,7 @@ links+=("ssh.config")
 links+=("taskrc")
 links+=("bugwarriorrc")
 links+=("logid.cfg")
+links+=("claude")
 [[ $os == "Darwin" ]] && links+=("alacritty.yml")
 
 for l in ${links[*]}; do
@@ -30,6 +31,12 @@ for l in ${links[*]}; do
             mkdir -p ~/.config
         fi
         ln -s -f $(pwd)/dotfiles/$l ~/.config/nvim && echo "linked dotfile .$l" || failedLinks+=($l)
+    elif [[ $l == "claude" ]]; then
+        if ! [[ -d ~/.claude ]]; then
+            mkdir -p ~/.claude
+        fi
+        ln -s -f $(pwd)/dotfiles/claude/statusline.sh ~/.claude/statusline.sh && echo "linked dotfile claude/statusline.sh" || failedLinks+=($l)
+        ln -s -f $(pwd)/dotfiles/claude/settings.json ~/.claude/settings.json && echo "linked dotfile claude/settings.json" || failedLinks+=($l)
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else
