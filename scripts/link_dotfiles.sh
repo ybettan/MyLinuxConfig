@@ -37,6 +37,7 @@ for l in ${links[*]}; do
         fi
         ln -s -f $(pwd)/dotfiles/claude/statusline.sh ~/.claude/statusline.sh && echo "linked dotfile claude/statusline.sh" || failedLinks+=($l)
         ln -s -f $(pwd)/dotfiles/claude/settings.json ~/.claude/settings.json && echo "linked dotfile claude/settings.json" || failedLinks+=($l)
+        ln -s -f $(pwd)/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md && echo "linked dotfile claude/CLAUDE.md" || failedLinks+=($l)
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else

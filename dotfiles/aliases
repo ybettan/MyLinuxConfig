@@ -30,3 +30,6 @@ alias ggrep="grep -rnw . -e" #equivalent to git grep
 
 alias vm_fedoraNested="~/Work/Qemu/qemu_bin/x86_64/x86_64-softmmu/qemu-system-x86_64 -m 4096 -smp 2 -enable-kvm -drive if=virtio,file=/home/fedora/VirtualMachines/fedoraNested.qcow2,cache=none -cdrom ~/VirtualMachines/Fedora-Workstation-Live-x86_64-28-1.1.iso  -device e1000,netdev=u2 -netdev user,id=u2,hostfwd=tcp::10022-:22 -display none -monitor stdio"
 
+# gh-rw: overrides the default gh auth token (set by `gh auth login`) with a classic
+# token that has write permissions (scopes: repo, read:org) for that command only
+alias gh-rw='GH_TOKEN="$(cat ~/.gh_review_token)" gh'
