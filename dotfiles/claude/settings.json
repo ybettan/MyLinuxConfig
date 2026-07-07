@@ -4,5 +4,17 @@
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
   },
-  "theme": "dark"
+  "enabledPlugins": {
+    "jira@ecosystem-claude-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "ecosystem-claude-plugins": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/redhat-community-ai-tools/claude-plugins.git"
+      }
+    }
+  },
+  "theme": "dark",
+  "skipWorkflowUsageWarning": true
 }
