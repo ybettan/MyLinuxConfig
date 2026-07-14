@@ -37,7 +37,9 @@ function enable_repositories {
 }
 
 packages=()
+optionalPackages=()
 failedPackages=()
+failedOptionalPackages=()
 
 packages+=(alacritty)
 packages+=(vim)
@@ -47,27 +49,35 @@ packages+=(ctags)
 packages+=(curl)
 packages+=(maven)   # needed to build vim-javautocomplete2 plugin
 packages+=(golang)
-packages+=(xclip)   # needed for integrating system clipboard into tmux clipboard
-packages+=(pip)     # needed to install bugwarrior
-packages+=(task)
-packages+=(bugwarrior)
-packages+=(cronie)  # needed for running 'crontab'
-packages+=(brave-browser)
-packages+=(google-chrome-stable)
-packages+=(insync)
-packages+=(slack)
-packages+=(kubectl)
-packages+=(oc)
-packages+=(kind)
-packages+=(yq)
-packages+=(thunderbird)
-packages+=(gnome-tweaks)
-packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
-packages+=(xclip)   # Needed for ruanyl/vim-gh-line plugin
 packages+=(tldr)
 packages+=(fzf)
-packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
+
+if [[ ${OS} == "Linux" ]]; then
+    packages+=(xclip)   # needed for integrating system clipboard into tmux clipboard
+    packages+=(pip)     # needed to install bugwarrior
+    packages+=(task)
+    packages+=(bugwarrior)
+    packages+=(cronie)  # needed for running 'crontab'
+    packages+=(slack)
+    packages+=(kubectl)
+    packages+=(oc)
+    packages+=(kind)
+    packages+=(yq)
+    packages+=(thunderbird)
+    packages+=(gnome-tweaks)
+    packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
+    packages+=(xclip)   # Needed for ruanyl/vim-gh-line plugin
+    packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
+
+    # Optional packages that require external repositories or hardcoded URLs
+    # and may fail in CI environments
+    optionalPackages+=(brave-browser)
+    optionalPackages+=(google-chrome-stable)
+    optionalPackages+=(insync)
+fi
+
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
+[[ ${OS} == "Darwin" ]] && packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
 
 if [[ ${OS} == "Linux" ]]; then
 
@@ -97,18 +107,6 @@ if [[ ${OS} == "Linux" ]]; then
             sudo $packageManager -y install taskwarrior || failedPackages+=($p)
         elif [[ $p == cronie ]] && [[ $distribution == ubuntu ]]; then
             sudo $packageManager -y install cron || failedPackages+=($p)
-        elif [[ $p == google-chrome-stable ]] && [[ $distribution == ubuntu ]]; then
-            curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb || failedPackages+=($p)
-        elif [[ $p == insync ]]; then
-            if [[ $distribution == fedora ]]; then
-                # no latest RPM exist - update for other fedora versions
-                sudo $packageManager -y install https://cdn.insynchq.com/builds/linux/insync-3.8.6.50504-fc39.x86_64.rpm || failedPackages+=($p)
-            elif [[ $distribution == ubuntu ]]; then
-                # no latest deb exit - update for other ubuntu versions - this is for 22.04
-                curl https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-jammy_amd64.deb -o /tmp/insync_3.8.6.50504-jammy_amd64.deb
-                sudo $packageManager -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb || failedPackages+=($p)
-            fi
         elif [[ $p == slack ]]; then
             if [[ $distribution == fedora ]]; then
                 # no latest RPM exist - update if a newer version exists
@@ -168,6 +166,27 @@ if [[ ${OS} == "Linux" ]]; then
         fi
     done
 
+    # install optional packages (third-party apps with external repos that may not
+    # be available in all environments)
+    for p in ${optionalPackages[*]} ; do
+        enable_repositories
+        if [[ $p == google-chrome-stable ]] && [[ $distribution == ubuntu ]]; then
+            curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb || failedOptionalPackages+=($p)
+        elif [[ $p == insync ]]; then
+            if [[ $distribution == fedora ]]; then
+                # no latest RPM exist - update for other fedora versions
+                sudo $packageManager -y install https://cdn.insynchq.com/builds/linux/insync-3.8.6.50504-fc39.x86_64.rpm || failedOptionalPackages+=($p)
+            elif [[ $distribution == ubuntu ]]; then
+                # no latest deb exit - update for other ubuntu versions - this is for 22.04
+                curl https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-jammy_amd64.deb -o /tmp/insync_3.8.6.50504-jammy_amd64.deb
+                sudo $packageManager -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb || failedOptionalPackages+=($p)
+            fi
+        else
+            sudo $packageManager -y install $p || failedOptionalPackages+=($p)
+        fi
+    done
+
 else # Darwin (OSX)
 
     # instal Brew package manager
@@ -182,12 +201,16 @@ else # Darwin (OSX)
     # install the packages
     for p in ${packages[*]} ; do
 
-        # if the package already exist on the machine but wasn't install using brew
-        # we need to make sure brew override the binary symlink to the latest package
-        # installed by brew.
-        # we may fail on other errors rather than bad linking but this should
-        # handle some errors
-        brew install $p || { brew link --overwrite $p || failedPackages+=($p); }
+        if [[ $p == pynvim ]]; then
+            pip3 install pynvim || failedPackages+=($p)
+        else
+            # if the package already exist on the machine but wasn't install using brew
+            # we need to make sure brew override the binary symlink to the latest package
+            # installed by brew.
+            # we may fail on other errors rather than bad linking but this should
+            # handle some errors
+            brew install $p || { brew link --overwrite $p || failedPackages+=($p); }
+        fi
     done
 fi
 
@@ -205,5 +228,11 @@ else
         echo -e "\t- $fp"
     done
     exit 1
+fi
+if [[ ${#failedOptionalPackages[*]} -gt 0 ]]; then
+    echo "Optional packages that could not be installed (non-fatal):"
+    for fp in ${failedOptionalPackages[*]}; do
+        echo -e "\t- $fp"
+    done
 fi
 echo --------------------------------------------------------
