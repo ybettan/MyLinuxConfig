@@ -66,7 +66,6 @@ if [[ ${OS} == "Linux" ]]; then
     packages+=(thunderbird)
     packages+=(gnome-tweaks)
     packages+=(cmake libevdev-devel glib2-devel systemd-devel libconfig-devel gcc-c++)   # needed for building 'logiops'
-    packages+=(xclip)   # Needed for ruanyl/vim-gh-line plugin
     packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
 
     # Optional packages that require external repositories or hardcoded URLs
@@ -178,7 +177,7 @@ if [[ ${OS} == "Linux" ]]; then
                 # no latest RPM exist - update for other fedora versions
                 sudo $packageManager -y install https://cdn.insynchq.com/builds/linux/insync-3.8.6.50504-fc39.x86_64.rpm || failedOptionalPackages+=($p)
             elif [[ $distribution == ubuntu ]]; then
-                # no latest deb exit - update for other ubuntu versions - this is for 22.04
+                # no latest deb exist - update for other ubuntu versions - this is for 22.04
                 curl https://cdn.insynchq.com/builds/linux/insync_3.8.6.50504-jammy_amd64.deb -o /tmp/insync_3.8.6.50504-jammy_amd64.deb
                 sudo $packageManager -y install /tmp/insync_3.8.6.50504-jammy_amd64.deb || failedOptionalPackages+=($p)
             fi
