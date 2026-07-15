@@ -37,7 +37,12 @@ for l in ${links[*]}; do
         fi
         ln -s -f $(pwd)/dotfiles/claude/statusline.sh ~/.claude/statusline.sh && echo "linked dotfile claude/statusline.sh" || failedLinks+=($l)
         ln -s -f $(pwd)/dotfiles/claude/settings.json ~/.claude/settings.json && echo "linked dotfile claude/settings.json" || failedLinks+=($l)
-        ln -s -f $(pwd)/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md && echo "linked dotfile claude/CLAUDE.md" || failedLinks+=($l)
+        # Link skills individually to not override existing skills (e.g. find-skills)
+        mkdir -p ~/.claude/skills
+        for skill in $(pwd)/dotfiles/claude/skills/*/; do
+            skill_name=$(basename $skill)
+            ln -s -f $skill ~/.claude/skills/$skill_name && echo "linked skill claude/skills/$skill_name" || failedLinks+=($l)
+        done
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else
