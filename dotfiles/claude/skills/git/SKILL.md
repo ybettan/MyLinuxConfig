@@ -9,4 +9,8 @@ description: Git conventions and commit rules. Use when committing code, creatin
 
 Always use the `-s` flag when running `git commit` to include a `Signed-off-by` trailer.
 
+## History Integrity
+
+Never override existing commits (amend, rebase, force-push) without getting explicit permission from the user.
+
 $ARGUMENTS
