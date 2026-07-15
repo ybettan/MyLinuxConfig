@@ -15,4 +15,12 @@ cat /tmp/jira-desc.md | jira issue edit ISSUE-KEY --no-input
 
 The `-b` flag does not work reliably for multi-line descriptions. The stdin pipe is the only reliable method.
 
+## Creating Issues
+
+Always use `-p OSAC` explicitly when creating issues — the default project in the config is not picked up by `jira issue create`.
+
+```bash
+cat /tmp/jira-desc.md | jira issue create -tBug -s "title" -p OSAC -l OSAC --no-input
+```
+
 $ARGUMENTS
