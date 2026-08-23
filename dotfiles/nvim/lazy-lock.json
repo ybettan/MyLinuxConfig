@@ -1,18 +1,18 @@
 {
-  "CopilotChat.nvim": { "branch": "main", "commit": "137d3bc527518f5ea982c43c43084496732365c3" },
+  "CopilotChat.nvim": { "branch": "main", "commit": "f5171b9575279995205fde6a6c06c2632bb0b9d9" },
   "copilot.vim": { "branch": "release", "commit": "a12fd5672110c8aa7e3c8419e28c96943ca179be" },
-  "gruvbox": { "branch": "master", "commit": "697c00291db857ca0af00ec154e5bd514a79191f" },
-  "jedi-vim": { "branch": "master", "commit": "89a2122ab0ad30ebe258d8276bf584511fe27129" },
+  "gruvbox": { "branch": "master", "commit": "5d15b2765f59754d7ac263c88a0f6e3e58124951" },
+  "jedi-vim": { "branch": "master", "commit": "a13c7bf64dbb4abcf676b4e41c5fedc2d4e7f6dd" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
-  "lightline.vim": { "branch": "master", "commit": "6c283f8df85aa7219fa4096a6ed4ff45d48aa9e1" },
-  "mini.icons": { "branch": "main", "commit": "bac6317300e205335df425296570d84322730067" },
-  "nvim-treesitter": { "branch": "main", "commit": "4916d6592ede8c07973490d9322f187e07dfefac" },
+  "lightline.vim": { "branch": "master", "commit": "d042c506cb2e7a59112a72447e0b5fe8739d9d1d" },
+  "mini.icons": { "branch": "main", "commit": "98faae31e9be1cc054ae63485e58ceb185efcad0" },
+  "nvim-treesitter": { "branch": "main", "commit": "e82ef6ae2c3eeb96c6916b29917f96bf630b2cdb" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
-  "render-markdown.nvim": { "branch": "main", "commit": "3f3eea97b80839f629c951ca660ffd125bfa5b34" },
+  "render-markdown.nvim": { "branch": "main", "commit": "4663eb3ecd538bd5062628fb6d95bbe6bdca78f6" },
   "supertab": { "branch": "main", "commit": "8705ae0e43b34339c06328fa6dab24ecaf21aab6" },
   "syntastic": { "branch": "master", "commit": "8d5e37c29cf5952fbf300b9230bffe424c61a488" },
   "tmux-navigate": { "branch": "master", "commit": "27c83cd229bceff55e6318cce7945995623a6106" },
   "vim-fugitive": { "branch": "master", "commit": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0" },
   "vim-gh-line": { "branch": "master", "commit": "731751fdfa4f64a061dbc7088cb7b2f12e0828ad" },
-  "vim-go": { "branch": "master", "commit": "f4b4ba17035aebcd222df90375c1cbb1dc4d8c5b" }
+  "vim-go": { "branch": "master", "commit": "2f924e908319606c4027b0d43e7c41081e41ac94" }
 }
