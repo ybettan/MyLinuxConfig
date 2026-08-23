@@ -1,5 +1,10 @@
 {
-  "model": "claude-opus-4-6[1m]",
+  "env": {
+    "CLAUDE_CODE_USE_VERTEX": "1",
+    "ANTHROPIC_VERTEX_PROJECT_ID": "itpc-ca-c1f30a2449",
+    "CLOUD_ML_REGION": "global"
+  },
+  "model": "claude-sonnet-5",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
@@ -15,6 +20,6 @@
       }
     }
   },
-  "theme": "dark",
-  "skipWorkflowUsageWarning": true
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark"
 }
