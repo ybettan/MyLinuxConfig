@@ -5,10 +5,9 @@ function enable_repositories {
     if [[ $distribution == "fedora" ]]; then
 
         if [[ $p == "brave-browser" ]]; then
-            # package needed for enabling repositories
             sudo $packageManager -y install dnf-plugins-core
-            sudo $packageManager config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-            sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+            sudo $packageManager config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+            #sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
         fi
 
         if [[ $p == "google-chrome-stable" ]]; then
@@ -22,14 +21,6 @@ function enable_repositories {
             # package needed for enabling repositories
             sudo $packageManager -y install software-properties-common
             sudo add-apt-repository ppa:aslatter/ppa -y
-        fi
-
-        if [[ $p == "brave-browser" ]]; then
-            sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
-                https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-            echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | \
-                sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-            sudo $packageManager -y update
         fi
 
     fi
@@ -146,8 +137,8 @@ if [[ ${OS} == "Linux" ]]; then
             chmod +x ./kind
             sudo mv ./kind /usr/local/bin/kind || failedPackages+=($p)
         elif [[ $p == yq ]]; then
-            curl -Lo /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-            chmod +x /usr/local/bin/yq || failedPackages+=($p)
+            curl -Lo /tmp/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+            sudo install -o root -g root -m 0755 /tmp/yq /usr/local/bin/yq || failedPackages+=($p)
         elif [[ $p == gnome-tweaks ]] && [[ $distribution == ubuntu ]]; then
             continue
         elif [[ $p == libevdev-devel ]] && [[ $distribution == ubuntu ]]; then
