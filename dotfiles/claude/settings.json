@@ -4,7 +4,7 @@
     "ANTHROPIC_VERTEX_PROJECT_ID": "itpc-ca-c1f30a2449",
     "CLOUD_ML_REGION": "global"
   },
-  "model": "claude-sonnet-5",
+  "model": "claude-opus-4-8[1m]",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
