@@ -31,7 +31,7 @@ for l in ${links[*]}; do
         if ! [[ -d ~/.config ]]; then
             mkdir -p ~/.config
         fi
-        ln -s -f $(pwd)/dotfiles/$l ~/.config/nvim && echo "linked dotfile .$l" || failedLinks+=($l)
+        ln -s -f -n $(pwd)/dotfiles/$l ~/.config/nvim && echo "linked dotfile .$l" || failedLinks+=($l)
     elif [[ $l == "claude" ]]; then
         if ! [[ -d ~/.claude ]]; then
             mkdir -p ~/.claude
