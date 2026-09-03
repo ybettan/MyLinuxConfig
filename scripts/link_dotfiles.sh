@@ -32,7 +32,7 @@ for l in ${links[*]}; do
         if ! [[ -d ~/.config ]]; then
             mkdir -p ~/.config
         fi
-        ln -s -f $(pwd)/dotfiles/$l ~/.config/nvim && echo "linked dotfile .$l" || failedLinks+=($l)
+        ln -s -f -n $(pwd)/dotfiles/$l ~/.config/nvim && echo "linked dotfile .$l" || failedLinks+=($l)
     elif [[ $l == "claude" ]]; then
         if ! [[ -d ~/.claude ]]; then
             mkdir -p ~/.claude
@@ -43,7 +43,7 @@ for l in ${links[*]}; do
         mkdir -p ~/.claude/skills
         for skill in $(pwd)/dotfiles/claude/skills/*/; do
             skill_name=$(basename $skill)
-            ln -s -f $skill ~/.claude/skills/$skill_name && echo "linked skill claude/skills/$skill_name" || failedLinks+=($l)
+            ln -s -f -n $skill ~/.claude/skills/$skill_name && echo "linked skill claude/skills/$skill_name" || failedLinks+=($l)
         done
     elif [[ $l == "cursor" ]]; then
         if ! [[ -d ~/.cursor ]]; then
