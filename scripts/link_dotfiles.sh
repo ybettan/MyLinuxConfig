@@ -17,6 +17,7 @@ links+=("taskrc")
 links+=("bugwarriorrc")
 links+=("logid.cfg")
 links+=("claude")
+links+=("cursor")
 [[ $os == "Darwin" ]] && links+=("alacritty.yml")
 
 for l in ${links[*]}; do
@@ -43,6 +44,12 @@ for l in ${links[*]}; do
             skill_name=$(basename $skill)
             ln -s -f $skill ~/.claude/skills/$skill_name && echo "linked skill claude/skills/$skill_name" || failedLinks+=($l)
         done
+    elif [[ $l == "cursor" ]]; then
+        if ! [[ -d ~/.cursor ]]; then
+            mkdir -p ~/.cursor
+        fi
+        ln -s -f $(pwd)/dotfiles/cursor/statusline.sh ~/.cursor/statusline.sh && echo "linked dotfile cursor/statusline.sh" || failedLinks+=($l)
+        ln -s -f $(pwd)/dotfiles/cursor/statusline-usage.py ~/.cursor/statusline-usage.py && echo "linked dotfile cursor/statusline-usage.py" || failedLinks+=($l)
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else
