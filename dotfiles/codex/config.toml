@@ -1,0 +1,44 @@
+model = "gpt-5.6-luna"
+model_reasoning_effort = "max"
+model_context_window = 872000
+
+# Prevent Codex from modifying local files without an approved escalation.
+sandbox_mode = "read-only"
+
+# Allow Codex to ask for permission when an action exceeds the read-only sandbox.
+approval_policy = "on-request"
+
+# Send approval requests to you instead of the automatic reviewer.
+approvals_reviewer = "user"
+
+# Enable current, live web research independently of local command networking.
+web_search = "live"
+
+# Codex's native footer status line. Keep the model/project/git/context details
+# visible to match the Claude and Cursor status bars.
+[tui]
+status_line = [
+    "model-with-reasoning",
+    "project-name",
+    "git-branch",
+    "context-used",
+    "context-window-size",
+    "used-tokens",
+    "estimated-thread-cost",
+]
+status_line_use_colors = true
+
+[projects."/home/ybettan/go/src/github.com/ecom"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/kernel-module-management"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/MyLinuxConfig"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/osac-workspace"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/osac-workspace/enhancement-proposals"]
+trust_level = "trusted"

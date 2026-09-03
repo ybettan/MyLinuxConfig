@@ -18,6 +18,7 @@ links+=("bugwarriorrc")
 links+=("logid.cfg")
 links+=("claude")
 links+=("cursor")
+links+=("codex")
 [[ $os == "Darwin" ]] && links+=("alacritty.yml")
 
 for l in ${links[*]}; do
@@ -50,6 +51,13 @@ for l in ${links[*]}; do
         fi
         ln -s -f $(pwd)/dotfiles/cursor/statusline.sh ~/.cursor/statusline.sh && echo "linked dotfile cursor/statusline.sh" || failedLinks+=($l)
         ln -s -f $(pwd)/dotfiles/cursor/statusline-usage.py ~/.cursor/statusline-usage.py && echo "linked dotfile cursor/statusline-usage.py" || failedLinks+=($l)
+    elif [[ $l == "codex" ]]; then
+        for codex_home in ~/.codex-corp ~/.codex-priv; do
+            if ! [[ -d $codex_home ]]; then
+                mkdir -p $codex_home
+            fi
+            ln -s -f $(pwd)/dotfiles/codex/config.toml $codex_home/config.toml && echo "linked dotfile codex/config.toml to $codex_home" || failedLinks+=($l)
+        done
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else

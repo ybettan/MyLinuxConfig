@@ -94,3 +94,14 @@ export CLOUD_ML_REGION=global
 unset ANTHROPIC_MODEL
 unset ANTHROPIC_SMALL_FAST_MODEL
 pathadd "$HOME/.local/bin"
+
+# Run Codex with separate private and corporate credentials.
+# Authenticate each account once with the matching command, then use
+# `codex-priv` or `codex-corp` to select the account per invocation.
+codex-priv() {
+    CODEX_HOME="$HOME/.codex-priv" command codex "$@"
+}
+
+codex-corp() {
+    CODEX_HOME="$HOME/.codex-corp" command codex "$@"
+}
