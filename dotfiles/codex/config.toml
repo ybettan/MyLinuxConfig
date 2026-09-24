@@ -1,5 +1,5 @@
-model = "gpt-5.6-luna"
-model_reasoning_effort = "max"
+model = "gpt-6-luna"
+model_reasoning_effort = "xhigh"
 model_context_window = 872000
 
 # Prevent Codex from modifying local files without an approved escalation.
@@ -41,4 +41,16 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/ybettan/go/src/github.com/osac-workspace/enhancement-proposals"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/osac"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/osac-workspace-backup"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/osac/enhancement-proposals"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/network-runner"]
 trust_level = "trusted"
