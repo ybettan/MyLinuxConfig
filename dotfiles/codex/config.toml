@@ -30,6 +30,9 @@ status_line_use_colors = true
 screen_reader_detection_done = true
 fullscreen_transcript = false
 
+[tui.model_availability_nux]
+"gpt-6.1-sol" = 1
+
 [projects."/home/ybettan/go/src/github.com/ecom"]
 trust_level = "trusted"
 
@@ -56,3 +59,23 @@ trust_level = "trusted"
 
 [projects."/home/ybettan/go/src/github.com/network-runner"]
 trust_level = "trusted"
+
+[projects."/root/go/src/github.com/osac"]
+trust_level = "trusted"
+
+[hooks.state]
+
+[hooks.state."/root/go/src/github.com/osac/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:d85fd92fd430e55ccc9ae969fa69d1a0a8682510c79bc2a3f43ea9109cb80731"
+
+[hooks.state."/root/go/src/github.com/osac/.codex/hooks.json:pre_tool_use:0:1"]
+trusted_hash = "sha256:3530eb15bfd598db23de3c7f035b2462cfcce4e78575f27395b62969875e2910"
+
+[hooks.state."/root/go/src/github.com/osac/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:912dea87aa7fadae01d82e53f30075ff62565e5a2b12ef4eb11de1b322e8f4a0"
+
+[hooks.state."/root/go/src/github.com/osac/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:74fa347f81b61ca0762cc686fd046f3eb152c80227611ec9b84ea1bf045c5a7f"
+
+[hooks.state."/root/go/src/github.com/osac/.codex/hooks.json:session_start:0:1"]
+trusted_hash = "sha256:2fa05032b17db8b5a76a6385eca83da5c1598aaf2c445080ed6124e8fd76b0f2"
