@@ -43,7 +43,9 @@ for l in ${links[*]}; do
             if ! [[ -d $codex_home ]]; then
                 mkdir -p $codex_home
             fi
+            mkdir -p "$codex_home/rules"
             ln -s -f $(pwd)/dotfiles/codex/config.toml $codex_home/config.toml && echo "linked dotfile codex/config.toml to $codex_home" || failedLinks+=($l)
+            ln -s -f "$(pwd)/dotfiles/codex/default.rules" "$codex_home/rules/default.rules" && echo "linked dotfile codex/default.rules to $codex_home/rules" || failedLinks+=($l)
         done
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg

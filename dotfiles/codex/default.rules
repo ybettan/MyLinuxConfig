@@ -1,0 +1,15 @@
+# Allow viewing and listing GitHub issues and pull requests.
+prefix_rule(pattern=["gh", "issue", "view"], decision="allow")
+prefix_rule(pattern=["gh", "issue", "list"], decision="allow")
+prefix_rule(pattern=["gh", "pr", "view"], decision="allow")
+prefix_rule(pattern=["gh", "pr", "list"], decision="allow")
+
+# Allow viewing and listing Jira issues and epics.
+prefix_rule(pattern=["jira", "issue", "view"], decision="allow")
+prefix_rule(pattern=["jira", "issue", "list"], decision="allow")
+prefix_rule(pattern=["jira", "epic", "view"], decision="allow")
+prefix_rule(pattern=["jira", "epic", "list"], decision="allow")
+
+# Allow getting and describing any OpenShift resource.
+prefix_rule(pattern=["oc", "get"], decision="allow")
+prefix_rule(pattern=["oc", "describe"], decision="allow")
