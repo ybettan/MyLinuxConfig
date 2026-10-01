@@ -1,0 +1,38 @@
+# Allow viewing and listing GitHub issues and pull requests.
+prefix_rule(pattern=["gh", "issue", "view"], decision="allow")
+prefix_rule(pattern=["gh", "issue", "list"], decision="allow")
+prefix_rule(pattern=["gh", "pr", "view"], decision="allow")
+prefix_rule(pattern=["gh", "pr", "list"], decision="allow")
+prefix_rule(pattern=["gh", "repo", "view"], decision="allow")
+
+# Allow viewing and listing Jira issues and epics.
+prefix_rule(pattern=["jira", "issue", "view"], decision="allow")
+prefix_rule(pattern=["jira", "issue", "list"], decision="allow")
+prefix_rule(pattern=["jira", "epic", "view"], decision="allow")
+prefix_rule(pattern=["jira", "epic", "list"], decision="allow")
+
+# Allow getting and describing any OpenShift resource.
+prefix_rule(pattern=["oc", "get"], decision="allow")
+prefix_rule(pattern=["oc", "describe"], decision="allow")
+prefix_rule(pattern=["KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig", "oc", "get"], decision="allow")
+prefix_rule(pattern=["KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig", "oc", "describe"], decision="allow")
+
+# Allow running linter on projects with a `lint` Makefile target
+prefix_rule(pattern=["make", "lint"], decision="allow")
+
+# Allow running Ansible linter
+prefix_rule(pattern=["uv", "run"], decision="allow")
+
+# Allow read-only virsh commands
+prefix_rule(pattern=["virsh", "list"], decision="allow")
+prefix_rule(pattern=["virsh", "net-info"], decision="allow")
+prefix_rule(pattern=["virsh", "net-dumpxml"], decision="allow")
+
+# Allow checking containers
+prefix_rule(pattern=["docker", "ps"], decision="allow")
+prefix_rule(pattern=["podman", "ps"], decision="allow")
+prefix_rule(pattern=["docker", "network", "ls"], decision="allow")
+prefix_rule(pattern=["podman", "network", "ls"], decision="allow")
+
+# Add git rules
+prefix_rule(pattern=["git", "fetch"], decision="allow")
