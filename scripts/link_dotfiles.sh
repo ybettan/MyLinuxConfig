@@ -23,26 +23,17 @@ links+=("codex")
 for l in ${links[*]}; do
 
     if [[ $l == "ssh.config" ]]; then
-        if ! [[ -d ~/.ssh ]]; then
-            mkdir ~/.ssh
-        fi
+        mkdir -p ~/.ssh
         ln -s -f $(pwd)/dotfiles/$l ~/.ssh/config && echo "linked dotfile .$l" || failedLinks+=($l)
     elif [[ $l == "nvim" ]]; then
-        if ! [[ -d ~/.config ]]; then
-            mkdir -p ~/.config
-        fi
+        mkdir -p ~/.config
         ln -s -f -n $(pwd)/dotfiles/$l ~/.config/nvim && echo "linked dotfile .$l" || failedLinks+=($l)
     elif [[ $l == "claude" ]]; then
-        if ! [[ -d ~/.claude ]]; then
-            mkdir -p ~/.claude
-        fi
+        mkdir -p ~/.claude
         ln -s -f $(pwd)/dotfiles/claude/statusline.sh ~/.claude/statusline.sh && echo "linked dotfile claude/statusline.sh" || failedLinks+=($l)
         ln -s -f $(pwd)/dotfiles/claude/settings.json ~/.claude/settings.json && echo "linked dotfile claude/settings.json" || failedLinks+=($l)
     elif [[ $l == "codex" ]]; then
         for codex_home in ~/.codex-corp ~/.codex-priv; do
-            if ! [[ -d $codex_home ]]; then
-                mkdir -p $codex_home
-            fi
             mkdir -p "$codex_home/rules"
             ln -s -f $(pwd)/dotfiles/codex/config.toml $codex_home/config.toml && echo "linked dotfile codex/config.toml to $codex_home" || failedLinks+=($l)
             ln -s -f "$(pwd)/dotfiles/codex/default.rules" "$codex_home/rules/default.rules" && echo "linked dotfile codex/default.rules to $codex_home/rules" || failedLinks+=($l)
