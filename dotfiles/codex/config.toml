@@ -2,8 +2,8 @@ model = "gpt-6-luna"
 model_reasoning_effort = "xhigh"
 model_context_window = 872000
 
-# Prevent Codex from modifying local files without an approved escalation.
-sandbox_mode = "read-only"
+# Allow workspace edits; request approval for actions outside the writable workspace.
+sandbox_mode = "workspace-write"
 
 # Allow Codex to ask for permission when an action exceeds the read-only sandbox.
 approval_policy = "on-request"
