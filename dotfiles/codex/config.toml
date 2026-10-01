@@ -27,6 +27,8 @@ status_line = [
     "estimated-thread-cost",
 ]
 status_line_use_colors = true
+screen_reader_detection_done = true
+fullscreen_transcript = false
 
 [projects."/home/ybettan/go/src/github.com/ecom"]
 trust_level = "trusted"
