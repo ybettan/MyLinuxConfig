@@ -1,38 +1,149 @@
-# Allow viewing and listing GitHub issues and pull requests.
-prefix_rule(pattern=["gh", "issue", "view"], decision="allow")
-prefix_rule(pattern=["gh", "issue", "list"], decision="allow")
-prefix_rule(pattern=["gh", "pr", "view"], decision="allow")
-prefix_rule(pattern=["gh", "pr", "list"], decision="allow")
-prefix_rule(pattern=["gh", "repo", "view"], decision="allow")
+# Automatically allow common inspection commands and routine local validation.
+# Prefixes match exact argument positions; they do not match arbitrary shell text.
+# Keep options after the subcommand where possible, for example:
+#   oc get pods --kubeconfig=/root/.kube/agentless-lab-mgmt.kubeconfig -n osac-e2e-ci
+#   gh api --method GET repos/osac-project/osac/pulls
+# Run `make lint` in the component's working directory where possible.
+# Shell assignments, redirects, substitutions, and loops can still require approval.
+# After manual edits, restart Codex to load this file.
 
-# Allow viewing and listing Jira issues and epics.
-prefix_rule(pattern=["jira", "issue", "view"], decision="allow")
-prefix_rule(pattern=["jira", "issue", "list"], decision="allow")
-prefix_rule(pattern=["jira", "epic", "view"], decision="allow")
-prefix_rule(pattern=["jira", "epic", "list"], decision="allow")
+# File/text inspection and JSON filters used in pipelines. Editors, tools with
+# command-execution options, and file-writing filters need narrower rules.
+prefix_rule(
+    pattern=[["ls", "pwd", "stat", "readlink", "du", "df", "cat", "head", "tail", "wc", "cut", "tr", "grep", "fgrep", "egrep", "jq"]],
+    decision="allow",
+    match=["cat README.md", "head -n 20 README.md", "jq -r .items pods.json"],
+    not_match=["sed -i s/old/new/ file", "find . -delete", "awk BEGIN{system(command)}"],
+)
 
-# Allow getting and describing any OpenShift resource.
-prefix_rule(pattern=["oc", "get"], decision="allow")
-prefix_rule(pattern=["oc", "describe"], decision="allow")
-prefix_rule(pattern=["KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig", "oc", "get"], decision="allow")
-prefix_rule(pattern=["KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig", "oc", "describe"], decision="allow")
+# GitHub inspection. API requests must explicitly select GET; arbitrary `gh api`
+# can perform writes, and GraphQL requests can contain mutations.
+prefix_rule(
+    pattern=["gh", "issue", ["view", "list", "status"]],
+    decision="allow",
+    match=["gh issue view 123", "gh issue list --repo osac-project/osac"],
+    not_match=["gh issue create", "gh issue edit 123", "gh issue close 123"],
+)
+prefix_rule(
+    pattern=["gh", "pr", ["view", "list", "diff", "checks", "status"]],
+    decision="allow",
+    match=["gh pr diff 123", "gh pr checks 123", "gh pr view 123 --repo osac-project/osac"],
+    not_match=["gh pr create", "gh pr merge 123", "gh pr checkout 123", "gh pr review 123"],
+)
+prefix_rule(pattern=["gh", "repo", ["view", "list"]], decision="allow")
+prefix_rule(pattern=["gh", "run", ["view", "list", "watch"]], decision="allow")
+prefix_rule(pattern=["gh", "workflow", ["view", "list"]], decision="allow")
+prefix_rule(pattern=["gh", "release", ["view", "list"]], decision="allow")
+prefix_rule(
+    pattern=["gh", "api", ["--method", "-X"], "GET"],
+    decision="allow",
+    match=["gh api --method GET repos/osac-project/osac/pulls", "gh api -X GET user"],
+    not_match=["gh api --method POST repos/osac-project/osac/issues", "gh api graphql -f query=mutation"],
+)
+prefix_rule(pattern=["gh", "api", "--method=GET"], decision="allow")
 
-# Allow running linter on projects with a `lint` Makefile target
-prefix_rule(pattern=["make", "lint"], decision="allow")
+# Jira inspection.
+prefix_rule(
+    pattern=["jira", "issue", ["view", "list"]],
+    decision="allow",
+    match=["jira issue view OSAC-5529 --plain", "jira issue list --plain"],
+    not_match=["jira issue create", "jira issue edit OSAC-5529", "jira issue move OSAC-5529 Done"],
+)
+prefix_rule(pattern=["jira", "epic", ["view", "list"]], decision="allow")
+prefix_rule(pattern=["jira", "project", "list"], decision="allow")
+prefix_rule(pattern=["jira", "board", "list"], decision="allow")
+prefix_rule(pattern=["jira", "sprint", "list"], decision="allow")
 
-# Allow running Ansible linter
-prefix_rule(pattern=["uv", "run"], decision="allow")
+# OpenShift/Kubernetes inspection. Use flags after the verb, or the explicit
+# kubeconfig forms below. A bare `KUBECONFIG=... oc ...` shell assignment does
+# not match an argv prefix; `env KUBECONFIG=... oc ...` does.
+_cluster_tools = ["oc", "kubectl"]
+_cluster_reads = ["get", "describe", "logs", "explain", "api-resources", "api-versions", "version", "wait"]
+_kubeconfig_path = "/root/.kube/agentless-lab-mgmt.kubeconfig"
+_kubeconfig_env = "KUBECONFIG=" + _kubeconfig_path
+_kubeconfig_flag = "--kubeconfig=" + _kubeconfig_path
 
-# Allow read-only virsh commands
-prefix_rule(pattern=["virsh", "list"], decision="allow")
-prefix_rule(pattern=["virsh", "net-info"], decision="allow")
-prefix_rule(pattern=["virsh", "net-dumpxml"], decision="allow")
+prefix_rule(
+    pattern=[_cluster_tools, _cluster_reads],
+    decision="allow",
+    match=["oc get pods", "oc logs deployment/fulfillment", "kubectl describe pod example"],
+    not_match=["oc apply -f resource.yaml", "oc delete pod example", "oc exec example -- sh", "kubectl patch deployment example"],
+)
+prefix_rule(pattern=[_cluster_tools, _kubeconfig_flag, _cluster_reads], decision="allow")
+prefix_rule(pattern=[_cluster_tools, "--kubeconfig", _kubeconfig_path, _cluster_reads], decision="allow")
+prefix_rule(
+    pattern=["env", _kubeconfig_env, _cluster_tools, _cluster_reads],
+    decision="allow",
+    match=["env KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig oc get pods"],
+    not_match=["env KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig oc delete pod example"],
+)
+# Existing sessions also put the CI namespace before the verb.
+prefix_rule(pattern=[_cluster_tools, ["-n", "--namespace"], "osac-e2e-ci", _cluster_reads], decision="allow")
+prefix_rule(pattern=[_cluster_tools, _kubeconfig_flag, ["-n", "--namespace"], "osac-e2e-ci", _cluster_reads], decision="allow")
+prefix_rule(pattern=["env", _kubeconfig_env, _cluster_tools, ["-n", "--namespace"], "osac-e2e-ci", _cluster_reads], decision="allow")
+prefix_rule(pattern=[_cluster_tools, "rollout", ["status", "history"]], decision="allow")
+prefix_rule(pattern=[_cluster_tools, _kubeconfig_flag, "rollout", ["status", "history"]], decision="allow")
+prefix_rule(pattern=["env", _kubeconfig_env, _cluster_tools, "rollout", ["status", "history"]], decision="allow")
+prefix_rule(pattern=[_cluster_tools, "auth", "can-i"], decision="allow")
+prefix_rule(pattern=[_cluster_tools, "config", ["current-context", "get-contexts", "get-clusters", "get-users"]], decision="allow")
+prefix_rule(pattern=["kubectl", "top", ["nodes", "pods"]], decision="allow")
+prefix_rule(pattern=["oc", "adm", "top", ["nodes", "pods"]], decision="allow")
 
-# Allow checking containers
-prefix_rule(pattern=["docker", "ps"], decision="allow")
-prefix_rule(pattern=["podman", "ps"], decision="allow")
-prefix_rule(pattern=["docker", "network", "ls"], decision="allow")
-prefix_rule(pattern=["podman", "network", "ls"], decision="allow")
+# Helm inspection used alongside cluster troubleshooting.
+_helm_reads = ["list", "status", "history", "version"]
+prefix_rule(pattern=["helm", _helm_reads], decision="allow")
+prefix_rule(pattern=["helm", "get", ["all", "hooks", "manifest", "metadata", "notes", "values"]], decision="allow")
+prefix_rule(pattern=["helm", "show", ["all", "chart", "crds", "readme", "values"]], decision="allow")
+prefix_rule(pattern=["env", _kubeconfig_env, "helm", _helm_reads], decision="allow")
+prefix_rule(pattern=["env", _kubeconfig_env, "helm", "get", ["all", "hooks", "manifest", "metadata", "notes", "values"]], decision="allow")
 
-# Add git rules
+# Git inspection. Keep branch/remote/config operations scoped to their read forms.
+_git_reads = ["status", "diff", "log", "show", "rev-parse", "rev-list", "ls-files", "ls-tree", "ls-remote", "show-ref", "describe", "merge-base", "for-each-ref", "check-ignore", "check-attr"]
+prefix_rule(
+    pattern=["git", _git_reads],
+    decision="allow",
+    match=["git status --short", "git diff --check", "git ls-remote origin"],
+    not_match=["git push", "git reset --hard", "git restore file", "git clean -fd", "git checkout main"],
+)
+prefix_rule(pattern=["git", "-C", [".", "/root/go/src/github.com/osac"], _git_reads], decision="allow")
+prefix_rule(pattern=["git", "branch", ["--list", "-l", "--show-current"]], decision="allow")
+prefix_rule(pattern=["git", "remote", ["-v", "--verbose", "get-url"]], decision="allow")
+prefix_rule(pattern=["git", "config", ["--get", "--get-all", "--get-regexp", "--list", "-l"]], decision="allow")
+# Preserve the existing permission to refresh local remote refs.
 prefix_rule(pattern=["git", "fetch"], decision="allow")
+
+# Local validation previously allowed in this file. `uv run` alone can execute
+# arbitrary programs, so allow the linter and unit-test entry points explicitly.
+prefix_rule(pattern=["make", "lint"], decision="allow")
+_lint_dirs = ["osac-aap", "osac-operator", "fulfillment-service", "osac-installer", "bare-metal-fulfillment-operator", "osac-csi-driver", "osac-metering", "osac-ui", "proto"]
+prefix_rule(pattern=["make", "-C", _lint_dirs, "lint"], decision="allow")
+prefix_rule(
+    pattern=["uv", "run", "ansible-lint"],
+    decision="allow",
+    match=["uv run ansible-lint", "uv run ansible-lint roles/example/tasks/main.yml"],
+    not_match=["uv run python3 -c pass", "uv run ansible-playbook deploy.yml"],
+)
+prefix_rule(pattern=["uv", "tool", "run", "ansible-lint"], decision="allow")
+prefix_rule(pattern=["uv", "run", "pytest", "tests/unit"], decision="allow")
+prefix_rule(pattern=["uv", "run", "python", "-m", "pytest", "tests/unit"], decision="allow")
+prefix_rule(pattern=["uv", "run", "python3", "-m", "pytest", "tests/unit"], decision="allow")
+prefix_rule(pattern=["uv", "run", ["--project", "--directory"], ["osac-aap", "/root/go/src/github.com/osac/osac-aap"], "ansible-lint"], decision="allow")
+prefix_rule(pattern=["uv", "run", ["--project", "--directory"], ["osac-aap", "/root/go/src/github.com/osac/osac-aap"], "pytest", "tests/unit"], decision="allow")
+
+# Libvirt inspection, with optional local connection selection.
+_virsh_reads = ["list", "uri", "version", "hostname", "nodeinfo", "capabilities", "dominfo", "domstate", "domstats", "dumpxml", "domiflist", "domifaddr", "domblklist", "net-list", "net-info", "net-dumpxml", "pool-list", "pool-info", "pool-dumpxml", "vol-list", "vol-info", "vol-dumpxml"]
+prefix_rule(pattern=["virsh", _virsh_reads], decision="allow")
+prefix_rule(pattern=["virsh", ["-c", "--connect"], ["qemu:///system", "qemu:///session"], _virsh_reads], decision="allow")
+
+# Container inspection, including the network and storage object metadata.
+_container_tools = ["docker", "podman"]
+prefix_rule(
+    pattern=[_container_tools, ["ps", "images", "logs", "inspect", "info", "version"]],
+    decision="allow",
+    match=["docker ps --all", "podman logs example", "docker inspect example"],
+    not_match=["docker exec example sh", "docker run alpine", "podman rm example", "docker system prune"],
+)
+prefix_rule(pattern=[_container_tools, "network", ["ls", "inspect"]], decision="allow")
+prefix_rule(pattern=[_container_tools, "volume", ["ls", "inspect"]], decision="allow")
+prefix_rule(pattern=[_container_tools, "container", ["ls", "inspect"]], decision="allow")
+prefix_rule(pattern=[_container_tools, "image", ["ls", "inspect", "history"]], decision="allow")
