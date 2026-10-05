@@ -34,9 +34,14 @@ for l in ${links[*]}; do
         ln -s -f $(pwd)/dotfiles/claude/settings.json ~/.claude/settings.json && echo "linked dotfile claude/settings.json" || failedLinks+=($l)
     elif [[ $l == "codex" ]]; then
         for codex_home in ~/.codex-corp ~/.codex-priv; do
-            mkdir -p "$codex_home/rules"
+            mkdir -p "$codex_home"
             ln -s -f $(pwd)/dotfiles/codex/config.toml $codex_home/config.toml && echo "linked dotfile codex/config.toml to $codex_home" || failedLinks+=($l)
-            ln -s -f "$(pwd)/dotfiles/codex/default.rules" "$codex_home/rules/default.rules" && echo "linked dotfile codex/default.rules to $codex_home/rules" || failedLinks+=($l)
+            # Codex skips symlinked .rules files; link their directory instead.
+            if [[ -d "$codex_home/rules" && ! -L "$codex_home/rules" ]]; then
+                codex_rules_backup=$(mktemp -d "$codex_home/rules.backup.XXXXXX") || { failedLinks+=($l); continue; }
+                mv "$codex_home/rules" "$codex_rules_backup/rules" || { failedLinks+=($l); continue; }
+            fi
+            ln -s -f -n "$(pwd)/dotfiles/codex/rules" "$codex_home/rules" && echo "linked dotfile codex/rules to $codex_home/rules" || failedLinks+=($l)
         done
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
