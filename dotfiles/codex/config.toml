@@ -13,6 +13,7 @@ approvals_reviewer = "user"
 
 # Enable current, live web research independently of local command networking.
 web_search = "live"
+plan_mode_reasoning_effort = "xhigh"
 
 # Codex's native footer status line. Keep the model/project/git/context details
 # visible to match the Claude and Cursor status bars.
@@ -61,6 +62,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/root/go/src/github.com/osac"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com"]
+trust_level = "trusted"
+
+[projects."/home/ybettan/go/src/github.com/driver-toolkit"]
 trust_level = "trusted"
 
 [hooks.state]
