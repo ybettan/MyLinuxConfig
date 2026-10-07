@@ -35,6 +35,29 @@ prefix_rule(pattern=[_container_tools, "volume", ["ls", "inspect"]], decision="a
 prefix_rule(pattern=[_container_tools, "container", ["ls", "inspect"]], decision="allow")
 prefix_rule(pattern=[_container_tools, "image", ["ls", "inspect", "history"]], decision="allow")
 
+
+# Allow docker exec commands on all containers in the AgentlessNet lab fabric.
+_agentless_net_lab_containers = [
+    "clab-agentless-net-lab-upstream-router",
+    "clab-agentless-net-lab-net-node",
+    "clab-agentless-net-lab-leaf-1",
+    "clab-agentless-net-lab-leaf-2",
+]
+prefix_rule(
+    pattern=["docker", "exec", _agentless_net_lab_containers],
+    decision="allow",
+    match=[
+        "docker exec clab-agentless-net-lab-upstream-router sh",
+        "docker exec clab-agentless-net-lab-net-node sh",
+        "docker exec clab-agentless-net-lab-leaf-1 nv unset interface swp2",
+        "docker exec clab-agentless-net-lab-leaf-2 nv config apply --assume-yes",
+    ],
+    not_match=[
+        "docker exec unrelated-container sh",
+        "docker exec act-e2e-caas-agentless-net-E2E-CaaS-Agentless-Net-Full-Install sh",
+    ],
+)
+
 # Git inspection and remote refresh.
 # Branch, remote, and config operations use their read forms.
 _git_reads = [
