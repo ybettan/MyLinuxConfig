@@ -245,6 +245,23 @@ prefix_rule(
 )
 prefix_rule(pattern=["uv", "tool", "run", "ansible-lint"], decision="allow")
 
+# AgentlessNet E2E helper lint and formatting checks through uv tool.
+prefix_rule(
+    pattern=["uv", "tool", "run", "ruff", "check", "tests/e2e/agentlessnet"],
+    decision="allow",
+    match=["uv tool run ruff check tests/e2e/agentlessnet"],
+    not_match=["uv tool run ruff check tests/e2e", "uv tool run ruff check osac-aap"],
+)
+prefix_rule(
+    pattern=["uv", "tool", "run", "ruff", "format", "--check", "tests/e2e/agentlessnet"],
+    decision="allow",
+    match=["uv tool run ruff format --check tests/e2e/agentlessnet"],
+    not_match=[
+        "uv tool run ruff format tests/e2e/agentlessnet",
+        "uv tool run ruff format --check tests/e2e",
+    ],
+)
+
 # Run pre-commit through uvx or uv tool.
 prefix_rule(
     pattern=["uvx", "pre-commit", "run"],
