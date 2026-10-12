@@ -35,6 +35,17 @@ prefix_rule(pattern=[_container_tools, "volume", ["ls", "inspect"]], decision="a
 prefix_rule(pattern=[_container_tools, "container", ["ls", "inspect"]], decision="allow")
 prefix_rule(pattern=[_container_tools, "image", ["ls", "inspect", "history"]], decision="allow")
 
+# Skopeo inspection.
+prefix_rule(
+    pattern=["skopeo", "inspect"],
+    decision="allow",
+    match=[
+        "skopeo inspect docker://ghcr.io/osac-project/osac-operator:latest",
+        "skopeo inspect --format '{{json .Labels}}' docker://quay.io/example/app:latest",
+    ],
+    not_match=["skopeo copy docker://quay.io/example/app:latest oci:app:latest"],
+)
+
 
 # Allow docker exec commands on all containers in the AgentlessNet lab fabric.
 _agentless_net_lab_containers = [
