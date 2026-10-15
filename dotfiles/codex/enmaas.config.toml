@@ -10,7 +10,18 @@ base_url = "https://api.enmaas.devshift.net/v1"
 wire_api = "responses"
 
 [model_providers.enmaas.auth]
-command = "secret-tool"
-args = ["lookup", "service", "enmaas", "application", "codex-corp"]
-timeout_ms = 60000
+command = "python3"
+args = [
+  "-c",
+  """
+import netrc
+import sys
+
+auth = netrc.netrc().authenticators("api.enmaas.devshift.net")
+if not auth or not auth[2]:
+    sys.exit("No EnMaaS key found in ~/.netrc")
+print(auth[2])
+"""
+]
+timeout_ms = 5000
 refresh_interval_ms = 0
