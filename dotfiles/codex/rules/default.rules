@@ -69,6 +69,34 @@ prefix_rule(
     ],
 )
 
+
+# SSH commands to the AgentlessNet Boxen guest aliases. The fixed config file
+# supplies the per-run key, strict host-key settings, user, and lab IP; aliases
+# are limited to the two fabric leaves and the disposable smoke leaves.
+_agentless_net_ssh_config = "/root/go/src/github.com/osac/.artifacts/agentless-net-lab/ssh_config"
+_agentless_net_switch_ssh_aliases = [
+    "osac-agentless-leaf-1-admin",
+    "osac-agentless-leaf-2-admin",
+    "osac-agentless-leaf-1-provider",
+    "osac-agentless-leaf-2-provider",
+    "osac-agentless-smoke-leaf-1-admin",
+    "osac-agentless-smoke-leaf-2-admin",
+    "osac-agentless-smoke-leaf-1-provider",
+    "osac-agentless-smoke-leaf-2-provider",
+]
+prefix_rule(
+    pattern=["ssh", "-F", _agentless_net_ssh_config, _agentless_net_switch_ssh_aliases],
+    decision="allow",
+    match=[
+        "ssh -F /root/go/src/github.com/osac/.artifacts/agentless-net-lab/ssh_config osac-agentless-leaf-1-admin sudo -n true",
+        "ssh -F /root/go/src/github.com/osac/.artifacts/agentless-net-lab/ssh_config osac-agentless-leaf-2-provider nv config diff --output commands",
+    ],
+    not_match=[
+        "ssh -F /root/go/src/github.com/osac/.artifacts/agentless-net-lab/ssh_config unapproved-host sudo -n true",
+        "ssh -F /tmp/other-ssh-config osac-agentless-leaf-1-admin sudo -n true",
+    ],
+)
+
 # Git inspection and remote refresh.
 # Branch, remote, and config operations use their read forms.
 _git_reads = [
