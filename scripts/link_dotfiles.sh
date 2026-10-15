@@ -36,6 +36,10 @@ for l in ${links[*]}; do
         for codex_home in ~/.codex-corp ~/.codex-priv; do
             mkdir -p "$codex_home"
             ln -s -f $(pwd)/dotfiles/codex/config.toml $codex_home/config.toml && echo "linked dotfile codex/config.toml to $codex_home" || failedLinks+=($l)
+            if [[ "$codex_home" == "$HOME/.codex-corp" ]]; then
+                ln -s -f "$(pwd)/dotfiles/codex/enmaas.config.toml" "$codex_home/enmaas.config.toml" \
+                    && echo "linked dotfile codex/enmaas.config.toml to $codex_home" || failedLinks+=($l)
+            fi
             # Codex skips symlinked .rules files; link their directory instead.
             if [[ -d "$codex_home/rules" && ! -L "$codex_home/rules" ]]; then
                 codex_rules_backup=$(mktemp -d "$codex_home/rules.backup.XXXXXX") || { failedLinks+=($l); continue; }
