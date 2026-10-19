@@ -97,6 +97,43 @@ prefix_rule(
     ],
 )
 
+# Direct SSH to the two preserved Cumulus lab guests. The key, connection
+# options, user, and destinations stay fixed; the remote command may vary.
+# Prefix rules match argument positions, so this covers different remote
+# inspection commands and shell chains while remaining limited to these guests.
+_cumulus_lab_admin_key = ".artifacts/agentless-net-lab/admin_ed25519"
+_cumulus_lab_admin_targets = [
+    "cumulus@192.168.162.11",
+    "cumulus@192.168.162.12",
+]
+prefix_rule(
+    pattern=[
+        "ssh",
+        "-i",
+        _cumulus_lab_admin_key,
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "IdentitiesOnly=yes",
+        "-o",
+        "StrictHostKeyChecking=no",
+        "-o",
+        "UserKnownHostsFile=/tmp/osac-cumulus-admin-known-hosts",
+        "-o",
+        "ConnectTimeout=5",
+        _cumulus_lab_admin_targets,
+    ],
+    decision="allow",
+    match=[
+        "ssh -i .artifacts/agentless-net-lab/admin_ed25519 -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/osac-cumulus-admin-known-hosts -o ConnectTimeout=5 cumulus@192.168.162.11 \"sudo -n true\"",
+        "ssh -i .artifacts/agentless-net-lab/admin_ed25519 -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/osac-cumulus-admin-known-hosts -o ConnectTimeout=5 cumulus@192.168.162.12 \"sudo -n journalctl -u ssh --no-pager\"",
+    ],
+    not_match=[
+        "ssh -i .artifacts/agentless-net-lab/admin_ed25519 -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/osac-cumulus-admin-known-hosts -o ConnectTimeout=5 cumulus@192.168.162.13 \"sudo -n true\"",
+        "ssh -i /tmp/other-key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/tmp/osac-cumulus-admin-known-hosts -o ConnectTimeout=5 cumulus@192.168.162.11 \"sudo -n true\"",
+    ],
+)
+
 # Git inspection and remote refresh.
 # Branch, remote, and config operations use their read forms.
 _git_reads = [
