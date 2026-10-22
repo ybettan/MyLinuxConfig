@@ -306,6 +306,11 @@ prefix_rule(
     not_match=["make -C osac-aap deploy", "make -C unrelated test"],
 )
 
+# Common local build, test, and chart-validation targets.
+prefix_rule(pattern=["make", "build"], decision="allow", match=["make build"])
+prefix_rule(pattern=["go", "test"], decision="allow", match=["go test ./pkg/provisioning", "go test ./..."])
+prefix_rule(pattern=["make", "helm-validate"], decision="allow", match=["make helm-validate"])
+
 # Scoped local Go validation and the operator build target.
 prefix_rule(
     pattern=["go", "-C", _osac_root + "/osac-operator", "test"],
