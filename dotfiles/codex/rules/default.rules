@@ -169,6 +169,12 @@ prefix_rule(pattern=["git", "fetch"], decision="allow")
 # GitHub (gh) inspection.
 # API requests must explicitly select GET. GraphQL can contain mutations.
 prefix_rule(
+    pattern=["gh", "auth", "status"],
+    decision="allow",
+    match=["gh auth status"],
+    not_match=["gh auth status --show-token", "gh auth login", "gh auth refresh"],
+)
+prefix_rule(
     pattern=["gh", "issue", ["view", "list", "status"]],
     decision="allow",
     match=["gh issue view 123", "gh issue list --repo osac-project/osac"],
@@ -187,7 +193,11 @@ prefix_rule(pattern=["gh", "release", ["view", "list"]], decision="allow")
 prefix_rule(
     pattern=["gh", "api", ["--method", "-X"], "GET"],
     decision="allow",
-    match=["gh api --method GET repos/osac-project/osac/pulls", "gh api -X GET user"],
+    match=[
+        "gh api --method GET repos/osac-project/osac/pulls",
+        "gh api --method GET user --jq .login",
+        "gh api -X GET user",
+    ],
     not_match=["gh api --method POST repos/osac-project/osac/issues", "gh api graphql -f query=mutation"],
 )
 prefix_rule(pattern=["gh", "api", "--method=GET"], decision="allow")
@@ -294,6 +304,30 @@ prefix_rule(
     decision="allow",
     match=["make -C osac-aap test", "make -C osac-operator lint"],
     not_match=["make -C osac-aap deploy", "make -C unrelated test"],
+)
+
+# Scoped local Go validation and the operator build target.
+prefix_rule(
+    pattern=["go", "-C", _osac_root + "/osac-operator", "test"],
+    decision="allow",
+    match=[
+        "go -C /root/go/src/github.com/osac/osac-operator test ./pkg/provisioning",
+        "go -C /root/go/src/github.com/osac/osac-operator test ./...",
+    ],
+    not_match=[
+        "go -C /tmp/osac-operator test ./pkg/provisioning",
+        "go -C /root/go/src/github.com/osac/osac-operator run ./cmd",
+    ],
+)
+prefix_rule(
+    pattern=["make", "-C", _osac_root + "/osac-operator", "build"],
+    decision="allow",
+    match=["make -C /root/go/src/github.com/osac/osac-operator build"],
+    not_match=[
+        "make -C /tmp/osac-operator build",
+        "make -C /root/go/src/github.com/osac/osac-operator deploy",
+        "make -C /root/go/src/github.com/osac/osac-operator clean",
+    ],
 )
 
 # OSAC-only Helm/CRD targets require these absolute component directories.
