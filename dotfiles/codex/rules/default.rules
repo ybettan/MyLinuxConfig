@@ -172,7 +172,15 @@ prefix_rule(
     pattern=["gh", "auth", "status"],
     decision="allow",
     match=["gh auth status"],
-    not_match=["gh auth status --show-token", "gh auth login", "gh auth refresh"],
+    not_match=["gh auth login", "gh auth refresh"],
+)
+# Token output needs explicit approval; this more specific rule overrides the
+# broader status allow rule when both match.
+prefix_rule(
+    pattern=["gh", "auth", "status", "--show-token"],
+    decision="prompt",
+    match=["gh auth status --show-token"],
+    not_match=["gh auth status"],
 )
 prefix_rule(
     pattern=["gh", "issue", ["view", "list", "status"]],
