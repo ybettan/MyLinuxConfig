@@ -58,6 +58,7 @@ packages+=(xclip)   # Needed for ruanyl/vim-gh-line plugin
 packages+=(tldr)
 packages+=(fzf)
 packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
+packages+=(codex)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -154,6 +155,8 @@ if [[ ${OS} == "Linux" ]]; then
                 sudo $packageManager -y install pkg-config || failedPackages+=($p)
         elif [[ $p == pynvim ]]; then
             pip install pynvim
+        elif [[ $p == codex ]]; then
+            (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | sh) || failedPackages+=($p)
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
@@ -172,6 +175,11 @@ else # Darwin (OSX)
 
     # install the packages
     for p in ${packages[*]} ; do
+
+        if [[ $p == codex ]]; then
+            (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | sh) || failedPackages+=($p)
+            continue
+        fi
 
         # if the package already exist on the machine but wasn't install using brew
         # we need to make sure brew override the binary symlink to the latest package
