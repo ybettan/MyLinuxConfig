@@ -156,7 +156,7 @@ if [[ ${OS} == "Linux" ]]; then
         elif [[ $p == pynvim ]]; then
             pip install pynvim
         elif [[ $p == codex ]]; then
-            (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | sh) || failedPackages+=($p)
+            (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh) || failedPackages+=($p)
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
@@ -177,7 +177,7 @@ else # Darwin (OSX)
     for p in ${packages[*]} ; do
 
         if [[ $p == codex ]]; then
-            (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | sh) || failedPackages+=($p)
+            (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh) || failedPackages+=($p)
             continue
         fi
 
