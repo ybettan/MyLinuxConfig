@@ -103,14 +103,14 @@ if [[ ${OS} == "Linux" ]]; then
             fi
         elif [[ $p == slack ]]; then
             if [[ $distribution == fedora ]]; then
-                # no latest RPM exist - update if a newer version exists
-                sudo $packageManager -y install https://downloads.slack-edge.com/releases/linux/4.35.126/prod/x64/slack-4.35.126-0.1.el8.x86_64.rpm \
+                # Update this version from https://slack.com/downloads/linux
+                sudo $packageManager -y install https://downloads.slack-edge.com/desktop-releases/linux/x64/4.52.182/slack-4.52.182-0.1.el8.x86_64.rpm \
                     || failedPackages+=($p)
             elif [[ $distribution == ubuntu ]]; then
-                # no latest deb exist - update if a newer version exists
-                curl https://downloads.slack-edge.com/releases/linux/4.31.155/prod/x64/slack-desktop-4.31.155-amd64.deb \
-                    -o /tmp/slack-desktop-4.31.155-amd64.deb
-                sudo $packageManager -y install /tmp/slack-desktop-4.31.155-amd64.deb || failedPackages+=($p)
+                # Update this version from https://slack.com/downloads/linux
+                curl https://downloads.slack-edge.com/desktop-releases/linux/x64/4.52.182/slack-desktop-4.52.182-amd64.deb \
+                    -o /tmp/slack-desktop-4.52.182-amd64.deb
+                sudo $packageManager -y install /tmp/slack-desktop-4.52.182-amd64.deb || failedPackages+=($p)
             fi
         elif [[ $p == kubectl ]]; then
             # Download the binary
