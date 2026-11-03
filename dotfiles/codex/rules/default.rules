@@ -15,7 +15,7 @@ _kubeconfig_env = "KUBECONFIG=" + _kubeconfig_path
 # File and text utilities.
 # Editors and tools with execution or file-writing options need narrower rules.
 prefix_rule(
-    pattern=[["ls", "pwd", "stat", "readlink", "du", "df", "cat", "head", "tail", "wc", "cut", "tr", "grep", "fgrep", "egrep", "jq"]],
+    pattern=[["ls", "pwd", "stat", "readlink", "du", "df", "cat", "head", "tail", "wc", "cut", "tr", "grep", "fgrep", "egrep", "rg", "jq"]],
     decision="allow",
     match=["cat README.md", "head -n 20 README.md", "jq -r .items pods.json"],
     not_match=["sed -i s/old/new/ file", "find . -delete", "awk BEGIN{system(command)}"],
