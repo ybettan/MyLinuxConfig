@@ -11,7 +11,6 @@
 _osac_root = "/root/go/src/github.com/osac"
 _kubeconfig_path = "/root/.kube/agentless-lab-mgmt.kubeconfig"
 _kubeconfig_env = "KUBECONFIG=" + _kubeconfig_path
-_kubeconfig_flag = "--kubeconfig=" + _kubeconfig_path
 
 # File and text utilities.
 # Editors and tools with execution or file-writing options need narrower rules.
@@ -247,47 +246,10 @@ prefix_rule(
     ],
 )
 
-# Kubernetes and OpenShift (kubectl/oc) inspection.
-# Use flags after the verb, or the explicit
-# kubeconfig forms below. A bare `KUBECONFIG=... oc ...` shell assignment does
-# not match an argv prefix; `env KUBECONFIG=... oc ...` does.
+# Kubernetes and OpenShift CLI. Allow all `oc` and `kubectl` commands.
 _cluster_tools = ["oc", "kubectl"]
-_cluster_reads = [
-    "get",
-    "describe",
-    "logs",
-    "explain",
-    "api-resources",
-    "api-versions",
-    "version",
-    "wait",
-]
-
-prefix_rule(
-    pattern=[_cluster_tools, _cluster_reads],
-    decision="allow",
-    match=["oc get pods", "oc logs deployment/fulfillment", "kubectl describe pod example"],
-    not_match=["oc apply -f resource.yaml", "oc delete pod example", "oc exec example -- sh", "kubectl patch deployment example"],
-)
-prefix_rule(pattern=[_cluster_tools, _kubeconfig_flag, _cluster_reads], decision="allow")
-prefix_rule(pattern=[_cluster_tools, "--kubeconfig", _kubeconfig_path, _cluster_reads], decision="allow")
-prefix_rule(
-    pattern=["env", _kubeconfig_env, _cluster_tools, _cluster_reads],
-    decision="allow",
-    match=["env KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig oc get pods"],
-    not_match=["env KUBECONFIG=/root/.kube/agentless-lab-mgmt.kubeconfig oc delete pod example"],
-)
-# Existing sessions also put the CI namespace before the verb.
-prefix_rule(pattern=[_cluster_tools, ["-n", "--namespace"], "osac-e2e-ci", _cluster_reads], decision="allow")
-prefix_rule(pattern=[_cluster_tools, _kubeconfig_flag, ["-n", "--namespace"], "osac-e2e-ci", _cluster_reads], decision="allow")
-prefix_rule(pattern=["env", _kubeconfig_env, _cluster_tools, ["-n", "--namespace"], "osac-e2e-ci", _cluster_reads], decision="allow")
-prefix_rule(pattern=[_cluster_tools, "rollout", ["status", "history"]], decision="allow")
-prefix_rule(pattern=[_cluster_tools, _kubeconfig_flag, "rollout", ["status", "history"]], decision="allow")
-prefix_rule(pattern=["env", _kubeconfig_env, _cluster_tools, "rollout", ["status", "history"]], decision="allow")
-prefix_rule(pattern=[_cluster_tools, "auth", "can-i"], decision="allow")
-prefix_rule(pattern=[_cluster_tools, "config", ["current-context", "get-contexts", "get-clusters", "get-users"]], decision="allow")
-prefix_rule(pattern=["kubectl", "top", ["nodes", "pods"]], decision="allow")
-prefix_rule(pattern=["oc", "adm", "top", ["nodes", "pods"]], decision="allow")
+prefix_rule(pattern=[_cluster_tools], decision="allow")
+prefix_rule(pattern=["env", _kubeconfig_env, _cluster_tools], decision="allow")
 
 # Make validation commands.
 prefix_rule(
