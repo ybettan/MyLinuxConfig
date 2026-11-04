@@ -59,6 +59,7 @@ packages+=(tldr)
 packages+=(fzf)
 packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
 packages+=(codex)
+packages+=(opencode)
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -157,6 +158,8 @@ if [[ ${OS} == "Linux" ]]; then
             pip install pynvim
         elif [[ $p == codex ]]; then
             (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh) || failedPackages+=($p)
+        elif [[ $p == opencode ]]; then
+            (set -o pipefail; curl -fsSL https://opencode.ai/v2/install | bash -s -- --no-modify-path) || failedPackages+=($p)
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi
@@ -178,6 +181,11 @@ else # Darwin (OSX)
 
         if [[ $p == codex ]]; then
             (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh) || failedPackages+=($p)
+            continue
+        fi
+
+        if [[ $p == opencode ]]; then
+            (set -o pipefail; curl -fsSL https://opencode.ai/v2/install | bash -s -- --no-modify-path) || failedPackages+=($p)
             continue
         fi
 

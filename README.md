@@ -14,27 +14,27 @@ Since we are configuring everything only after installation packages, then we
 want to ignore errors in order to execute the `configure` target.
     
  
-## Codex EnMaaS (corporate)
+## `.netrc` (one-time setup)
 
-The corporate Codex home includes an EnMaaS profile using GPT-6 Luna at `xhigh`
-reasoning effort. Codex reads the gateway key from `.netrc` when it needs to
-authenticate, without exporting it into the shell environment.
+Codex EnMaaS and OpenCode EnMaaS read the gateway key from `~/.netrc`, without
+exporting it into the shell environment.
 
-Add an EnMaaS entry to `~/.netrc`, preserving any existing Jira entries:
-
-```bash
-machine api.enmaas.devshift.net
-  login enmaas
-  password <your-enmaas-api-key>
-```
-
-Keep `.netrc` private and out of source control:
+Create `~/.netrc` once per machine by copying it from the `osac` SSH host, which
+already holds the EnMaaS and Jira entries:
 
 ```bash
+ssh osac 'cat /root/.netrc' > ~/.netrc
 chmod 600 ~/.netrc
 ```
 
-Add this entry on each machine where Codex runs. Start an EnMaaS session with:
+This is a manual step: it is not part of `make all`, and `.netrc` is never
+tracked in this repository. If EnMaaS returns `401 Unauthorized`, replace the
+`api.enmaas.devshift.net` entry with a valid EnMaaS key.
+
+## Codex EnMaaS (corporate)
+
+The corporate Codex home includes an EnMaaS profile using GPT-6 Luna at `xhigh`
+reasoning effort. Start an EnMaaS session with:
 
 ```bash
 codex-corp-enmaas
@@ -43,5 +43,41 @@ codex-corp-enmaas
 Pass any Codex CLI options after the function name, for example
 `codex-corp-enmaas --model gpt-6-luna`.
 
-If EnMaaS returns `401 Unauthorized`, replace the key in this `.netrc` entry
-with a valid EnMaaS key.
+## OpenCode EnMaaS (corporate)
+
+The EnMaaS profile config is tracked at `dotfiles/opencode/opencode.json` and its
+TUI settings at `dotfiles/opencode/cli.json`. `make link` links both to
+`~/.config/opencode-enmaas/opencode/`.
+
+Start the profile with:
+
+```bash
+opencode-enmaas
+```
+
+The function reads the key from `~/.netrc` and runs `opencode --standalone` with
+fully isolated directories:
+
+| Variable | Purpose |
+| --- | --- |
+| `ENMAAS_KEY` | Provider credential declared in `providers.enmaas.env`; scoped to this command. |
+| `XDG_CONFIG_HOME` | Profile config (`opencode.json`, `cli.json`). |
+| `XDG_DATA_HOME` | Database, sessions, snapshots, logs. |
+| `XDG_STATE_HOME` | Service registration and prompt history. |
+| `XDG_CACHE_HOME` | Caches. |
+
+`--standalone` runs a private server tied to this TUI, so it always sees
+`ENMAAS_KEY` and this profile's directories instead of a shared server started
+with different settings.
+
+The profile also maps `Ctrl+u` / `Ctrl+d` to half-page transcript scrolling,
+matching nvim and tmux. The conflicting default bindings are remapped:
+
+- `Ctrl+Alt+u` deletes to the start of the line.
+- `Delete` and `Shift+Delete` delete characters.
+- `Ctrl+c` and `<leader>q` exit.
+- `<leader>d` deletes a session.
+
+These keys scroll inside OpenCode's full TUI. tmux copy mode still cannot see
+the full transcript because the TUI owns it internally; `opencode mini` writes
+the whole transcript to normal scrollback if that behavior is needed.

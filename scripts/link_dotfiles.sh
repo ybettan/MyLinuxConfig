@@ -18,6 +18,7 @@ links+=("bugwarriorrc")
 links+=("logid.cfg")
 links+=("claude")
 links+=("codex")
+links+=("opencode")
 [[ $os == "Darwin" ]] && links+=("alacritty.yml")
 
 for l in ${links[*]}; do
@@ -47,6 +48,14 @@ for l in ${links[*]}; do
             fi
             ln -s -f -n "$(pwd)/dotfiles/codex/rules" "$codex_home/rules" && echo "linked dotfile codex/rules to $codex_home/rules" || failedLinks+=($l)
         done
+    elif [[ $l == "opencode" ]]; then
+        mkdir -p ~/.config/opencode-enmaas/opencode
+        ln -s -f "$(pwd)/dotfiles/opencode/opencode.json" \
+            ~/.config/opencode-enmaas/opencode/opencode.json \
+            && echo "linked dotfile opencode/opencode.json" || failedLinks+=($l)
+        ln -s -f "$(pwd)/dotfiles/opencode/cli.json" \
+            ~/.config/opencode-enmaas/opencode/cli.json \
+            && echo "linked dotfile opencode/cli.json" || failedLinks+=($l)
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else

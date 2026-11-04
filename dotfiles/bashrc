@@ -94,6 +94,7 @@ export CLOUD_ML_REGION=global
 unset ANTHROPIC_MODEL
 unset ANTHROPIC_SMALL_FAST_MODEL
 pathadd "$HOME/.local/bin"
+pathadd "$HOME/.opencode/bin" # opencode
 
 # Run Codex with separate private and corporate credentials.
 # Use `codex-priv` or `codex-corp` for the standard accounts and
@@ -108,4 +109,35 @@ codex-corp() {
 
 codex-corp-enmaas() {
     CODEX_HOME="$HOME/.codex-corp" command codex --profile enmaas "$@"
+}
+
+# Read a password from ~/.netrc without printing it.
+_netrc_password() {
+    python3 - "$1" <<'PY'
+import netrc
+import sys
+
+try:
+    auth = netrc.netrc().authenticators(sys.argv[1])
+except (FileNotFoundError, netrc.NetrcParseError) as exc:
+    sys.exit(f"opencode-enmaas: {exc}")
+
+if not auth or not auth[2]:
+    sys.exit(f"opencode-enmaas: no entry for {sys.argv[1]} in ~/.netrc")
+
+print(auth[2])
+PY
+}
+
+# OpenCode EnMaaS profile.
+opencode-enmaas() {
+    local key
+    key="$(_netrc_password api.enmaas.devshift.net)" || return 1
+
+    ENMAAS_KEY="$key" \
+    XDG_CONFIG_HOME="$HOME/.config/opencode-enmaas" \
+    XDG_DATA_HOME="$HOME/.local/share/opencode-enmaas" \
+    XDG_STATE_HOME="$HOME/.local/state/opencode-enmaas" \
+    XDG_CACHE_HOME="$HOME/.cache/opencode-enmaas" \
+    command opencode --standalone "$@"
 }

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "keybinds": {
+    "session.half.page.up": "ctrl+u",
+    "session.half.page.down": "ctrl+d",
+    "input.delete.to.line.start": "ctrl+alt+u",
+    "input.delete": "delete,shift+delete",
+    "app.exit": "ctrl+c,<leader>q",
+    "session.delete": "<leader>d"
+  }
+}
