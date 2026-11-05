@@ -6,6 +6,8 @@
     "input.delete.to.line.start": "ctrl+alt+u",
     "input.delete": "delete,shift+delete",
     "app.exit": "ctrl+c,<leader>q",
-    "session.delete": "<leader>d"
+    "session.delete": "<leader>d",
+    "session.first": "home,alt+home",
+    "session.last": "ctrl+g,end"
   }
 }
