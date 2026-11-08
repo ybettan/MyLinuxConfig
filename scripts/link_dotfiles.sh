@@ -49,13 +49,17 @@ for l in ${links[*]}; do
             ln -s -f -n "$(pwd)/dotfiles/codex/rules" "$codex_home/rules" && echo "linked dotfile codex/rules to $codex_home/rules" || failedLinks+=($l)
         done
     elif [[ $l == "opencode" ]]; then
-        mkdir -p ~/.config/opencode-enmaas/opencode
+        mkdir -p ~/.config/opencode/opencode ~/.config/opencode-enmaas/opencode
         ln -s -f "$(pwd)/dotfiles/opencode/opencode.json" \
+            ~/.config/opencode/opencode/opencode.json \
+            && echo "linked dotfile opencode/opencode.json to ~/.config/opencode/opencode" || failedLinks+=($l)
+        ln -s -f "$(pwd)/dotfiles/opencode/enmaas.opencode.json" \
             ~/.config/opencode-enmaas/opencode/opencode.json \
-            && echo "linked dotfile opencode/opencode.json" || failedLinks+=($l)
-        ln -s -f "$(pwd)/dotfiles/opencode/cli.json" \
-            ~/.config/opencode-enmaas/opencode/cli.json \
-            && echo "linked dotfile opencode/cli.json" || failedLinks+=($l)
+            && echo "linked dotfile opencode/enmaas.opencode.json to ~/.config/opencode-enmaas/opencode" || failedLinks+=($l)
+        for opencode_home in ~/.config/opencode/opencode ~/.config/opencode-enmaas/opencode; do
+            ln -s -f "$(pwd)/dotfiles/opencode/cli.json" "$opencode_home/cli.json" \
+                && echo "linked dotfile opencode/cli.json to $opencode_home" || failedLinks+=($l)
+        done
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg
     else

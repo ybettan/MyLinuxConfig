@@ -111,6 +111,32 @@ codex-corp-enmaas() {
     CODEX_HOME="$HOME/.codex-corp" command codex --profile enmaas "$@"
 }
 
+# Run OpenCode with separate private and corporate credentials.
+# `opencode` uses the private account, `opencode-enmaas` the corporate EnMaaS
+# profile. `--standalone` keeps each TUI on its own server so the profiles
+# cannot leak into each other. Service commands use the profile's shared
+# service because they do not accept --standalone.
+_opencode_profile() {
+    local profile="$1"
+    shift
+    local -a env_vars=(
+        XDG_CONFIG_HOME="$HOME/.config/$profile"
+        XDG_DATA_HOME="$HOME/.local/share/$profile"
+        XDG_STATE_HOME="$HOME/.local/state/$profile"
+        XDG_CACHE_HOME="$HOME/.cache/$profile"
+    )
+
+    if [[ ${1-} == "service" ]]; then
+        env "${env_vars[@]}" opencode "$@"
+    else
+        env "${env_vars[@]}" opencode --standalone "$@"
+    fi
+}
+
+opencode() {
+    _opencode_profile opencode "$@"
+}
+
 # Read a password from ~/.netrc without printing it.
 _netrc_password() {
     python3 - "$1" <<'PY'
@@ -134,10 +160,5 @@ opencode-enmaas() {
     local key
     key="$(_netrc_password api.enmaas.devshift.net)" || return 1
 
-    ENMAAS_KEY="$key" \
-    XDG_CONFIG_HOME="$HOME/.config/opencode-enmaas" \
-    XDG_DATA_HOME="$HOME/.local/share/opencode-enmaas" \
-    XDG_STATE_HOME="$HOME/.local/state/opencode-enmaas" \
-    XDG_CACHE_HOME="$HOME/.cache/opencode-enmaas" \
-    command opencode --standalone "$@"
+    ENMAAS_KEY="$key" _opencode_profile opencode-enmaas "$@"
 }

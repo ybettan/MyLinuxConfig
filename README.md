@@ -43,11 +43,33 @@ codex-corp-enmaas
 Pass any Codex CLI options after the function name, for example
 `codex-corp-enmaas --model gpt-6-luna`.
 
+## OpenCode private (default)
+
+The private profile config is tracked at `dotfiles/opencode/opencode.json` and
+its TUI settings at `dotfiles/opencode/cli.json`. `make link` links both to
+`~/.config/opencode/opencode/`.
+
+Start it with:
+
+```bash
+opencode
+```
+
+The function isolates the profile by setting the `XDG_CONFIG_HOME`,
+`XDG_DATA_HOME`, `XDG_STATE_HOME`, and `XDG_CACHE_HOME` directories to their
+defaults and running `opencode --standalone`. This keeps the private profile in
+use even when launched from a shell that inherited the EnMaaS `XDG_*` variables.
+
+It defaults to `openai/gpt-6-luna` at `xhigh` reasoning with a 872k context
+window, matching `codex-priv`. Connect the private OpenAI account once with
+`/connect` and choose **Sign in with ChatGPT**.
+
 ## OpenCode EnMaaS (corporate)
 
-The EnMaaS profile config is tracked at `dotfiles/opencode/opencode.json` and its
-TUI settings at `dotfiles/opencode/cli.json`. `make link` links both to
-`~/.config/opencode-enmaas/opencode/`.
+The EnMaaS profile config is tracked at `dotfiles/opencode/enmaas.opencode.json`
+and its TUI settings at `dotfiles/opencode/cli.json`. `make link` links the
+config to `~/.config/opencode-enmaas/opencode/opencode.json` and the shared TUI
+settings to both profiles.
 
 Start the profile with:
 
@@ -70,7 +92,7 @@ fully isolated directories:
 `ENMAAS_KEY` and this profile's directories instead of a shared server started
 with different settings.
 
-The profile also maps `Ctrl+u` / `Ctrl+d` to half-page transcript scrolling,
+Both profiles also map `Ctrl+u` / `Ctrl+d` to half-page transcript scrolling,
 matching nvim and tmux. The conflicting default bindings are remapped:
 
 - `Ctrl+Alt+u` deletes to the start of the line.
