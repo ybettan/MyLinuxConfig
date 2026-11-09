@@ -6,7 +6,7 @@
     "servers": {
       "google-workspace": {
         "type": "local",
-        "command": ["/home/ybettan/.local/bin/gws-mcp"]
+        "command": ["{env:HOME}/.local/bin/gws-mcp.sh"]
       }
     }
   },

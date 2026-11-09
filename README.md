@@ -92,6 +92,32 @@ fully isolated directories:
 `ENMAAS_KEY` and this profile's directories instead of a shared server started
 with different settings.
 
+### Google Workspace MCP (EnMaaS profile)
+
+The EnMaaS profile launches the Google Workspace MCP server through
+`~/.local/bin/gws-mcp.sh`. `make configure` copies the tracked launcher
+`scripts/gws-mcp.sh` there.
+
+The config resolves the command as `{env:HOME}/.local/bin/gws-mcp.sh`, and the
+launcher finds `uvx` in `~/.local/share/bin`, `~/.local/bin`, or `PATH`, so the
+same config works for different users and home directories. `make all` installs
+`uv`, which provides `uvx`, through `scripts/install_packages.sh`.
+
+Each machine needs the OAuth client credentials, which are intentionally not
+tracked in this repository:
+
+```bash
+install -d -m 700 ~/.config/opencode-enmaas
+# Copy from an already configured machine.
+scp <configured-host>:.config/opencode-enmaas/google-mcp.env \
+    ~/.config/opencode-enmaas/google-mcp.env
+chmod 600 ~/.config/opencode-enmaas/google-mcp.env
+```
+
+The file must define `GOOGLE_OAUTH_CLIENT_ID` and
+`GOOGLE_OAUTH_CLIENT_SECRET`. The first tool call may ask for a Google sign-in;
+the cached credentials live under `~/.google_workspace_mcp/`.
+
 Both profiles also map `Ctrl+u` / `Ctrl+d` to half-page transcript scrolling,
 matching nvim and tmux. The conflicting default bindings are remapped:
 

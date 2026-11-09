@@ -60,6 +60,7 @@ packages+=(fzf)
 packages+=(pynvim)  # Needed for davidhalter/jedi-vim python plugin when using NeoVim
 packages+=(codex)
 packages+=(opencode)
+packages+=(uv)       # provides uvx for the Google Workspace MCP launcher
 [[ ${OS} == "Darwin" ]] && packages+=(coreutils)   # linux terminal commands
 
 if [[ ${OS} == "Linux" ]]; then
@@ -160,6 +161,8 @@ if [[ ${OS} == "Linux" ]]; then
             (set -o pipefail; curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh) || failedPackages+=($p)
         elif [[ $p == opencode ]]; then
             (set -o pipefail; curl -fsSL https://opencode.ai/v2/install | bash -s -- --no-modify-path) || failedPackages+=($p)
+        elif [[ $p == uv ]]; then
+            (set -o pipefail; curl -LsSf https://astral.sh/uv/install.sh | UV_NO_MODIFY_PATH=1 sh) || failedPackages+=($p)
         else
             sudo $packageManager -y install $p || failedPackages+=($p)
         fi

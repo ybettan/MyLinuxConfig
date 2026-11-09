@@ -18,6 +18,16 @@ function source_tmux_conf_file {
     tmux source-file ~/.tmux.conf
 }
 
+function install_mcp_binary {
+    # Install the Google Workspace MCP launcher.
+    local repo_root
+    repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+    mkdir -p "$HOME/.local/bin"
+    rm -f "$HOME/.local/bin/gws-mcp" "$HOME/.local/bin/gws-mcp.sh"
+    install -m 0755 "$repo_root/scripts/gws-mcp.sh" "$HOME/.local/bin/gws-mcp.sh"
+}
+
 function define_gnome_tweaks {
     # In order to define more tweaks we can
     # 1. run `dconf watch /`
@@ -56,6 +66,7 @@ function start_logitech_mouse {
 start_cronjobs
 start_insync
 source_tmux_conf_file
+install_mcp_binary
 define_gnome_tweaks
 configure_closed_lid_action
 start_logitech_mouse
