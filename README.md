@@ -129,3 +129,13 @@ matching nvim and tmux. The conflicting default bindings are remapped:
 These keys scroll inside OpenCode's full TUI. tmux copy mode still cannot see
 the full transcript because the TUI owns it internally; `opencode mini` writes
 the whole transcript to normal scrollback if that behavior is needed.
+
+## OpenCode profile indicator
+
+The `opencode` and `opencode-enmaas` wrappers export `OPENCODE_PROFILE_NAME`
+(`private` or `enmaas`). The TUI plugin at
+`dotfiles/opencode/plugins/profile/tui.tsx` reads it and renders
+`[profile: <name>]` in the prompt footer status row, so the active profile stays
+visible for the whole session. `make link` symlinks the plugin into both
+profiles' config directories, and the indicator is hidden when the variable is
+not set.

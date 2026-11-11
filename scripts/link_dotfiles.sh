@@ -59,6 +59,9 @@ for l in ${links[*]}; do
         for opencode_home in ~/.config/opencode/opencode ~/.config/opencode-enmaas/opencode; do
             ln -s -f "$(pwd)/dotfiles/opencode/cli.json" "$opencode_home/cli.json" \
                 && echo "linked dotfile opencode/cli.json to $opencode_home" || failedLinks+=($l)
+            mkdir -p "$opencode_home/plugins"
+            ln -s -f -n "$(pwd)/dotfiles/opencode/plugins/profile" "$opencode_home/plugins/profile" \
+                && echo "linked dotfile opencode/plugins/profile to $opencode_home/plugins" || failedLinks+=($l)
         done
     elif [[ $l == "logid.cfg" ]]; then
         sudo ln -s -f $(pwd)/dotfiles/logid.cfg /etc/logid.cfg

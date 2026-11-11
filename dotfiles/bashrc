@@ -118,8 +118,10 @@ codex-corp-enmaas() {
 # service because they do not accept --standalone.
 _opencode_profile() {
     local profile="$1"
-    shift
+    local label="$2"
+    shift 2
     local -a env_vars=(
+        OPENCODE_PROFILE_NAME="$label"
         XDG_CONFIG_HOME="$HOME/.config/$profile"
         XDG_DATA_HOME="$HOME/.local/share/$profile"
         XDG_STATE_HOME="$HOME/.local/state/$profile"
@@ -134,7 +136,7 @@ _opencode_profile() {
 }
 
 opencode() {
-    _opencode_profile opencode "$@"
+    _opencode_profile opencode private "$@"
 }
 
 # Read a password from ~/.netrc without printing it.
@@ -160,5 +162,5 @@ opencode-enmaas() {
     local key
     key="$(_netrc_password api.enmaas.devshift.net)" || return 1
 
-    ENMAAS_KEY="$key" _opencode_profile opencode-enmaas "$@"
+    ENMAAS_KEY="$key" _opencode_profile opencode-enmaas enmaas "$@"
 }
