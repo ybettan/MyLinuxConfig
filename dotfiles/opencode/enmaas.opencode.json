@@ -1,6 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "enmaas/rits/deepseek-ai/DeepSeek-V4.1-Flash-1017",
   "update": "disable",
   "mcp": {
     "servers": {

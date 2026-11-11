@@ -1,6 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "openai/gpt-6-luna",
   "update": "disable",
   "plugins": ["-opencode.provider.openai-context-caps"],
   "providers": {
